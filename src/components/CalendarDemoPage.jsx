@@ -84,7 +84,10 @@ const CurrentStyle = css`
 
 const Day = styled.button`
   font-size: 16px;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* text-align: center; */
   border-radius: 100%;
   color: ${({ isGray }) => isGray ? 'gray' : 'black'};
   border: none;
