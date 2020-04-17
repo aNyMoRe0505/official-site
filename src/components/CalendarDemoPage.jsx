@@ -1,8 +1,13 @@
 import React, { useState, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import moment from 'moment';
 
 import { dateArrayGenerator } from '../helper/calendar.js';
+
+const LinkWrap = styled(Link)`
+  margin: 10px;
+`;
 
 const Wrapper = styled.div`
   width: 100%;
@@ -99,6 +104,17 @@ const MonthYear = styled.button`
   ${({ isCurrent }) => isCurrent ? CurrentStyle : null} 
 `;
 
+const DateButton = styled.button`
+  margin: 10px 0;
+  width: 250px;
+  height: 35px;
+  outline: none;
+  font-size: 16px;
+  cursor: pointer;
+  border: 1px solid gray;
+  border-radius: 5px;
+`;
+
 const weeks = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 
 const months = [{
@@ -143,6 +159,7 @@ function CalendarDemoPage() {
   const [currentDate, setDate] = useState(new Date());
   const [contentDate, setContentDate] = useState(new Date());
   const [currentMode, setMode] = useState('DATE'); // DATE, MONTH, YEAR
+  const [showCalendar, setShowCalendar] = useState(true);
 
   const handleModeChange = () => {
     if (currentMode === 'DATE') {
@@ -193,92 +210,99 @@ function CalendarDemoPage() {
     
   return (
     <Wrapper>
-      current: {moment(currentDate).format('YYYYMMDD')}
-			<CalendarWrapper>
-        <YearMonthSelectorWrapper>
-          <PrevNextBtn
-            onClick={() => {
-              if (currentMode === 'DATE') {
-                handleMonthChange(contentDate.getMonth() - 1);
-                return;
-              }
-              setContentDate(new Date(`${contentDate.getFullYear() - (currentMode === 'MONTH' ? 1 : 11)}`));
-            }}
-            type="button">
-            {'<'}
-          </PrevNextBtn>
-        <YearMonthBtnWrapper
-          onClick={() => handleModeChange()}
-          type="button">
-          {getHeadrString()}
-        </YearMonthBtnWrapper>
-          <PrevNextBtn
-            onClick={() => {
-              if (currentMode === 'DATE') {
-                handleMonthChange(contentDate.getMonth() + 1);
-                return;
-              }
-              setContentDate(new Date(`${contentDate.getFullYear() + (currentMode === 'MONTH' ? 1 : 11)}`));
-            }}
-            type="button">
-            {'>'}
-          </PrevNextBtn>
-        </YearMonthSelectorWrapper>
-        {currentMode === 'DATE' ? (
-          <DayWeekContentWrapper>
-            {weeks.map(week => (
-              <Week key={week}>
-                {week}
-              </Week>
-            ))}
-            {dateArray.map(date => (
-            <Day
-              type="button"
-              isCurrent={moment(currentDate).format('YYYYMMDD') === moment(date).format('YYYYMMDD')}
+      <DateButton
+        type="button"
+        onClick={() => setShowCalendar(!showCalendar)}>
+        {moment(currentDate).format('YYYY-MM-DD')}
+      </DateButton >
+      {showCalendar && (
+        <CalendarWrapper>
+          <YearMonthSelectorWrapper>
+            <PrevNextBtn
               onClick={() => {
-                setDate(date);
-                if (date.getMonth() !== contentDate.getMonth()) setContentDate(date);
+                if (currentMode === 'DATE') {
+                  handleMonthChange(contentDate.getMonth() - 1);
+                  return;
+                }
+                setContentDate(new Date(`${contentDate.getFullYear() - (currentMode === 'MONTH' ? 1 : 11)}`));
               }}
-              isGray={date.getMonth() !== contentDate.getMonth()}
-              key={date}>
-              {date.getDate()}
-            </Day>
-            ))}
-          </DayWeekContentWrapper>
-        ) : (
-          <MonthContentWrapper>
-            {currentMode === 'MONTH' ? (
-              <>
-                {months.map(data => (
-                  <MonthYear
-                    isCurrent={currentDate.getMonth() === data.value && currentDate.getFullYear() === contentDate.getFullYear()}
-                    onClick={() => {
-                      handleMonthChange(data.value);
-                      setMode('DATE');
-                    }}
-                    key={data.name}>
-                    {data.name}
+              type="button">
+              {'<'}
+            </PrevNextBtn>
+          <YearMonthBtnWrapper
+            onClick={() => handleModeChange()}
+            type="button">
+            {getHeadrString()}
+          </YearMonthBtnWrapper>
+            <PrevNextBtn
+              onClick={() => {
+                if (currentMode === 'DATE') {
+                  handleMonthChange(contentDate.getMonth() + 1);
+                  return;
+                }
+                setContentDate(new Date(`${contentDate.getFullYear() + (currentMode === 'MONTH' ? 1 : 11)}`));
+              }}
+              type="button">
+              {'>'}
+            </PrevNextBtn>
+          </YearMonthSelectorWrapper>
+          {currentMode === 'DATE' ? (
+            <DayWeekContentWrapper>
+              {weeks.map(week => (
+                <Week key={week}>
+                  {week}
+                </Week>
+              ))}
+              {dateArray.map(date => (
+              <Day
+                type="button"
+                isCurrent={moment(currentDate).format('YYYYMMDD') === moment(date).format('YYYYMMDD')}
+                onClick={() => {
+                  setDate(date);
+                  if (date.getMonth() !== contentDate.getMonth()) setContentDate(date);
+                }}
+                isGray={date.getMonth() !== contentDate.getMonth()}
+                key={date}>
+                {date.getDate()}
+              </Day>
+              ))}
+            </DayWeekContentWrapper>
+          ) : (
+            <MonthContentWrapper>
+              {currentMode === 'MONTH' ? (
+                <>
+                  {months.map(data => (
+                    <MonthYear
+                      isCurrent={currentDate.getMonth() === data.value && currentDate.getFullYear() === contentDate.getFullYear()}
+                      onClick={() => {
+                        handleMonthChange(data.value);
+                        setMode('DATE');
+                      }}
+                      key={data.name}>
+                      {data.name}
+                    </MonthYear>
+                  ))}
+                </>
+              ) : (
+                <>
+                  {Array.from(Array(12)).map((_, index) => (
+                    <MonthYear
+                      isCurrent={currentDate.getFullYear() === contentDate.getFullYear() + index}
+                      onClick={() => {
+                        setContentDate(new Date(`${contentDate.getFullYear() + index}`));
+                        setMode('MONTH');
+                      }}
+                    key={`year-${contentDate.getFullYear() + index}`}>
+                    {contentDate.getFullYear() + index}
                   </MonthYear>
-                ))}
-              </>
-            ) : (
-              <>
-                {Array.from(Array(12)).map((_, index) => (
-                  <MonthYear
-                    isCurrent={currentDate.getFullYear() === contentDate.getFullYear() + index}
-                    onClick={() => {
-                      setContentDate(new Date(`${contentDate.getFullYear() + index}`));
-                      setMode('MONTH');
-                    }}
-                  key={`year-${contentDate.getFullYear() + index}`}>
-                  {contentDate.getFullYear() + index}
-                </MonthYear>
-                ))}
-              </>
-            )}
-          </MonthContentWrapper>
-        )}
-      </CalendarWrapper>
+                  ))}
+                </>
+              )}
+            </MonthContentWrapper>
+          )}
+        </CalendarWrapper>
+      )}
+      <LinkWrap to="/hello">Dont Click Me</LinkWrap>
     </Wrapper>
   );
 }

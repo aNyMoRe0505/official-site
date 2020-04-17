@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import styled from 'styled-components';
 
+import black from './static/d1023796.jpg';
 import CalendarDemoPage from './components/CalendarDemoPage.jsx';
 
 const Wrapper = styled.div`
@@ -19,7 +20,9 @@ function App() {
     <BrowserRouter>
       <Wrapper>
         <Switch>
-          <Route path="/test" component={null} />
+          <Route path="/hello" component={() => (
+            <img alt="black" src={black} />
+          )} />
           <Route path="/" component={CalendarDemoPage} />
         </Switch>
       </Wrapper>
