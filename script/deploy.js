@@ -5,8 +5,11 @@ const distDir = path.resolve(__dirname, '../build');
 
 const options = {
   message: 'Auto Deploy',
+  branch: 'gh-pages',
+  repo: 'https://github.com/aNyMoRe0505/date-time-picker-practice.git'
 }
 
 ghpages.publish(distDir, options, function(err) {
+  console.log(err);
   if (!err) console.log('Deploy Success');
 })
