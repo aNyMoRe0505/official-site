@@ -33,8 +33,8 @@ export const dayCountCalculator = (year, month) => {
 
 export const dateArrayGenerator = (year, month) => {  
   const daysCount = dayCountCalculator(year, month);
-  const firstDayWeek = moment(new Date(`${year}-${month}-1`)).day(); // 0 ~ 6
-  const dayArray = Array.from(Array(daysCount)).map((_, index) => new Date(`${year}-${month}-${index + 1}`));
+  const firstDayWeek = moment(new Date(`${year}/${month}/1`)).day(); // 0 ~ 6
+  const dayArray = Array.from(Array(daysCount)).map((_, index) => moment(new Date(`${year}/${month}/${index + 1}`)));
 
   // 第一天不是星期天的狀況
   if (firstDayWeek) { // 1 - 6
@@ -44,7 +44,7 @@ export const dateArrayGenerator = (year, month) => {
     const prevMonthDayCount = dayCountCalculator(preMonthYear, preMonth);
 
     const unshiftDayArray = Array.from(Array(firstDayWeek)).map((_, index) =>
-      new Date(`${preMonthYear}-${preMonth}-${prevMonthDayCount - (firstDayWeek - 1) + index}`)
+      moment(new Date(`${preMonthYear}/${preMonth}/${prevMonthDayCount - (firstDayWeek - 1) + index}`))
     );
     dayArray.unshift(...unshiftDayArray); 
   }
@@ -55,7 +55,7 @@ export const dateArrayGenerator = (year, month) => {
     const nextMonthYear = month === 12 ? year + 1 : year;
     const nextMonth = month === 12 ? 1 : month + 1;
 
-    const pushDayArray = Array.from(Array(remainPushDayCount)).map((_, index) => new Date(`${nextMonthYear}-${nextMonth}-${index + 1}`));
+    const pushDayArray = Array.from(Array(remainPushDayCount)).map((_, index) => moment(new Date(`${nextMonthYear}/${nextMonth}/${index + 1}`)));
     dayArray.push(...pushDayArray);
   }
 

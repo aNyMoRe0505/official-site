@@ -160,8 +160,8 @@ const months = [{
 }];
 
 function CalendarDemoPage() {
-  const [currentDate, setDate] = useState(new Date());
-  const [contentDate, setContentDate] = useState(new Date());
+  const [currentDate, setDate] = useState(moment());
+  const [contentDate, setContentDate] = useState(moment());
   const [currentMode, setMode] = useState('DATE'); // DATE, MONTH, YEAR
   const [showCalendar, setShowCalendar] = useState(true);
 
@@ -183,14 +183,15 @@ function CalendarDemoPage() {
 
   const handleMonthChange = (month) => {
     if (month > 11) {
-      setContentDate(new Date(`${contentDate.getFullYear() + 1}-1`));
+      setContentDate(moment(new Date(`${contentDate.weekYear() + 1}/1/1`)));
       return;
     }
     if (month < 0) {
-      setContentDate(new Date(`${contentDate.getFullYear() - 1}-12`));
+      setContentDate(moment(new Date(`${contentDate.weekYear() - 1}/12/1`)));
       return;
     }
-    setContentDate(new Date(`${contentDate.getFullYear()}-${month + 1}`));
+    
+    setContentDate(moment(new Date(`${contentDate.weekYear()}/${month + 1}/1`)));
   }
 
   const getHeadrString = () => {
@@ -210,7 +211,7 @@ function CalendarDemoPage() {
   };
 
   const dateArray = useMemo(() =>
-    dateArrayGenerator(contentDate.getFullYear(), contentDate.getMonth() + 1), [contentDate]);
+    dateArrayGenerator(contentDate.weekYear(), contentDate.month() + 1), [contentDate]);
     
   return (
     <Wrapper>
@@ -225,10 +226,10 @@ function CalendarDemoPage() {
             <PrevNextBtn
               onClick={() => {
                 if (currentMode === 'DATE') {
-                  handleMonthChange(contentDate.getMonth() - 1);
+                  handleMonthChange(contentDate.month() - 1);
                   return;
                 }
-                setContentDate(new Date(`${contentDate.getFullYear() - (currentMode === 'MONTH' ? 1 : 11)}`));
+                setContentDate(moment(new Date(`${contentDate.weekYear() - (currentMode === 'MONTH' ? 1 : 11)}`)));
               }}
               type="button">
               {'<'}
@@ -241,10 +242,10 @@ function CalendarDemoPage() {
             <PrevNextBtn
               onClick={() => {
                 if (currentMode === 'DATE') {
-                  handleMonthChange(contentDate.getMonth() + 1);
+                  handleMonthChange(contentDate.month() + 1);
                   return;
                 }
-                setContentDate(new Date(`${contentDate.getFullYear() + (currentMode === 'MONTH' ? 1 : 11)}`));
+                setContentDate(moment(new Date(`${contentDate.weekYear() + (currentMode === 'MONTH' ? 1 : 11)}`)));
               }}
               type="button">
               {'>'}
@@ -263,11 +264,11 @@ function CalendarDemoPage() {
                 isCurrent={moment(currentDate).format('YYYYMMDD') === moment(date).format('YYYYMMDD')}
                 onClick={() => {
                   setDate(date);
-                  if (date.getMonth() !== contentDate.getMonth()) setContentDate(date);
+                  if (date.month() !== contentDate.month()) setContentDate(date);
                 }}
-                isGray={date.getMonth() !== contentDate.getMonth()}
+                isGray={date.month() !== contentDate.month()}
                 key={date}>
-                {date.getDate()}
+                {date.date()}
               </Day>
               ))}
             </DayWeekContentWrapper>
@@ -277,7 +278,7 @@ function CalendarDemoPage() {
                 <>
                   {months.map(data => (
                     <MonthYear
-                      isCurrent={currentDate.getMonth() === data.value && currentDate.getFullYear() === contentDate.getFullYear()}
+                      isCurrent={currentDate.month() === data.value && currentDate.weekYear() === contentDate.weekYear()}
                       onClick={() => {
                         handleMonthChange(data.value);
                         setMode('DATE');
@@ -291,13 +292,13 @@ function CalendarDemoPage() {
                 <>
                   {Array.from(Array(12)).map((_, index) => (
                     <MonthYear
-                      isCurrent={currentDate.getFullYear() === contentDate.getFullYear() + index}
+                      isCurrent={currentDate.weekYear() === contentDate.weekYear() + index}
                       onClick={() => {
-                        setContentDate(new Date(`${contentDate.getFullYear() + index}`));
+                        setContentDate(moment(new Date(`${contentDate.weekYear() + index}`)));
                         setMode('MONTH');
                       }}
-                    key={`year-${contentDate.getFullYear() + index}`}>
-                    {contentDate.getFullYear() + index}
+                    key={`year-${contentDate.weekYear() + index}`}>
+                    {contentDate.weekYear() + index}
                   </MonthYear>
                   ))}
                 </>
