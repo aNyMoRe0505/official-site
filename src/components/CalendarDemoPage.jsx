@@ -44,6 +44,7 @@ const YearMonthBtnWrapper = styled.button`
   border: none;
   outline: none;
   cursor: pointer;
+  background-color: transparent;
 `;
 
 const PrevNextBtn = styled.button`
@@ -91,6 +92,7 @@ const Day = styled.button`
   cursor: pointer;
   transition-duration: 0.3s;
   transition-property: color, background-color;
+  background-color: transparent;
   ${({ isCurrent }) => isCurrent ? CurrentStyle : null} 
 `;
 
@@ -101,6 +103,7 @@ const MonthYear = styled.button`
   outline: none;
   border-radius: 100%;
   cursor: pointer;
+  background-color: transparent;
   ${({ isCurrent }) => isCurrent ? CurrentStyle : null} 
 `;
 
@@ -113,6 +116,7 @@ const DateButton = styled.button`
   cursor: pointer;
   border: 1px solid gray;
   border-radius: 5px;
+  background-color: transparent;
 `;
 
 const weeks = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
