@@ -23,7 +23,9 @@ function App() {
           <Route path="/hello" component={() => (
             <img alt="black" src={black} />
           )} />
-          <Route path="/" component={CalendarDemoPage} />
+          <Route path="/" component={() => (
+            <CalendarDemoPage />
+          )} />
         </Switch>
       </Wrapper>
     </BrowserRouter>

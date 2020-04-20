@@ -1,12 +1,27 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 
 import { dateArrayGenerator } from '../helper/calendar.js';
 
 const LinkWrap = styled(Link)`
   margin: 10px;
+`;
+
+const scale = keyframes`
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 `;
 
 const Wrapper = styled.div`
@@ -45,6 +60,7 @@ const YearMonthBtnWrapper = styled.button`
   outline: none;
   cursor: pointer;
   background-color: transparent;
+  animation: ${scale} 1s linear infinite;
 `;
 
 const PrevNextBtn = styled.button`
@@ -89,10 +105,10 @@ const Day = styled.button`
   justify-content: center;
   /* text-align: center; */
   border-radius: 100%;
-  color: ${({ isGray }) => isGray ? 'gray' : 'black'};
+  color: ${({ gray }) => gray ? 'gray' : 'black'};
   border: none;
   outline: none;
-  cursor: pointer;
+  cursor: ${({ limitDate }) => limitDate ? 'not-allowed' : 'pointer'};
   transition-duration: 0.3s;
   transition-property: color, background-color;
   background-color: transparent;
@@ -162,9 +178,14 @@ const months = [{
   value: 11,
 }];
 
-function CalendarDemoPage() {
-  const [currentDate, setDate] = useState(moment());
-  const [contentDate, setContentDate] = useState(moment());
+function CalendarDemoPage({
+  initialDate,
+  maxDate,
+  minDate,
+  onChange,
+}) {
+  const [currentDate, setDate] = useState(moment(initialDate || new Date()));
+  const [contentDate, setContentDate] = useState(moment(initialDate || new Date()));
   const [currentMode, setMode] = useState('DATE'); // DATE, MONTH, YEAR
   const [showCalendar, setShowCalendar] = useState(true);
 
@@ -185,16 +206,17 @@ function CalendarDemoPage() {
   };
 
   const handleMonthChange = (month) => {
+    let newDate = moment(new Date(`${contentDate.weekYear()}/${month + 1}/1`));
+
     if (month > 11) {
-      setContentDate(moment(new Date(`${contentDate.weekYear() + 1}/1/1`)));
-      return;
+      newDate = moment(new Date(`${contentDate.weekYear() + 1}/1/1`));
     }
+
     if (month < 0) {
-      setContentDate(moment(new Date(`${contentDate.weekYear() - 1}/12/1`)));
-      return;
+      newDate = moment(new Date(`${contentDate.weekYear() - 1}/12/1`));
     }
-    
-    setContentDate(moment(new Date(`${contentDate.weekYear()}/${month + 1}/1`)));
+
+    setContentDate(newDate);
   }
 
   const getHeadrString = () => {
@@ -263,13 +285,16 @@ function CalendarDemoPage() {
               ))}
               {dateArray.map(date => (
               <Day
+                disabled={(maxDate && maxDate < date) || (minDate && minDate > date)}
                 type="button"
                 isCurrent={moment(currentDate).format('YYYYMMDD') === moment(date).format('YYYYMMDD')}
                 onClick={() => {
                   setDate(date);
                   if (date.month() !== contentDate.month()) setContentDate(date);
+                  if (onChange) onChange(date);
                 }}
-                isGray={date.month() !== contentDate.month()}
+                limitDate={(maxDate && maxDate < date) || (minDate && minDate > date)}
+                gray={date.month() !== contentDate.month()}
                 key={date}>
                 {date.date()}
               </Day>
@@ -314,5 +339,19 @@ function CalendarDemoPage() {
     </Wrapper>
   );
 }
+
+CalendarDemoPage.propTypes = {
+  maxDate: PropTypes.instanceOf(Date),
+  minDate: PropTypes.instanceOf(Date),
+  initialDate: PropTypes.instanceOf(Date),
+  onChange: PropTypes.func,
+};
+
+CalendarDemoPage.defaultProps = {
+  maxDate: null,
+  minDate: null,
+  initialDate: null,
+  onChange: null,
+};
 
 export default CalendarDemoPage;
