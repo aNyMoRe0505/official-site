@@ -1,14 +1,9 @@
 import React, { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
 import styled, { css, keyframes } from 'styled-components';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 
 import { dateArrayGenerator } from '../helper/calendar.js';
-
-const LinkWrap = styled(Link)`
-  margin: 10px;
-`;
 
 const scale = keyframes`
   0% {
@@ -111,6 +106,7 @@ const Day = styled.button`
   cursor: ${({ limitDate }) => limitDate ? 'not-allowed' : 'pointer'};
   transition-duration: 0.3s;
   transition-property: color, background-color;
+  transition-timing-function: ease-in-out;
   background-color: transparent;
   ${({ isCurrent }) => isCurrent ? CurrentStyle : null} 
 `;
@@ -335,7 +331,6 @@ function CalendarDemoPage({
           )}
         </CalendarWrapper>
       )}
-      <LinkWrap to="/hello">Dont Click Me</LinkWrap>
     </Wrapper>
   );
 }
