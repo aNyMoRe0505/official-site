@@ -71,6 +71,7 @@ const MobileMenuWrapper = styled.div`
   display: none;
   @media (max-width: 767px) {
     width: 100%;
+    height: calc(100vh - 70px);
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -80,9 +81,9 @@ const MobileMenuWrapper = styled.div`
     position: absolute;
     top: 70px;
     opacity: ${({ menuShowed }) => menuShowed ? 1 : 0};
-    height: ${({ menuShowed }) => menuShowed ? 'calc(100vh - 70px)' : 0};
+    right: ${({ menuShowed }) => menuShowed ? 0 : '-100%'};
     transition-duration: 0.3s;
-    transition-property: height, opacity;
+    transition-property: right, opacity;
     transition-timing-function: ease-in-out;
     z-index: 999;
   }
