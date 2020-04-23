@@ -140,7 +140,7 @@ function Header() {
             menuShowed={showMobileMenu}
             name={link.name}
             onClick={() => setMobileMenu(false)}
-            key={link.path}
+            key={`mobile-${link.path}`}
             to={link.path} />
         ))}
       </MobileMenuWrapper>

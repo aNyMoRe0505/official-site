@@ -126,6 +126,7 @@ function Link({
           <MobileDropdownWrapper>
             {dropdown.map((dropdownLink, index) => (
               <MobileDropdownWrappedLink
+                key={`mobile-${dropdownLink.path}`}
                 onClick={() => {
                   if (onClick) onClick();
                 }}
@@ -157,6 +158,7 @@ function Link({
                   fontSize: 18,
                   color: 'white',
                 }}
+                key={`desktop-${dropdownLink.path}`}
                 to={`${to}${dropdownLink.path}`}>
                 {dropdownLink.name}
               </DropdownWrappedLink>
