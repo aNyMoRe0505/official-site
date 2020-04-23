@@ -7,6 +7,7 @@ import {
 import PropTypes from 'prop-types';
 
 import CalendarDemoPage from '../containers/CalendarDemoPage.jsx';
+import YoutubeContainer from '../containers/YoutubeContainer.jsx';
 
 function Practice({
   match: {
@@ -15,6 +16,7 @@ function Practice({
 }) {
   return (
     <Switch>
+      <Route path={`${url}/youtube`} component={YoutubeContainer} />
       <Route path={`${url}/calendar`} component={CalendarDemoPage} />
       <Redirect to={`${url}/calendar`} />
     </Switch>

@@ -99,6 +99,9 @@ const links = [{
   dropdown: [{
     path: '/calendar',
     name: 'Calendar',
+  }, {
+    path: '/youtube',
+    name: 'Youtube',
   }],
 }, {
   path: '/heyhey',
