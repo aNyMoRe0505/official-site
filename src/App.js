@@ -28,7 +28,7 @@ const Container = styled.div`
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/official-site">
       <Wrapper>
         <Switch>
           <Route path="/" component={Header} />

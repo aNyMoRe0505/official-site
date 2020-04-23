@@ -21,7 +21,7 @@
     "eject": "react-scripts eject",
     "deploy": "npm run build && node script/deploy"
   },
-  "homepage": "https://anymore0505.github.io/date-time-picker-practice",
+  "homepage": "https://anymore0505.github.io/official-site",
   "eslintConfig": {
     "extends": "react-app"
   },
