@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import logo from '../static/logo.png';
 import hamburger from '../static/hamburger.png';
 
-import Link from './Link.jsx';
+import Link from '../components/Link.jsx';
 
 const StyledLink = styled(Link)`
   @media (max-width: 767px) {

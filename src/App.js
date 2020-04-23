@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import black from './static/d1023796.jpg';
 
 import PracticeRoute from './routes/Practice.jsx';
-import Header from './components/Header.jsx';
+import Header from './containers/Header.jsx';
 
 const Wrapper = styled.div`
   width: 100%;
