@@ -8,10 +8,6 @@ import { useBodyFetchMore } from '../helper/hooks';
 
 import searchIcon from '../static/searchIcon.png';
 
-import {
-  TextFontSize,
-} from '../config/style';
-
 const Wrapper = styled.div`
   width: 100%;
   background-color: #ff3f3f;
@@ -34,7 +30,7 @@ const Input = styled.input`
   border-width: 0 0 2px 0;
   border-style: solid;
   outline: none;
-  ${TextFontSize}
+  font-size: 16px;
   padding: 10px;
   color: white;
 `;
