@@ -5,11 +5,11 @@ import { NavLink } from 'react-router-dom';
 import logo from '../static/logo.png';
 import hamburger from '../static/hamburger.png';
 
-import Link from '../components/Link.jsx';
+import Link from '../components/Link';
 
 const StyledLink = styled(Link)`
   @media (max-width: 767px) {
-    margin-bottom: ${({ dropdown }) => dropdown.length ? '0px' : '15px'};
+    margin-bottom: ${({ dropdown }) => (dropdown.length ? '0px' : '15px')};
   }
 `;
 
@@ -60,7 +60,7 @@ const HamburgerButton = styled.button`
     justify-content: center;
     position: absolute;
     right: 10px;
-    transform: ${({ menuShowed }) => menuShowed ? 'rotate(90deg)' : 'rotate(0deg)'};
+    transform: ${({ menuShowed }) => (menuShowed ? 'rotate(90deg)' : 'rotate(0deg)')};
     transition-duration: 0.3s;
     transition-property: transform;
     transition-timing-function: linear;
@@ -78,10 +78,10 @@ const MobileMenuWrapper = styled.div`
     justify-content: flex-start;
     align-items: center;
     background-color: white;
-    position: absolute;
+    position: fixed;
     top: 70px;
-    opacity: ${({ menuShowed }) => menuShowed ? 1 : 0};
-    right: ${({ menuShowed }) => menuShowed ? 0 : '-100%'};
+    opacity: ${({ menuShowed }) => (menuShowed ? 1 : 0)};
+    right: ${({ menuShowed }) => (menuShowed ? 0 : '-100%')};
     transition-duration: 0.3s;
     transition-property: right, opacity;
     transition-timing-function: ease-in-out;
@@ -118,34 +118,38 @@ function Header() {
         <Logo src={logo} alt="logo" />
       </LogoLink>
       <LinkWrapper>
-        {links.map(link => (
+        {links.map((link) => (
           <StyledLink
             dropdown={link.dropdown}
             name={link.name}
             key={link.path}
-            to={link.path} />
+            to={link.path}
+          />
         ))}
       </LinkWrapper>
       <HamburgerButton
         menuShowed={showMobileMenu}
         onClick={() => setMobileMenu(!showMobileMenu)}
-        type="button">
+        type="button"
+      >
         <Logo src={hamburger} alt="hamburger" />
       </HamburgerButton>
       <MobileMenuWrapper
-        menuShowed={showMobileMenu}>
-        {links.map(link => (
+        menuShowed={showMobileMenu}
+      >
+        {links.map((link) => (
           <StyledLink
             dropdown={link.dropdown}
             menuShowed={showMobileMenu}
             name={link.name}
             onClick={() => setMobileMenu(false)}
             key={`mobile-${link.path}`}
-            to={link.path} />
+            to={link.path}
+          />
         ))}
       </MobileMenuWrapper>
     </HeaderWrapper>
-  )
+  );
 }
 
 export default Header;

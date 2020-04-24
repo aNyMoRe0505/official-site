@@ -77,6 +77,7 @@ const DropdownWrapper = styled.div`
   transition-duration: 0.3s;
   transition-property: opacity;
   transition-timing-function: ease-in-out;
+  z-index: 999;
 `;
 
 const DropdownSpaceLine = styled.div`
@@ -118,7 +119,8 @@ function Link({
           fontSize: 18,
           color: 'white',
         }}
-        to={to}>
+        to={to}
+      >
         {name}
       </WrappedLink>
       {dropdown.length ? (
@@ -139,14 +141,15 @@ function Link({
                   fontSize: 14,
                   color: 'white',
                 }}
-                to={`${to}${dropdownLink.path}`}>
+                to={`${to}${dropdownLink.path}`}
+              >
                 {dropdownLink.name}
               </MobileDropdownWrappedLink>
             ))}
           </MobileDropdownWrapper>
           <DropdownSpaceLine />
           <DropdownWrapper>
-            {dropdown.map(dropdownLink => (
+            {dropdown.map((dropdownLink) => (
               <DropdownWrappedLink
                 onClick={() => {
                   if (onClick) onClick();
@@ -159,7 +162,8 @@ function Link({
                   color: 'white',
                 }}
                 key={`desktop-${dropdownLink.path}`}
-                to={`${to}${dropdownLink.path}`}>
+                to={`${to}${dropdownLink.path}`}
+              >
                 {dropdownLink.name}
               </DropdownWrappedLink>
             ))}
@@ -184,4 +188,4 @@ Link.defaultProps = {
   onClick: null,
 };
 
-export default Link
+export default Link;

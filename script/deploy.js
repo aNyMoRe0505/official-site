@@ -1,15 +1,15 @@
-const path = require('path')
-const ghpages = require('gh-pages')
+const path = require('path');
+const ghpages = require('gh-pages');
 
 const distDir = path.resolve(__dirname, '../build');
 
 const options = {
   message: 'Auto Deploy',
   branch: 'gh-pages',
-  repo: 'https://github.com/aNyMoRe0505/official-site.git'
-}
+  repo: 'https://github.com/aNyMoRe0505/official-site.git',
+};
 
-ghpages.publish(distDir, options, function(err) {
+ghpages.publish(distDir, options, function deploy(err) {
   console.log(err);
   if (!err) console.log('Deploy Success');
-})
+});

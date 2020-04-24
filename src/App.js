@@ -1,11 +1,21 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+  Redirect,
+} from 'react-router-dom';
 import styled from 'styled-components';
+import { Provider } from 'react-redux';
 
 import black from './static/d1023796.jpg';
 
-import PracticeRoute from './routes/Practice.jsx';
-import Header from './containers/Header.jsx';
+import PracticeRoute from './routes/Practice';
+import Header from './containers/Header';
+
+import getStore from './store';
+
+const store = getStore();
 
 const Wrapper = styled.div`
   width: 100%;
@@ -29,19 +39,25 @@ const Container = styled.div`
 function App() {
   return (
     <BrowserRouter basename="/official-site">
-      <Wrapper>
-        <Switch>
-          <Route path="/" component={Header} />
-        </Switch>
-        <Container>
+      <Provider store={store}>
+        <Wrapper>
           <Switch>
-            <Route path="/heyhey" component={() => (
-              <img alt="black" src={black} />
-            )} />
-            <Route path="/practice" component={PracticeRoute} />
+            <Route path="/" component={Header} />
           </Switch>
-        </Container>
-      </Wrapper>
+          <Container>
+            <Switch>
+              <Route
+                path="/heyhey"
+                component={() => (
+                  <img style={{ width: '100%' }} alt="black" src={black} />
+                )}
+              />
+              <Route path="/practice" component={PracticeRoute} />
+              <Redirect to="/" />
+            </Switch>
+          </Container>
+        </Wrapper>
+      </Provider>
     </BrowserRouter>
   );
 }

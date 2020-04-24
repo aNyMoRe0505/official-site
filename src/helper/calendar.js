@@ -24,14 +24,14 @@ export const dayCountCalculator = (year, month) => {
     || month === 6
     || month === 9
     || month === 11
-    ) {
-      return 30;
-    }
+  ) {
+    return 30;
+  }
 
-    return 31;
+  return 31;
 };
 
-export const dateArrayGenerator = (year, month) => {  
+export const dateArrayGenerator = (year, month) => {
   const daysCount = dayCountCalculator(year, month);
   const firstDayWeek = moment(new Date(`${year}/${month}/1`)).day(); // 0 ~ 6
   const dayArray = Array.from(Array(daysCount)).map((_, index) => moment(new Date(`${year}/${month}/${index + 1}`)));
@@ -43,10 +43,8 @@ export const dateArrayGenerator = (year, month) => {
     const preMonth = month === 1 ? 12 : month - 1;
     const prevMonthDayCount = dayCountCalculator(preMonthYear, preMonth);
 
-    const unshiftDayArray = Array.from(Array(firstDayWeek)).map((_, index) =>
-      moment(new Date(`${preMonthYear}/${preMonth}/${prevMonthDayCount - (firstDayWeek - 1) + index}`))
-    );
-    dayArray.unshift(...unshiftDayArray); 
+    const unshiftDayArray = Array.from(Array(firstDayWeek)).map((_, index) => moment(new Date(`${preMonthYear}/${preMonth}/${prevMonthDayCount - (firstDayWeek - 1) + index}`)));
+    dayArray.unshift(...unshiftDayArray);
   }
 
   // 一個月顯示的天數要有42天

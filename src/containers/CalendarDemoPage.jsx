@@ -3,7 +3,7 @@ import styled, { css, keyframes } from 'styled-components';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 
-import { dateArrayGenerator } from '../helper/calendar.js';
+import { dateArrayGenerator } from '../helper/calendar';
 
 const scale = keyframes`
   0% {
@@ -29,7 +29,7 @@ const Wrapper = styled.div`
 `;
 
 const CalendarWrapper = styled.div`
-  width: 300px;
+  width: 280px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -70,15 +70,15 @@ const PrevNextBtn = styled.button`
 // days 6 * 7 = 42
 const DayWeekContentWrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(7, 40px);;
-  grid-template-rows: repeat(7, 40px);
+  grid-template-columns: repeat(7, 38px);;
+  grid-template-rows: repeat(7, 38px);
   padding: 10px 0 0;
 `;
 
 const MonthContentWrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 70px);;
-  grid-template-rows: repeat(3, 70px);
+  grid-template-columns: repeat(4, 60px);;
+  grid-template-rows: repeat(3, 60px);
   padding: 10px 0 0;
 `;
 
@@ -100,15 +100,15 @@ const Day = styled.button`
   justify-content: center;
   /* text-align: center; */
   border-radius: 100%;
-  color: ${({ gray }) => gray ? 'gray' : 'black'};
+  color: ${({ gray }) => (gray ? 'gray' : 'black')};
   border: none;
   outline: none;
-  cursor: ${({ limitDate }) => limitDate ? 'not-allowed' : 'pointer'};
+  cursor: ${({ limitDate }) => (limitDate ? 'not-allowed' : 'pointer')};
   transition-duration: 0.3s;
   transition-property: color, background-color;
   transition-timing-function: ease-in-out;
   background-color: transparent;
-  ${({ isCurrent }) => isCurrent ? CurrentStyle : null} 
+  ${({ isCurrent }) => isCurrent && CurrentStyle} 
 `;
 
 const MonthYear = styled.button`
@@ -119,7 +119,7 @@ const MonthYear = styled.button`
   border-radius: 100%;
   cursor: pointer;
   background-color: transparent;
-  ${({ isCurrent }) => isCurrent ? CurrentStyle : null} 
+  ${({ isCurrent }) => isCurrent && CurrentStyle} 
 `;
 
 const DateButton = styled.button`
@@ -213,7 +213,7 @@ function CalendarDemoPage({
     }
 
     setContentDate(newDate);
-  }
+  };
 
   const getHeadrString = () => {
     switch (currentMode) {
@@ -224,23 +224,23 @@ function CalendarDemoPage({
         return `${moment(contentDate).format('YYYY')}`;
 
       case 'YEAR':
-        return `${moment(contentDate).format('YYYY')} - ${moment(contentDate).add(11, 'years').format('YYYY')}` 
-    
+        return `${moment(contentDate).format('YYYY')} - ${moment(contentDate).add(11, 'years').format('YYYY')}`;
+
       default:
         return `${moment(contentDate).format('MMM YYYY')}`;
     }
   };
 
-  const dateArray = useMemo(() =>
-    dateArrayGenerator(contentDate.weekYear(), contentDate.month() + 1), [contentDate]);
-    
+  const dateArray = useMemo(() => dateArrayGenerator(contentDate.weekYear(), contentDate.month() + 1), [contentDate]);
+
   return (
     <Wrapper>
       <DateButton
         type="button"
-        onClick={() => setShowCalendar(!showCalendar)}>
+        onClick={() => setShowCalendar(!showCalendar)}
+      >
         {moment(currentDate).format('YYYY-MM-DD')}
-      </DateButton >
+      </DateButton>
       {showCalendar && (
         <CalendarWrapper>
           <YearMonthSelectorWrapper>
@@ -252,14 +252,16 @@ function CalendarDemoPage({
                 }
                 setContentDate(moment(new Date(`${contentDate.weekYear() - (currentMode === 'MONTH' ? 1 : 11)}`)));
               }}
-              type="button">
+              type="button"
+            >
               {'<'}
             </PrevNextBtn>
-          <YearMonthBtnWrapper
-            onClick={() => handleModeChange()}
-            type="button">
-            {getHeadrString()}
-          </YearMonthBtnWrapper>
+            <YearMonthBtnWrapper
+              onClick={() => handleModeChange()}
+              type="button"
+            >
+              {getHeadrString()}
+            </YearMonthBtnWrapper>
             <PrevNextBtn
               onClick={() => {
                 if (currentMode === 'DATE') {
@@ -268,46 +270,49 @@ function CalendarDemoPage({
                 }
                 setContentDate(moment(new Date(`${contentDate.weekYear() + (currentMode === 'MONTH' ? 1 : 11)}`)));
               }}
-              type="button">
+              type="button"
+            >
               {'>'}
             </PrevNextBtn>
           </YearMonthSelectorWrapper>
           {currentMode === 'DATE' ? (
             <DayWeekContentWrapper>
-              {weeks.map(week => (
+              {weeks.map((week) => (
                 <Week key={week}>
                   {week}
                 </Week>
               ))}
-              {dateArray.map(date => (
-              <Day
-                disabled={(maxDate && maxDate < date) || (minDate && minDate > date)}
-                type="button"
-                isCurrent={moment(currentDate).format('YYYYMMDD') === moment(date).format('YYYYMMDD')}
-                onClick={() => {
-                  setDate(date);
-                  if (date.month() !== contentDate.month()) setContentDate(date);
-                  if (onChange) onChange(date);
-                }}
-                limitDate={(maxDate && maxDate < date) || (minDate && minDate > date)}
-                gray={date.month() !== contentDate.month()}
-                key={date}>
-                {date.date()}
-              </Day>
+              {dateArray.map((date) => (
+                <Day
+                  disabled={(maxDate && maxDate < date) || (minDate && minDate > date)}
+                  type="button"
+                  isCurrent={moment(currentDate).format('YYYYMMDD') === moment(date).format('YYYYMMDD')}
+                  onClick={() => {
+                    setDate(date);
+                    if (date.month() !== contentDate.month()) setContentDate(date);
+                    if (onChange) onChange(date);
+                  }}
+                  limitDate={(maxDate && maxDate < date) || (minDate && minDate > date)}
+                  gray={date.month() !== contentDate.month()}
+                  key={date}
+                >
+                  {date.date()}
+                </Day>
               ))}
             </DayWeekContentWrapper>
           ) : (
             <MonthContentWrapper>
               {currentMode === 'MONTH' ? (
                 <>
-                  {months.map(data => (
+                  {months.map((data) => (
                     <MonthYear
                       isCurrent={currentDate.month() === data.value && currentDate.weekYear() === contentDate.weekYear()}
                       onClick={() => {
                         handleMonthChange(data.value);
                         setMode('DATE');
                       }}
-                      key={data.name}>
+                      key={data.name}
+                    >
                       {data.name}
                     </MonthYear>
                   ))}
@@ -321,9 +326,10 @@ function CalendarDemoPage({
                         setContentDate(moment(new Date(`${contentDate.weekYear() + index}`)));
                         setMode('MONTH');
                       }}
-                    key={`year-${contentDate.weekYear() + index}`}>
-                    {contentDate.weekYear() + index}
-                  </MonthYear>
+                      key={`year-${contentDate.weekYear() + index}`}
+                    >
+                      {contentDate.weekYear() + index}
+                    </MonthYear>
                   ))}
                 </>
               )}

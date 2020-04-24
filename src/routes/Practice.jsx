@@ -6,8 +6,8 @@ import {
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import CalendarDemoPage from '../containers/CalendarDemoPage.jsx';
-import YoutubeContainer from '../containers/YoutubeContainer.jsx';
+import CalendarDemoPage from '../containers/CalendarDemoPage';
+import YoutubeContainer from '../containers/YoutubeContainer';
 
 function Practice({
   match: {
@@ -24,7 +24,9 @@ function Practice({
 }
 
 Practice.propTypes = {
-  match: PropTypes.shape({}).isRequired,
+  match: PropTypes.shape({
+    url: PropTypes.string,
+  }).isRequired,
 };
 
 export default Practice;
