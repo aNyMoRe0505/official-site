@@ -3,6 +3,13 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import {
+  TextFontSize,
+  TextHoverFontSize,
+  SmallTextFontSize,
+  SmallTextHoverFontSize,
+} from '../config/style';
+
 const Wrapper = styled.div`
   width: auto;
   height: auto;
@@ -25,7 +32,7 @@ const WrappedLink = styled(NavLink)`
   margin: 0 10px;
   padding: 0 20px;
   height: 40px;
-  font-size: 16px;
+  ${TextFontSize};
   color: black;
   display: flex;
   align-items: center;
@@ -38,7 +45,7 @@ const WrappedLink = styled(NavLink)`
   :hover {
     background-color: #b75e5e;
     color: white;
-    font-size: 18px;
+    ${TextHoverFontSize};
   }
 `;
 
@@ -46,16 +53,16 @@ const DropdownWrappedLink = styled(WrappedLink)`
   :hover {
     background-color: rgb(234, 79, 79);
     color: white;
-    font-size: 18px;
+    ${TextHoverFontSize};
   }
 `;
 
 const MobileDropdownWrappedLink = styled(WrappedLink)`
-  font-size: 12px;
+  ${SmallTextFontSize};
   :hover {
     background-color: rgb(234, 79, 79);
     color: white;
-    font-size: 14px;
+    ${SmallTextHoverFontSize}
   }
 `;
 

@@ -4,6 +4,9 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 
 import { dateArrayGenerator } from '../helper/calendar';
+import {
+  TextFontSize,
+} from '../config/style';
 
 const scale = keyframes`
   0% {
@@ -50,7 +53,7 @@ const YearMonthSelectorWrapper = styled.div`
 const YearMonthBtnWrapper = styled.button`
   flex: 8;
   text-align: center;
-  font-size: 16px;
+  ${TextFontSize};
   border: none;
   outline: none;
   cursor: pointer;
@@ -64,7 +67,7 @@ const PrevNextBtn = styled.button`
   cursor: pointer;
   outline: none;
   flex: 1;
-  font-size: 16px;
+  ${TextFontSize};
 `;
 
 // days 6 * 7 = 42
@@ -83,7 +86,7 @@ const MonthContentWrapper = styled.div`
 `;
 
 const Week = styled.span`
-  font-size: 16px;
+  ${TextFontSize};
   text-align: center;
   padding: 12px;
 `;
@@ -94,7 +97,7 @@ const CurrentStyle = css`
 `;
 
 const Day = styled.button`
-  font-size: 16px;
+  ${TextFontSize};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -112,7 +115,7 @@ const Day = styled.button`
 `;
 
 const MonthYear = styled.button`
-  font-size: 16px;
+  ${TextFontSize};
   text-align: center;
   border: none;
   outline: none;
@@ -127,7 +130,7 @@ const DateButton = styled.button`
   width: 250px;
   height: 35px;
   outline: none;
-  font-size: 16px;
+  ${TextFontSize};
   cursor: pointer;
   border: 1px solid gray;
   border-radius: 5px;

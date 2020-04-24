@@ -71,6 +71,7 @@ const Title = styled.span`
 const FetchMoreLoadingStyle = css`
   position: fixed;
   bottom: 25px;
+  margin: 0;
 `;
 
 const LoadingBox = styled.div`
