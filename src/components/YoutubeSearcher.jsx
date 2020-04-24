@@ -27,7 +27,7 @@ const InputWrapper = styled.div`
 const Input = styled.input`
   width: 100%;
   background-color: transparent;
-  border-width: 0 0 2px 0;
+  border-width: 0 0 1px 0;
   border-style: solid;
   outline: none;
   font-size: 16px;
@@ -36,8 +36,8 @@ const Input = styled.input`
 `;
 
 const SearchButton = styled.button`
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border: none;
   background-image: url(${searchIcon});
   background-size: contain;
