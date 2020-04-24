@@ -24,6 +24,9 @@ const HeaderWrapper = styled.header`
   align-items: center;
   justify-content: center;
   padding: 0 40px;
+  position: fixed;
+  top: 0;
+  z-index: 999;
 `;
 
 const LogoLink = styled(NavLink)`

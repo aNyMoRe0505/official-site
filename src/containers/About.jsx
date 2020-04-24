@@ -118,6 +118,9 @@ const WorkExperienceDescBlock = styled.div`
 `;
 
 const WorkExperienceDesc = styled.p`
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
   margin: 0 0 10px;
 `;
 
@@ -294,7 +297,9 @@ function About() {
                 </WorkingTimeWrap>
                 {experience.jobDesc.map((desc) => (
                   <WorkExperienceDesc key={desc}>
-                    。
+                    <div>
+                      。
+                    </div>
                     {desc}
                   </WorkExperienceDesc>
                 ))}

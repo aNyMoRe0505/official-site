@@ -20,7 +20,7 @@ const store = getStore();
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,7 +29,9 @@ const Wrapper = styled.div`
 
 const Container = styled.div`
   width: 100%;
-  height: 100%;
+  height: calc(100% - 70px);
+  position: relative;
+  top: 70px;
   padding: 25px;
   display: flex;
   flex-direction: column;

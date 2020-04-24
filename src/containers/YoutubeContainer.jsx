@@ -54,6 +54,7 @@ const YoutubeBlock = styled.a`
   transition-timing-function: ease-in-out;
   @media (max-width: 900px) {
     width: 100%;
+    margin: 10px 0px;
   }
   :hover {
     opacity: 0.7;

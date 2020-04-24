@@ -5,20 +5,14 @@ import {
 
 export function useBodyFetchMore(
   fetchMoreFunc,
-  setLoading,
   loading,
 ) {
   const fetching = useRef(loading);
   const savedFetchMoreFunc = useRef();
-  const savedSetLoading = useRef();
 
   useEffect(() => {
     savedFetchMoreFunc.current = fetchMoreFunc;
   }, [fetchMoreFunc]);
-
-  useEffect(() => {
-    savedSetLoading.current = setLoading;
-  }, [setLoading]);
 
   useEffect(() => {
     fetching.current = loading;
@@ -27,7 +21,6 @@ export function useBodyFetchMore(
   useEffect(() => {
     const fetchMoreScope = () => {
       if (fetching.current) return;
-      savedSetLoading.current(true);
       savedFetchMoreFunc.current();
     };
 

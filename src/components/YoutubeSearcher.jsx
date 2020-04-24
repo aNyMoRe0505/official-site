@@ -27,7 +27,7 @@ const InputWrapper = styled.div`
 const Input = styled.input`
   width: 100%;
   background-color: transparent;
-  border-width: 0 0 1px 0;
+  border-width: 0px 0px 1px 0px;
   border-style: solid;
   border-color: white;
   outline: none;
@@ -79,7 +79,8 @@ function YoutubeSearcher({
   useEffect(() => () => dispatch({ type: SAGA_CLEAR_YOUTUBE_RESULT }), [dispatch]);
 
   useBodyFetchMore(() => {
-    if (nextPageToken) {
+    if (nextPageToken && keyword) {
+      setLoading(true);
       dispatch({
         type: FETCH_YOUTUBE_LIST,
         keyword,
@@ -87,7 +88,7 @@ function YoutubeSearcher({
         callback: () => setLoading(false),
       });
     }
-  }, setLoading, loading);
+  }, loading);
 
   return (
     <Wrapper>
