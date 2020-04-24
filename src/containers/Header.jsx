@@ -8,7 +8,7 @@ import hamburger from '../static/hamburger.png';
 import Link from '../components/Link';
 
 const StyledLink = styled(Link)`
-  @media (max-width: 767px) {
+  @media (max-width: 768px) {
     margin-bottom: ${({ dropdown }) => (dropdown.length ? '0px' : '15px')};
   }
 `;
@@ -42,14 +42,14 @@ const LinkWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  @media (max-width: 767px) {
+  @media (max-width: 768px) {
     display: none;
   }
 `;
 
 const HamburgerButton = styled.button`
   display: none;
-  @media (max-width: 767px) {
+  @media (max-width: 768px) {
     width: 40px;
     border: none;
     cursor: pointer;
@@ -69,7 +69,7 @@ const HamburgerButton = styled.button`
 
 const MobileMenuWrapper = styled.div`
   display: none;
-  @media (max-width: 767px) {
+  @media (max-width: 768px) {
     width: 100%;
     height: calc(100vh - 70px);
     padding: 20px;
@@ -91,7 +91,7 @@ const MobileMenuWrapper = styled.div`
 
 const links = [{
   path: '/',
-  name: 'Home',
+  name: 'About',
   dropdown: [],
 }, {
   path: '/practice',

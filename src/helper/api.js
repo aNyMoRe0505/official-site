@@ -19,11 +19,11 @@ export const fetchYoutube = async (keyword, nextPageToken) => {
   });
 
   return {
-    list: result?.items?.map((item) => ({
+    list: result?.data?.items?.map((item) => ({
       id: item.id.videoId,
       title: item.snippet.title,
       cover: item.snippet.thumbnails.high.url,
     })).filter((item) => item.id) || [],
-    token: result?.nextPageToken || '',
+    token: result?.data?.nextPageToken || '',
   };
 };

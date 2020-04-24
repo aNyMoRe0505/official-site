@@ -27,7 +27,7 @@ export function useBodyFetchMore(
   useEffect(() => {
     const fetchMoreScope = () => {
       if (fetching.current) return;
-      savedSetLoading(true);
+      savedSetLoading.current(true);
       savedFetchMoreFunc.current();
     };
 

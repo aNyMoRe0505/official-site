@@ -84,8 +84,9 @@ const MonthContentWrapper = styled.div`
 
 const Week = styled.span`
   font-size: 16px;
-  text-align: center;
-  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const CurrentStyle = css`
@@ -94,11 +95,11 @@ const CurrentStyle = css`
 `;
 
 const Day = styled.button`
+  padding: 0px;
   font-size: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* text-align: center; */
   border-radius: 100%;
   color: ${({ gray }) => (gray ? 'gray' : 'black')};
   border: none;

@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: flex-start;
   position: relative;
-  @media (min-width: 767px) {
+  @media (min-width: 768px) {
     :hover {
     >div {
       opacity: 1;
@@ -91,7 +91,7 @@ const DropdownSpaceLine = styled.div`
 
 const MobileDropdownWrapper = styled.div`
   display: none;
-  @media (max-width: 767px) {
+  @media (max-width: 768px) {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

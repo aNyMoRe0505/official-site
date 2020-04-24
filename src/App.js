@@ -12,6 +12,7 @@ import black from './static/d1023796.jpg';
 
 import PracticeRoute from './routes/Practice';
 import Header from './containers/Header';
+import About from './containers/About';
 
 import getStore from './store';
 
@@ -29,7 +30,7 @@ const Wrapper = styled.div`
 const Container = styled.div`
   width: 100%;
   height: 100%;
-  padding: 15px;
+  padding: 25px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -41,9 +42,7 @@ function App() {
     <BrowserRouter basename="/official-site">
       <Provider store={store}>
         <Wrapper>
-          <Switch>
-            <Route path="/" component={Header} />
-          </Switch>
+          <Header />
           <Container>
             <Switch>
               <Route
@@ -53,6 +52,7 @@ function App() {
                 )}
               />
               <Route path="/practice" component={PracticeRoute} />
+              <Route path="/" component={About} />
               <Redirect to="/" />
             </Switch>
           </Container>
