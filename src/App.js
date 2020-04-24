@@ -50,7 +50,9 @@ function App() {
               <Route
                 path="/heyhey"
                 component={() => (
-                  <img style={{ width: '100%' }} alt="black" src={black} />
+                  <div style={{ height: '100%' }}>
+                    <img style={{ width: '100%' }} alt="black" src={black} />
+                  </div>
                 )}
               />
               <Route path="/practice" component={PracticeRoute} />
