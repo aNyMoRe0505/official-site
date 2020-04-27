@@ -266,16 +266,12 @@ function About() {
         </a>
       </IconWrap>
       <SkillWrapper>
-        {skills.map((skill, index) => (
-          <Skill
-            delay={`${0.2 * index}s`}
-            key={skill}
-          >
+        {skills.map((skill) => (
+          <Skill key={skill}>
             {skill}
           </Skill>
         ))}
       </SkillWrapper>
-      {/* skills (?) */}
       <WorkExperienceWrapper>
         <WorkExperienceTitle>工作經歷</WorkExperienceTitle>
         {workExperiences.map((experience) => {
