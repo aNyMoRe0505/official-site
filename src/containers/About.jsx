@@ -105,7 +105,7 @@ const WorkExperienceBlock = styled.div`
 `;
 
 const WorkExperienceDescBlock = styled.div`
-  width: 100%;
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -120,10 +120,14 @@ const WorkExperienceDescBlock = styled.div`
 `;
 
 const WorkExperienceDesc = styled.p`
+  width: 100%;
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
+  align-items: center;
+  justify-content: flex-start;
   margin: 0 0 10px;
+  @media (max-width: 768px) {
+    justify-content: center;
+  };
 `;
 
 const WorkingTimeWrap = styled.div`
@@ -295,10 +299,8 @@ function About() {
                 </WorkingTimeWrap>
                 {experience.jobDesc.map((desc) => (
                   <WorkExperienceDesc key={desc}>
-                    <span style={{ flex: 1 }}>
-                      。
-                    </span>
-                    {desc}
+                    。
+                    <span style={{ flex: 1 }}>{desc}</span>
                   </WorkExperienceDesc>
                 ))}
               </WorkExperienceDescBlock>
