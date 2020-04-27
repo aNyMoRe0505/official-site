@@ -293,9 +293,9 @@ function About() {
                 </WorkingTimeWrap>
                 {experience.jobDesc.map((desc) => (
                   <WorkExperienceDesc key={desc}>
-                    <div>
+                    <span style={{ flex: 1 }}>
                       。
-                    </div>
+                    </span>
                     {desc}
                   </WorkExperienceDesc>
                 ))}

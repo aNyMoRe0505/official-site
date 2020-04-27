@@ -36,7 +36,7 @@ const WrappedLink = styled(NavLink)`
   transition-property: background-color, font-size;
   transition-timing-function: ease-in-out;
   :hover {
-    background-color: #b75e5e;
+    background-color: #5896c1;
     color: white;
     font-size: 18px;
   }
@@ -115,7 +115,7 @@ function Link({
         }}
         exact={!dropdown.length}
         activeStyle={{
-          backgroundColor: '#b75e5e',
+          backgroundColor: '#5896c1',
           fontSize: 18,
           color: 'white',
         }}

@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 
 import CalendarDemoPage from '../containers/CalendarDemoPage';
 import YoutubeContainer from '../containers/YoutubeContainer';
+import HookForm from '../containers/HookForm';
 
 function Practice({
   match: {
@@ -16,6 +17,7 @@ function Practice({
 }) {
   return (
     <Switch>
+      <Route path={`${url}/hook-form`} component={HookForm} />
       <Route path={`${url}/youtube`} component={YoutubeContainer} />
       <Route path={`${url}/calendar`} component={CalendarDemoPage} />
       <Redirect to={`${url}/calendar`} />
