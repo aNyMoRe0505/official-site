@@ -2,6 +2,8 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import moment from 'moment';
 
+import styles from '../config/style';
+
 import profile from '../static/profile.jpg';
 import gogoro from '../static/gogoro.png';
 import rytass from '../static/rytass.png';
@@ -174,7 +176,7 @@ const Skill = styled.div`
   width: 100px;
   height: 50px;
   padding: 10px;
-  background-color: #5896c1;
+  background-color: ${styles.mainColor};
   border-radius: 10px;
   margin: 10px;
   color: white;

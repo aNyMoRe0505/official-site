@@ -3,6 +3,7 @@ import styled, { css, keyframes } from 'styled-components';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 
+import styles from '../config/style';
 import { dateArrayGenerator } from '../helper/calendar';
 
 const scale = keyframes`
@@ -90,7 +91,7 @@ const Week = styled.span`
 `;
 
 const CurrentStyle = css`
-  background-color: #b75e5e;
+  background-color: ${styles.mainColor};
   color: white;
 `;
 
@@ -114,7 +115,9 @@ const Day = styled.button`
 
 const MonthYear = styled.button`
   font-size: 16px;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: none;
   outline: none;
   border-radius: 100%;

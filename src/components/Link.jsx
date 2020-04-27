@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import styles from '../config/style';
+
 const Wrapper = styled.div`
   width: auto;
   height: auto;
@@ -36,7 +38,7 @@ const WrappedLink = styled(NavLink)`
   transition-property: background-color, font-size;
   transition-timing-function: ease-in-out;
   :hover {
-    background-color: #5896c1;
+    background-color: ${styles.mainColor};
     color: white;
     font-size: 18px;
   }
@@ -44,7 +46,7 @@ const WrappedLink = styled(NavLink)`
 
 const DropdownWrappedLink = styled(WrappedLink)`
   :hover {
-    background-color: rgb(234, 79, 79);
+    background-color: ${styles.mainRed};
     color: white;
     font-size: 18px;
   }
@@ -53,7 +55,7 @@ const DropdownWrappedLink = styled(WrappedLink)`
 const MobileDropdownWrappedLink = styled(WrappedLink)`
   font-size: 12px;
   :hover {
-    background-color: rgb(234, 79, 79);
+    background-color: ${styles.mainRed};
     color: white;
     font-size: 14px;
   }
@@ -115,7 +117,7 @@ function Link({
         }}
         exact={!dropdown.length}
         activeStyle={{
-          backgroundColor: '#5896c1',
+          backgroundColor: styles.mainColor,
           fontSize: 18,
           color: 'white',
         }}
@@ -137,7 +139,7 @@ function Link({
                   margin: index + 1 === dropdown.length ? '5px 0px 15px' : '5px 0px 0px',
                 }}
                 activeStyle={{
-                  backgroundColor: 'rgb(234, 79, 79)',
+                  backgroundColor: styles.mainRed,
                   fontSize: 14,
                   color: 'white',
                 }}
@@ -157,7 +159,7 @@ function Link({
                 exact
                 style={{ margin: '10px 0px' }}
                 activeStyle={{
-                  backgroundColor: 'rgb(234, 79, 79)',
+                  backgroundColor: styles.mainRed,
                   fontSize: 18,
                   color: 'white',
                 }}
