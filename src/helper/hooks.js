@@ -9,17 +9,22 @@ export function useRepeatedAnimation(gapTime) {
   const animationElement = useRef();
 
   useEffect(() => {
+    let unMounted = false;
     const element = animationElement.current;
 
-    element.addEventListener('animationend', () => {
+    const animationEndFunc = () => {
       setActived(false);
+
       setTimeout(() => {
-        setActived(true);
+        if (!unMounted) setActived(true);
       }, gapTime);
-    });
+    };
+
+    element.addEventListener('animationend', animationEndFunc);
 
     return () => {
-      element.removeEventListener('animationend');
+      unMounted = true;
+      element.removeEventListener('animationend', animationEndFunc);
     };
   }, [gapTime]);
 
