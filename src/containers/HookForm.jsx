@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useForm, Controller, useFieldArray } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 
 import Input from '../components/form/Input';
 import Selector from '../components/form/Selector';
@@ -44,6 +44,10 @@ const FormFunctionWrap = styled.div`
   justify-content: center;
 `;
 
+const Title = styled.h1`
+  font-size: 18px;
+`;
+
 const genderOptions = [{
   value: 'male',
   name: '男性',
@@ -79,30 +83,30 @@ function HookForm() {
   const {
     register,
     handleSubmit,
-    // watch,
     errors,
     control,
-  } = useForm();
-
-  const {
-    fields,
-    append,
-    remove,
-  } = useFieldArray({
-    control,
-    name: 'workExperiences',
+  } = useForm({
+    mode: 'onBlur',
+    defaultValues: {
+      workExperiences: [{
+        companyName: '',
+        jobTitle: '',
+      }],
+    },
   });
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => alert(JSON.stringify(data));
 
   return (
     <Wrapper>
+      <Title>Hook Form Practice</Title>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <RowWrap>
           <Input
+            error={errors?.name || null}
             label="姓名"
             name="name"
-            register={register}
+            register={register({ required: '姓名為必填！' })}
           />
         </RowWrap>
         <RowWrap width="200px">
@@ -115,20 +119,23 @@ function HookForm() {
         </RowWrap>
         <RowWrap>
           <Controller
+            rules={{
+              validate: {
+                minLength: (value) => value.length > 0 || '至少選擇一個分類！',
+              },
+            }}
             defaultValue={[]}
             name="category"
-            as={<Checkbox label="分類" options={categoryOptions} />}
+            as={<Checkbox error={errors?.category || null} label="分類" options={categoryOptions} />}
             control={control}
             onChange={(value) => value}
           />
         </RowWrap>
         <RowWrap>
           <WorkExperience
-            name="workExperiences"
-            fields={fields}
+            errors={errors.workExperiences || []}
+            control={control}
             register={register}
-            append={append}
-            remove={remove}
           />
         </RowWrap>
         <FormFunctionWrap>

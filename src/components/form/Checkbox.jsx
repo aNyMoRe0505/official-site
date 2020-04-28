@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import styles from '../../config/style';
+
 const CheckboxWrapper = styled.div`
   display: flex;
   align-items: flex-start;
@@ -61,9 +63,13 @@ function Checkbox({
   value,
   onChange,
   options,
+  error,
 }) {
   return (
     <CheckboxWrapper>
+      {error && (
+        <span style={{ color: styles.mainRed }}>！</span>
+      )}
       {label && (
         <StyledLabel>{`${label}：`}</StyledLabel>
       )}
@@ -104,12 +110,14 @@ Checkbox.propTypes = {
   value: PropTypes.arrayOf(PropTypes.string),
   onChange: PropTypes.func,
   options: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  error: PropTypes.shape({}),
 };
 
 Checkbox.defaultProps = {
   label: '',
   value: [],
   onChange: null,
+  error: {},
 };
 
 export default Checkbox;

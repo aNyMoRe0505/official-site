@@ -2,6 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
+import { useFieldArray } from 'react-hook-form';
 
 import styles from '../../config/style';
 
@@ -82,11 +83,18 @@ const Card = styled.div`
 
 function WorkExperience({
   register,
-  name,
-  fields,
-  append,
-  remove,
+  control,
+  errors,
 }) {
+  const {
+    fields,
+    append,
+    remove,
+  } = useFieldArray({
+    control,
+    name: 'workExperiences',
+  });
+
   return (
     <Wrapper>
       <TitleWrap>
@@ -100,28 +108,32 @@ function WorkExperience({
       <CardWrapper>
         {fields.map((item, index) => (
           <Card key={item.id}>
-            <DeleteButton
-              label="－"
-              type="button"
-              onClick={() => {
-                if (confirm('確定刪除嗎？')) {
-                  remove(index);
-                }
-              }}
-            />
+            {fields.length !== 1 && (
+              <DeleteButton
+                label="－"
+                type="button"
+                onClick={() => {
+                  if (confirm('確定刪除嗎？')) {
+                    remove(index);
+                  }
+                }}
+              />
+            )}
             <StyledInput
               labelStyle={labelStyle}
               defaultValue={item.companyName}
               label="公司名稱"
-              name={`${name}[${index}].companyName`}
-              register={register}
+              error={errors[index]?.companyName || null}
+              name={`workExperiences[${index}].companyName`}
+              register={register({ required: '公司名稱必填！' })}
             />
             <StyledInput
               labelStyle={labelStyle}
               defaultValue={item.jobTitle}
               label="職稱"
-              name={`${name}[${index}].jobTitle`}
-              register={register}
+              error={errors[index]?.jobTitle || null}
+              name={`workExperiences[${index}].jobTitle`}
+              register={register({ required: '職稱為必填！' })}
             />
           </Card>
         ))}
@@ -132,10 +144,12 @@ function WorkExperience({
 
 WorkExperience.propTypes = {
   register: PropTypes.func.isRequired,
-  name: PropTypes.string.isRequired,
-  fields: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  append: PropTypes.func.isRequired,
-  remove: PropTypes.func.isRequired,
+  control: PropTypes.shape({}).isRequired,
+  errors: PropTypes.arrayOf(PropTypes.shape({})),
+};
+
+WorkExperience.defaultProps = {
+  errors: [],
 };
 
 export default WorkExperience;

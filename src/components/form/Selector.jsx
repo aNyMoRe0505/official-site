@@ -37,7 +37,7 @@ function Selector({
         name={name}
       >
         {options.map((option) => (
-          <option key={option.value}>
+          <option value={option.value} key={option.value}>
             {option.name}
           </option>
         ))}

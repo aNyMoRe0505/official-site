@@ -23,7 +23,7 @@ const StyledInput = styled.input`
   outline: none;
   border-width: 0 0 2px 0px;
   border-style: solid;
-  border-color: gray;
+  border-color: ${({ error }) => (error ? styles.mainRed : 'gray')};
   border-radius: 0px;
   :focus {
     border-color: ${styles.mainColor};
@@ -41,13 +41,18 @@ function Input({
   defaultValue,
   className,
   labelStyle,
+  error,
 }) {
   return (
     <InputWrapper className={className}>
+      {error && (
+        <span style={{ color: styles.mainRed }}>！</span>
+      )}
       {label && (
         <StyledLabel labelStyle={labelStyle}>{`${label}：`}</StyledLabel>
       )}
       <StyledInput
+        error={!!error}
         defaultValue={defaultValue}
         type={type}
         ref={register}
@@ -65,6 +70,7 @@ Input.propTypes = {
   defaultValue: PropTypes.string,
   className: PropTypes.string,
   labelStyle: PropTypes.arrayOf(PropTypes.string),
+  error: PropTypes.shape({}),
 };
 
 Input.defaultProps = {
@@ -73,6 +79,7 @@ Input.defaultProps = {
   defaultValue: '',
   className: '',
   labelStyle: null,
+  error: null,
 };
 
 export default Input;
