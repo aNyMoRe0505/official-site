@@ -1,7 +1,30 @@
 import {
   useEffect,
   useRef,
+  useState,
 } from 'react';
+
+export function useRepeatedAnimation(gapTime) {
+  const [actived, setActived] = useState(true);
+  const animationElement = useRef();
+
+  useEffect(() => {
+    const element = animationElement.current;
+
+    element.addEventListener('animationend', () => {
+      setActived(false);
+      setTimeout(() => {
+        setActived(true);
+      }, gapTime);
+    });
+
+    return () => {
+      element.removeEventListener('animationend');
+    };
+  }, [gapTime]);
+
+  return [animationElement, actived];
+}
 
 export function useBodyFetchMore(
   fetchMoreFunc,

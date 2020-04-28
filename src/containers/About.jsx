@@ -1,8 +1,9 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 import moment from 'moment';
 
 import styles from '../config/style';
+import { useRepeatedAnimation } from '../helper/hooks';
 
 import profile from '../static/profile.jpg';
 import gogoro from '../static/gogoro.png';
@@ -12,25 +13,15 @@ import medium from '../static/medium.png';
 import github from '../static/github.png';
 import facebook from '../static/facebook.png';
 
-const scale = keyframes`
+const wave = keyframes`
   0% {
-    transform: rotate(0deg);
+    transform: translateY(0px);
   }
-
-  25% {
-    transform: rotate(2deg);
-  }
-
   50% {
-    transform: rotate(0deg);
+    transform: translateY(-15px);
   }
-
-  75% {
-    transform: rotate(-2deg);
-  }
-
   100% {
-    transform: rotate(0deg);
+    transform: translateY(0px);
   }
 `;
 
@@ -46,6 +37,7 @@ const Wrapper = styled.div`
 
 const ProfilePicture = styled.img`
   width: 400px;
+  height: auto;
   margin: 0 0 15px;
   @media (max-width: 414px) {
     width: 100%;
@@ -176,6 +168,15 @@ const SkillWrapper = styled.div`
   margin: 0 0 15px;
 `;
 
+const SkillAnimation = css`
+  animation-name: ${wave};
+  animation-duration: 1.5s;
+  animation-delay: ${({ delay }) => (delay)};
+  animation-iteration-count: 1;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+`;
+
 const Skill = styled.div`
   width: 100px;
   height: 50px;
@@ -187,9 +188,8 @@ const Skill = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  animation-name: ${scale};
-  animation-duration: 1s;
-  animation-iteration-count: infinite;
+  opacity: 1;
+  ${({ actived }) => actived && SkillAnimation}
 `;
 
 const skills = [
@@ -234,6 +234,7 @@ const workExperiences = [{
 }];
 
 function About() {
+  const [animationElementRef, actived] = useRepeatedAnimation(1500);
   return (
     <Wrapper>
       <ProfilePicture src={profile} alt="profile" />
@@ -272,8 +273,13 @@ function About() {
         </a>
       </IconWrap>
       <SkillWrapper>
-        {skills.map((skill) => (
-          <Skill key={skill}>
+        {skills.map((skill, index) => (
+          <Skill
+            ref={(index + 1 === skills.length && animationElementRef) || null}
+            actived={actived}
+            delay={`${0.1 * index}s`}
+            key={skill}
+          >
             {skill}
           </Skill>
         ))}
