@@ -2,18 +2,20 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
+import styles from '../config/style';
+
 const StyledButton = styled.button`
   width: 100px;
   height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #5896c1;
+  background-color: ${styles.mainColor};
   color: white;
   border: none;
   outline: none;
   border-radius: 5px;
-  padding: 5px;
+  padding: 0;
   cursor: pointer;
   font-size: 16px;
   margin: 0 10px;

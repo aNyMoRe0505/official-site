@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
+import styles from '../../config/style';
+
 const InputWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -11,6 +13,7 @@ const InputWrapper = styled.div`
 
 const StyledLabel = styled.span`
   font-size: 16px;
+  ${({ labelStyle }) => labelStyle && labelStyle}
 `;
 
 const StyledInput = styled.input`
@@ -23,7 +26,7 @@ const StyledInput = styled.input`
   border-color: gray;
   border-radius: 0px;
   :focus {
-    border-color: #5896c1;
+    border-color: ${styles.mainColor};
   };
   transition-duration: 0.3s;
   transition-property: border-color;
@@ -35,13 +38,17 @@ function Input({
   register,
   name,
   type,
+  defaultValue,
+  className,
+  labelStyle,
 }) {
   return (
-    <InputWrapper>
+    <InputWrapper className={className}>
       {label && (
-        <StyledLabel>{`${label}：`}</StyledLabel>
+        <StyledLabel labelStyle={labelStyle}>{`${label}：`}</StyledLabel>
       )}
       <StyledInput
+        defaultValue={defaultValue}
         type={type}
         ref={register}
         name={name}
@@ -55,11 +62,17 @@ Input.propTypes = {
   register: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   type: PropTypes.string,
+  defaultValue: PropTypes.string,
+  className: PropTypes.string,
+  labelStyle: PropTypes.arrayOf(PropTypes.string),
 };
 
 Input.defaultProps = {
   label: '',
   type: 'text',
+  defaultValue: '',
+  className: '',
+  labelStyle: null,
 };
 
 export default Input;

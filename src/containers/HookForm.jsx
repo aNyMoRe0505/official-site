@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm, Controller, useFieldArray } from 'react-hook-form';
 
 import Input from '../components/form/Input';
 import Selector from '../components/form/Selector';
 import Checkbox from '../components/form/Checkbox';
+import WorkExperience from '../components/form/WorkExperience';
 import Button from '../components/Button';
 
 const Wrapper = styled.div`
@@ -83,6 +84,15 @@ function HookForm() {
     control,
   } = useForm();
 
+  const {
+    fields,
+    append,
+    remove,
+  } = useFieldArray({
+    control,
+    name: 'workExperiences',
+  });
+
   const onSubmit = (data) => console.log(data);
 
   return (
@@ -110,6 +120,15 @@ function HookForm() {
             as={<Checkbox label="分類" options={categoryOptions} />}
             control={control}
             onChange={(value) => value}
+          />
+        </RowWrap>
+        <RowWrap>
+          <WorkExperience
+            name="workExperiences"
+            fields={fields}
+            register={register}
+            append={append}
+            remove={remove}
           />
         </RowWrap>
         <FormFunctionWrap>
