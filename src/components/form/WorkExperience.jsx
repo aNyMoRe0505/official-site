@@ -138,7 +138,4 @@ WorkExperience.propTypes = {
   remove: PropTypes.func.isRequired,
 };
 
-WorkExperience.defaultProps = {
-};
-
 export default WorkExperience;
