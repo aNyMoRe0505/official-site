@@ -64,6 +64,12 @@ function App() {
                   </div>
                 )}
               />
+              <Route
+                path="/blog"
+                component={() => (
+                  <h1>一片空白，跟你的人生一樣</h1>
+                )}
+              />
               <Route path="/practice" component={PracticeRoute} />
               <Route path="/" component={About} />
               <Redirect to="/" />

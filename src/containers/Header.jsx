@@ -110,6 +110,10 @@ const links = [{
     name: 'Hook Form',
   }],
 }, {
+  path: '/blog',
+  name: 'Blog',
+  dropdown: [],
+}, {
   path: '/heyhey',
   name: '???',
   dropdown: [],
