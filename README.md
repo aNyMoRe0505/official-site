@@ -9,7 +9,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 隨便寫的小練習
 
 ### `Blog`
-萬年不更新的文章
+萬年不更新
 
 ### `???`
 ==???
