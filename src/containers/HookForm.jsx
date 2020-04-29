@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useForm, Controller } from 'react-hook-form';
+import moment from 'moment';
 
 import Input from '../components/form/Input';
 import Selector from '../components/form/Selector';
@@ -85,17 +86,31 @@ function HookForm() {
     handleSubmit,
     errors,
     control,
+    getValues,
   } = useForm({
     mode: 'onBlur',
     defaultValues: {
       workExperiences: [{
         companyName: '',
         jobTitle: '',
+        startDate: moment().subtract(1, 'days').toDate(),
+        endDate: moment().toDate(),
       }],
     },
   });
 
-  const onSubmit = (data) => alert(JSON.stringify(data));
+  const onSubmit = (data) => {
+    const alertData = {
+      ...data,
+      workExperiences: data.workExperiences.map((workExperience) => ({
+        ...workExperience,
+        startDate: moment(workExperience.startDate).format('YYYY-MM-DD'),
+        endDate: moment(workExperience.endDate).format('YYYY-MM-DD'),
+      })),
+    };
+
+    alert(JSON.stringify(alertData));
+  };
 
   return (
     <Wrapper>
@@ -124,15 +139,19 @@ function HookForm() {
                 minLength: (value) => value.length > 0 || '至少選擇一個分類！',
               },
             }}
+            error={errors?.category || null}
+            label="分類"
+            options={categoryOptions}
             defaultValue={[]}
             name="category"
-            as={<Checkbox error={errors?.category || null} label="分類" options={categoryOptions} />}
+            as={Checkbox}
             control={control}
             onChange={(value) => value}
           />
         </RowWrap>
         <RowWrap>
           <WorkExperience
+            getValues={getValues}
             errors={errors.workExperiences || []}
             control={control}
             register={register}

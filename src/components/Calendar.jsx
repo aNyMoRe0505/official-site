@@ -21,16 +21,17 @@ const scale = keyframes`
 `;
 
 const Wrapper = styled.div`
-  width: 100%;
-  height: 100%;
+  /* width: 100%; */
+  flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
+  position: relative;
 `;
 
 const CalendarWrapper = styled.div`
-  width: 280px;
+  width: 230px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -39,6 +40,10 @@ const CalendarWrapper = styled.div`
   border-radius: 5px;
   box-shadow: 0px 0px 4px #80808078;
   padding: 10px;
+  position: absolute;
+  top: 50px;
+  z-index: 998;
+  background-color: white;
 `;
 
 const YearMonthSelectorWrapper = styled.div`
@@ -71,15 +76,15 @@ const PrevNextBtn = styled.button`
 // days 6 * 7 = 42
 const DayWeekContentWrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(7, 38px);;
-  grid-template-rows: repeat(7, 38px);
+  grid-template-columns: repeat(7, 30px);;
+  grid-template-rows: repeat(7, 30px);
   padding: 10px 0 0;
 `;
 
 const MonthContentWrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 60px);;
-  grid-template-rows: repeat(3, 60px);
+  grid-template-columns: repeat(4, 52px);;
+  grid-template-rows: repeat(3, 52px);
   padding: 10px 0 0;
 `;
 
@@ -128,7 +133,7 @@ const MonthYear = styled.button`
 
 const DateButton = styled.button`
   margin: 10px 0;
-  width: 250px;
+  width: 230px;
   height: 35px;
   outline: none;
   font-size: 16px;
@@ -178,16 +183,17 @@ const months = [{
   value: 11,
 }];
 
-function CalendarDemoPage({
+function Calendar({
   initialDate,
   maxDate,
   minDate,
   onChange,
+  defaultShowStatus
 }) {
   const [currentDate, setDate] = useState(moment(initialDate || new Date()));
   const [contentDate, setContentDate] = useState(moment(initialDate || new Date()));
   const [currentMode, setMode] = useState('DATE'); // DATE, MONTH, YEAR
-  const [showCalendar, setShowCalendar] = useState(true);
+  const [showCalendar, setShowCalendar] = useState(defaultShowStatus);
 
   const handleModeChange = () => {
     if (currentMode === 'DATE') {
@@ -293,8 +299,9 @@ function CalendarDemoPage({
                   isCurrent={moment(currentDate).format('YYYYMMDD') === moment(date).format('YYYYMMDD')}
                   onClick={() => {
                     setDate(date);
+                    setShowCalendar(false);
                     if (date.month() !== contentDate.month()) setContentDate(date);
-                    if (onChange) onChange(date);
+                    if (onChange) onChange(date.toDate());
                   }}
                   limitDate={(maxDate && maxDate < date) || (minDate && minDate > date)}
                   gray={date.month() !== contentDate.month()}
@@ -345,18 +352,20 @@ function CalendarDemoPage({
   );
 }
 
-CalendarDemoPage.propTypes = {
+Calendar.propTypes = {
   maxDate: PropTypes.instanceOf(Date),
   minDate: PropTypes.instanceOf(Date),
   initialDate: PropTypes.instanceOf(Date),
   onChange: PropTypes.func,
+  defaultShowStatus: PropTypes.bool,
 };
 
-CalendarDemoPage.defaultProps = {
+Calendar.defaultProps = {
   maxDate: null,
   minDate: null,
   initialDate: null,
   onChange: null,
+  defaultShowStatus: false,
 };
 
-export default CalendarDemoPage;
+export default Calendar;

@@ -2,12 +2,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
-import { useFieldArray } from 'react-hook-form';
+import { useFieldArray, Controller } from 'react-hook-form';
+import moment from 'moment';
 
 import styles from '../../config/style';
 
 import Button from '../Button';
 import Input from './Input';
+import Calendar from '../Calendar';
 
 const StyledButton = styled(Button)`
   width: 25px;
@@ -32,7 +34,12 @@ const StyledInput = styled(Input)`
 `;
 
 const labelStyle = css`
+  font-size: 16px;
   width: 90px;
+`;
+
+const Label = styled.span`
+  ${labelStyle}
 `;
 
 const Wrapper = styled.div`
@@ -70,8 +77,8 @@ const Card = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  flex-direction: column;
   position: relative;
-  flex-wrap: wrap;
   margin: 0 0 15px 0;
   box-shadow: 0px 0px 25px #80808078;
   padding: 15px;
@@ -81,10 +88,18 @@ const Card = styled.div`
   }
 `;
 
+const DateWrap = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 function WorkExperience({
   register,
   control,
   errors,
+  getValues,
 }) {
   const {
     fields,
@@ -100,7 +115,12 @@ function WorkExperience({
       <TitleWrap>
         <Title>WorkExperiences</Title>
         <StyledButton
-          onClick={() => append({ companyName: '', jobTitle: '' })}
+          onClick={() => append({
+            companyName: '',
+            jobTitle: '',
+            startDate: moment().subtract(1, 'days').toDate(),
+            endDate: moment().toDate(),
+          })}
           label="＋"
           type="button"
         />
@@ -135,6 +155,36 @@ function WorkExperience({
               name={`workExperiences[${index}].jobTitle`}
               register={register({ required: '職稱為必填！' })}
             />
+            <DateWrap>
+              <Label>開始日期：</Label>
+              <Controller
+                defaultValue={item.startDate}
+                initialDate={item.startDate}
+                rules={{
+                  validate: {
+                    minDate: (value) => {
+                      const endDateValue = getValues(`workExperiences[${index}].endDate`);
+                      return endDateValue > value || '開始日期不可大於結束日期！';
+                    },
+                  },
+                }}
+                control={control}
+                onChange={([date]) => date}
+                name={`workExperiences[${index}].startDate`}
+                as={Calendar}
+              />
+            </DateWrap>
+            <DateWrap>
+              <Label>結束日期：</Label>
+              <Controller
+                defaultValue={item.endDate}
+                initialDate={item.endDate}
+                control={control}
+                onChange={([date]) => date}
+                name={`workExperiences[${index}].endDate`}
+                as={Calendar}
+              />
+            </DateWrap>
           </Card>
         ))}
       </CardWrapper>
@@ -144,6 +194,7 @@ function WorkExperience({
 
 WorkExperience.propTypes = {
   register: PropTypes.func.isRequired,
+  getValues: PropTypes.func.isRequired,
   control: PropTypes.shape({}).isRequired,
   errors: PropTypes.arrayOf(PropTypes.shape({})),
 };

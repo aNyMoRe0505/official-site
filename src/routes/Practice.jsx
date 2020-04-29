@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import CalendarDemoPage from '../containers/CalendarDemoPage';
+import Calendar from '../components/Calendar';
 import YoutubeContainer from '../containers/YoutubeContainer';
 import HookForm from '../containers/HookForm';
 
@@ -19,7 +19,7 @@ function Practice({
     <Switch>
       <Route path={`${url}/hook-form`} component={HookForm} />
       <Route path={`${url}/youtube`} component={YoutubeContainer} />
-      <Route path={`${url}/calendar`} component={CalendarDemoPage} />
+      <Route path={`${url}/calendar`} component={() => <Calendar defaultShowStatus />} />
       <Redirect to={`${url}/calendar`} />
     </Switch>
   );
