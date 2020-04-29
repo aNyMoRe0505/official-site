@@ -21,7 +21,6 @@ const scale = keyframes`
 `;
 
 const Wrapper = styled.div`
-  /* width: 100%; */
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -29,6 +28,19 @@ const Wrapper = styled.div`
   justify-content: flex-start;
   position: relative;
 `;
+
+const DateButton = styled.button`
+  margin: 10px 0;
+  width: 180px;
+  height: 35px;
+  outline: none;
+  font-size: 16px;
+  cursor: pointer;
+  border: 1px solid gray;
+  border-radius: 5px;
+  background-color: transparent;
+`;
+
 
 const CalendarWrapper = styled.div`
   width: 230px;
@@ -131,18 +143,6 @@ const MonthYear = styled.button`
   ${({ isCurrent }) => isCurrent && CurrentStyle} 
 `;
 
-const DateButton = styled.button`
-  margin: 10px 0;
-  width: 230px;
-  height: 35px;
-  outline: none;
-  font-size: 16px;
-  cursor: pointer;
-  border: 1px solid gray;
-  border-radius: 5px;
-  background-color: transparent;
-`;
-
 const weeks = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 
 const months = [{
@@ -188,7 +188,7 @@ function Calendar({
   maxDate,
   minDate,
   onChange,
-  defaultShowStatus
+  defaultShowStatus,
 }) {
   const [currentDate, setDate] = useState(moment(initialDate || new Date()));
   const [contentDate, setContentDate] = useState(moment(initialDate || new Date()));
