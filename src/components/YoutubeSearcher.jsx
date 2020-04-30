@@ -69,6 +69,7 @@ function YoutubeSearcher({
 
     setLoading(true);
 
+    dispatch({ type: SAGA_CLEAR_YOUTUBE_RESULT });
     dispatch({
       type: FETCH_YOUTUBE_LIST,
       keyword,

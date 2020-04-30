@@ -10,13 +10,13 @@ const StyledButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${styles.mainColor};
+  background-color: ${({ disabled }) => (disabled ? 'gray' : styles.mainColor)};
   color: white;
   border: none;
   outline: none;
   border-radius: 5px;
   padding: 0;
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
   font-size: 16px;
   margin: 0 10px;
   :hover {
@@ -30,9 +30,11 @@ function Button({
   label,
   type,
   onClick,
+  loading,
 }) {
   return (
     <StyledButton
+      disabled={loading}
       onClick={() => {
         if (onClick) onClick();
       }}
@@ -49,12 +51,14 @@ Button.propTypes = {
   label: PropTypes.string.isRequired,
   type: PropTypes.string,
   onClick: PropTypes.func,
+  loading: PropTypes.bool,
 };
 
 Button.defaultProps = {
   className: '',
   type: 'button',
   onClick: null,
+  loading: false,
 };
 
 export default Button;

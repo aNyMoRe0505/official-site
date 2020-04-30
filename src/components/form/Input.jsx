@@ -64,7 +64,7 @@ function Input({
 
 Input.propTypes = {
   label: PropTypes.string,
-  register: PropTypes.func.isRequired,
+  register: PropTypes.func,
   name: PropTypes.string.isRequired,
   type: PropTypes.string,
   defaultValue: PropTypes.string,
@@ -78,6 +78,7 @@ Input.defaultProps = {
   type: 'text',
   defaultValue: '',
   className: '',
+  register: null,
   labelStyle: null,
   error: null,
 };

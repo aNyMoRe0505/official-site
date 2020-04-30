@@ -11,9 +11,11 @@ import { Provider } from 'react-redux';
 
 import black from './static/d1023796.jpg';
 
-import PracticeRoute from './routes/Practice';
 import Header from './containers/Header';
 import About from './containers/About';
+
+import PracticeRoute from './routes/Practice';
+import BlogRoute from './routes/Blog';
 
 import getStore from './store';
 
@@ -64,12 +66,7 @@ function App() {
                   </div>
                 )}
               />
-              <Route
-                path="/blog"
-                component={() => (
-                  <h1>一片空白，跟你的人生一樣</h1>
-                )}
-              />
+              <Route path="/blog" component={BlogRoute} />
               <Route path="/practice" component={PracticeRoute} />
               <Route path="/" component={About} />
               <Redirect to="/" />
