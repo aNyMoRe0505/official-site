@@ -79,7 +79,7 @@ const ArticleDescBlock = styled.div`
 const ArticlePublishTime = styled.p`
   margin: 0 0 10px;
   color: gray;
-`
+`;
 
 const ArticleDesc = styled.p`
   width: 100%;
