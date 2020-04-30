@@ -18,6 +18,7 @@ export const articles = [{
   title: '第一篇文章',
   description: '第一篇文章的描述描述描述',
   component: null,
+  date: new Date('2020/04/29'),
 }, {
   id: 2,
   tagIds: [1, 2],
@@ -25,6 +26,7 @@ export const articles = [{
   title: '第二篇文章',
   description: '第二篇文章的描述描述描述',
   component: null,
+  date: new Date('2020/04/30'),
 }, {
   id: 3,
   tagIds: [1],
@@ -32,6 +34,7 @@ export const articles = [{
   title: '第三篇文章',
   description: '第三篇文章的描述描述描述',
   component: null,
+  date: new Date('2020/04/28'),
 }, {
   id: 4,
   tagIds: [1, 2, 3],
@@ -39,4 +42,5 @@ export const articles = [{
   title: '第四篇文章',
   description: '第四篇文章的描述描述描述',
   component: null,
+  date: new Date('2020/04/29'),
 }];

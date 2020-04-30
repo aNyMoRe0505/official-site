@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
+import moment from 'moment';
 
 import {
   articles,
@@ -75,6 +76,11 @@ const ArticleDescBlock = styled.div`
   };
 `;
 
+const ArticlePublishTime = styled.p`
+  margin: 0 0 10px;
+  color: gray;
+`
+
 const ArticleDesc = styled.p`
   width: 100%;
   display: flex;
@@ -128,6 +134,13 @@ function Blog() {
         .filter((article) => article.tagIds
           .some((tagId) => ~tags.findIndex((tag) => tag === tagId)));
     }
+
+    filteredArticles = filteredArticles.sort((a, b) => {
+      if (a.date > b.date) return -1;
+      if (b.date > a.date) return 1;
+      return 0;
+    });
+
     return filteredArticles;
   }, [keyword, categories, tags]);
 
@@ -141,6 +154,7 @@ function Blog() {
             <ArticleDescBlock>
               <ArticleDesc>{article.title}</ArticleDesc>
               <ArticleDesc>{article.description}</ArticleDesc>
+              <ArticlePublishTime>{moment(article.date).format('YYYY-MM-DD')}</ArticlePublishTime>
               {article.categoryIds.length ? (
                 <CategoryTagListWrapper>
                   {article.categoryIds.map((categoryId) => (
