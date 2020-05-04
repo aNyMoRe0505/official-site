@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 import PropTypes from 'prop-types';
 
 const scale = keyframes`
@@ -14,6 +14,10 @@ const scale = keyframes`
   100% {
     transform: scale(1);
   }
+`;
+
+const AnimationStyle = css`
+  animation: ${scale} 1s linear infinite;
 `;
 
 const StyledLoadingBox = styled.div`
@@ -31,7 +35,7 @@ const StyledLoadingBox = styled.div`
   transition-duration: 0.3s;
   transition-property: opacity, height;
   transition-timing-function: ease-in-out;
-  animation: ${scale} 1s linear infinite;
+  ${({ loadingStatus }) => loadingStatus && AnimationStyle}
 `;
 
 function LoadingBox({

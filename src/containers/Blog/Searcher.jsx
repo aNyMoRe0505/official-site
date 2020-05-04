@@ -118,16 +118,14 @@ const Logo = styled.img`
 `;
 
 function Searcher() {
-  const {
-    keyword: storeKeyowrd,
-    categories: storeCategories,
-    tags: storeTags,
-  } = useSelector((state) => state.Blog.searcherParam);
+  const storeKeyword = useSelector((state) => state.Blog.searcherParam.keyword);
+  const storeCategories = useSelector((state) => state.Blog.searcherParam.categories);
+  const storeTags = useSelector((state) => state.Blog.searcherParam.tags);
   const loading = useSelector((state) => state.Blog.loading);
   const dispatch = useDispatch();
 
   const [filterShowed, setFilterShowed] = useState(true);
-  const [keyword, setKeyword] = useState(storeKeyowrd);
+  const [keyword, setKeyword] = useState(storeKeyword);
   const [categories, setCategories] = useState(storeCategories);
   const [tags, setTags] = useState(storeTags);
 
@@ -205,7 +203,7 @@ function Searcher() {
           </ListWrapper>
         </TagCategoryWrapper>
         <FunctionWrapper>
-          <Button loading={loading} onClick={submit} label="搜尋" />
+          <Button loading={loading} onClick={submit} label={loading ? '搜尋中' : '搜尋'} />
           <ResetButton
             onClick={() => {
               setKeyword('');

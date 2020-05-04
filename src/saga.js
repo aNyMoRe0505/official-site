@@ -17,7 +17,6 @@ import {
 import {
   SAGA_CACHE_SEARCHER,
   CACHE_SEARCHER,
-  UPDATE_MOCK_LOADING_STATUS,
 } from './actions/Blog';
 
 import { fetchYoutube } from './helper/api';
@@ -50,10 +49,7 @@ function* handleClearYoutubeResult() {
 }
 
 function* handleCacheBlogSearcher({ params }) {
-  yield put({ type: UPDATE_MOCK_LOADING_STATUS, status: true });
-  // yield new Promise((res) => setTimeout(res, 1000));
   yield put({ type: CACHE_SEARCHER, params });
-  yield put({ type: UPDATE_MOCK_LOADING_STATUS, status: false });
 }
 
 export default function* rootSage() {

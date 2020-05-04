@@ -15,8 +15,6 @@ function Blog({
 }) {
   return (
     <Switch>
-      <Route path={`${url}/tagArticle/:categortId`} component={null} />
-      <Route path={`${url}/categoryArticle/:categortId`} component={null} />
       <Route path={`${url}/article/:articleId`} component={null} />
       <Route path={`${url}`} component={BlogContainer} />
       <Redirect to={`${url}`} />
