@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import BlogContainer from '../containers/Blog/Blog';
+import BlogContainer from '../containers/blog/Blog';
 
 function Blog({
   match: {

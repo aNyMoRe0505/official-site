@@ -150,6 +150,7 @@ function Blog() {
     await new Promise((res) => setTimeout(res, 1000));
 
     let filteredArticles = currentPage ? cachedList : articles;
+    let caching = [];
 
     if (!currentPage) {
       // 非fetch more才要重新整個filter
@@ -165,12 +166,15 @@ function Blog() {
             .some((tagId) => ~tags.findIndex((tag) => tag === tagId)));
       }
       // 快取起來, fetch more時直接以快取的array做slice
-      setArticleCachedList(filteredArticles);
+      caching = filteredArticles;
     }
     filteredArticles = filteredArticles.slice(currentPage * ARTICLE_LIMIT, currentPage * ARTICLE_LIMIT + ARTICLE_LIMIT);
 
     dispatch({ type: UPDATE_MOCK_LOADING_STATUS, status: false });
-    return filteredArticles;
+    return {
+      caching,
+      filteredArticles,
+    };
   }, [dispatch, keyword, categories, tags]);
 
   useEffect(() => {
@@ -180,8 +184,11 @@ function Blog() {
     const mockFetchArticles = async () => {
       // if articleList.length(?)
       setArticleList([]);
-      const filteredArticles = await getArticleList();
-      if (!unMounted) setArticleList(filteredArticles);
+      const { filteredArticles, caching } = await getArticleList();
+      if (!unMounted) {
+        setArticleCachedList(caching);
+        setArticleList(filteredArticles);
+      }
     };
 
     mockFetchArticles();
@@ -191,7 +198,7 @@ function Blog() {
   useBodyFetchMore(async () => {
     if (reachingEnd) return;
     setPage(page + 1);
-    const nextPageArticles = await getArticleList(page + 1, articleCachedList);
+    const { filteredArticles: nextPageArticles } = await getArticleList(page + 1, articleCachedList);
     if (nextPageArticles.length) {
       setArticleList([
         ...articleList,
