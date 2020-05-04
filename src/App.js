@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   BrowserRouter,
   Switch,
   Route,
   Redirect,
-  useLocation,
 } from 'react-router-dom';
 import styled from 'styled-components';
 import { Provider } from 'react-redux';
 
 import black from './static/d1023796.jpg';
 
+import GoToTop from './components/GoToTop';
 import Header from './containers/Header';
 import About from './containers/About';
 
@@ -39,20 +39,10 @@ const Container = styled.div`
   justify-content: flex-start;
 `;
 
-function ScrollToTop() {
-  const { pathname } = useLocation();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
-
-  return null;
-}
-
 function App() {
   return (
     <BrowserRouter basename="/official-site">
-      <ScrollToTop />
+      <GoToTop />
       <Provider store={store}>
         <Wrapper>
           <Header />
