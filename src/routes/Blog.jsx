@@ -7,6 +7,7 @@ import {
 import PropTypes from 'prop-types';
 
 import BlogContainer from '../containers/blog/Blog';
+import ArticleContainer from '../containers/blog/ArticleContainer';
 
 function Blog({
   match: {
@@ -15,7 +16,7 @@ function Blog({
 }) {
   return (
     <Switch>
-      <Route path={`${url}/article/:articleId`} component={null} />
+      <Route path={`${url}/article/:articleId`} component={ArticleContainer} />
       <Route path={`${url}`} component={BlogContainer} />
       <Redirect to={`${url}`} />
     </Switch>

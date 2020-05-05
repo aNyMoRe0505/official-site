@@ -23,7 +23,7 @@ import {
 import Searcher from './Searcher';
 import LoadingBox from '../../components/LoadingBox';
 
-import gogoro from '../../static/gogoro.png';
+import logo from '../../static/logo.png';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -124,11 +124,6 @@ const CategoryTagBtn = styled.div`
   background-color: ${({ actived }) => (actived ? styles.mainRed : styles.mainColor)};
 `;
 
-// TODO
-// Article Detail structure
-// Mock Pagination (fetch more)
-// Mock Loading (when searching and fetchmore)
-
 const ARTICLE_LIMIT = 10;
 
 function Blog() {
@@ -168,6 +163,7 @@ function Blog() {
       // 快取起來, fetch more時直接以快取的array做slice
       caching = filteredArticles;
     }
+
     filteredArticles = filteredArticles.slice(currentPage * ARTICLE_LIMIT, currentPage * ARTICLE_LIMIT + ARTICLE_LIMIT);
 
     dispatch({ type: UPDATE_MOCK_LOADING_STATUS, status: false });
@@ -215,8 +211,8 @@ function Blog() {
       {articleList.length ? (
         <ArticleWrapper>
           {articleList.map((article) => (
-            <ArticleBlock to="/" key={`article-${article.id}`}>
-              <ArticleCover src={gogoro} alt="articleCover" />
+            <ArticleBlock to={`/blog/article/${article.id}`} key={`article-${article.id}`}>
+              <ArticleCover src={logo} alt="articleCover" />
               <ArticleDescBlock>
                 <ArticleDesc>{article.title}</ArticleDesc>
                 <ArticleDesc>{article.description}</ArticleDesc>

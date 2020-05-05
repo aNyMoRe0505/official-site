@@ -1,3 +1,5 @@
+import Article1 from '../containers/blog/articles/Article1';
+
 export const categories = {
   1: 'Notes',
 };
@@ -12,43 +14,11 @@ export const tags = {
 };
 
 export const articles = [{
-  id: 5,
-  tagIds: [1, 2, 3],
-  categoryIds: [1],
-  title: '第4篇文章',
-  description: '第4篇文章的描述描述描述',
-  component: null,
-  date: new Date('2020/04/30'),
-}, {
-  id: 4,
-  tagIds: [1, 2, 3],
-  categoryIds: [1],
-  title: '第4篇文章',
-  description: '第4篇文章的描述描述描述',
-  component: null,
-  date: new Date('2020/04/30'),
-}, {
-  id: 3,
-  tagIds: [1, 2],
-  categoryIds: [1],
-  title: '第3篇文章',
-  description: '第3篇文章的描述描述描述',
-  component: null,
-  date: new Date('2020/04/29'),
-}, {
-  id: 2,
-  tagIds: [1],
-  categoryIds: [1],
-  title: '第2篇文章',
-  description: '第2篇文章的描述描述描述',
-  component: null,
-  date: new Date('2020/04/28'),
-}, {
   id: 1,
-  tagIds: [1, 2, 3],
+  tagIds: [1, 6],
   categoryIds: [1],
-  title: '第1篇文章',
-  description: '第1篇文章的描述描述描述',
-  component: null,
+  title: 'React Hook 順序重要性',
+  description: '會想記錄是因為之前看 hook 的官方文件時，有些不懂的地方。',
+  component: Article1,
   date: new Date('2020/04/27'),
 }];
