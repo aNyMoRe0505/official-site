@@ -1,4 +1,6 @@
 import Article1 from '../containers/blog/articles/Article1';
+import Article2 from '../containers/blog/articles/Article2';
+import logo from '../static/logo.png';
 
 export const categories = {
   1: 'Notes',
@@ -14,11 +16,21 @@ export const tags = {
 };
 
 export const articles = [{
-  id: 1,
-  tagIds: [1, 6],
+  id: 2,
+  cover: logo,
   categoryIds: [1],
+  tagIds: [3],
+  title: 'Webpack Config Note',
+  description: '會想要寫這篇是因為在公司寫的 webpack config 有些變化，覺得還蠻值得筆記XD',
+  component: Article2,
+  date: new Date('2020/02/21'),
+}, {
+  id: 1,
+  cover: logo,
+  categoryIds: [1],
+  tagIds: [1, 6],
   title: 'React Hook 順序重要性',
   description: '會想記錄是因為之前看 hook 的官方文件時，有些不懂的地方。',
   component: Article1,
-  date: new Date('2020/04/27'),
+  date: new Date('2020/02/15'),
 }];

@@ -23,8 +23,6 @@ import {
 import Searcher from './Searcher';
 import LoadingBox from '../../components/LoadingBox';
 
-import logo from '../../static/logo.png';
-
 const Wrapper = styled.div`
   width: 100%;
   max-width: 1200px;
@@ -52,6 +50,7 @@ const ArticleBlock = styled(Link)`
   justify-content: flex-start;
   box-shadow: 0px 0px 4px #80808078;
   border-radius: 5px;
+  padding: 15px;
   margin: 0 0 20px 0;
   transition-property: transform;
   transition-timing-function: ease-in-out;
@@ -69,6 +68,10 @@ const ArticleBlock = styled(Link)`
 
 const ArticleCover = styled.img`
   width: 200px;
+  margin: 0 10px 0 0;
+  @media (max-width: 768px) {
+    margin: 0 0 10px;
+  };
 `;
 
 const ArticleDescBlock = styled.div`
@@ -77,7 +80,6 @@ const ArticleDescBlock = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  padding: 15px;
   font-size: 18px;
   font-weight: 300;
   @media (max-width: 768px) {
@@ -212,7 +214,7 @@ function Blog() {
         <ArticleWrapper>
           {articleList.map((article) => (
             <ArticleBlock to={`/blog/article/${article.id}`} key={`article-${article.id}`}>
-              <ArticleCover src={logo} alt="articleCover" />
+              <ArticleCover src={article.cover} alt="articleCover" />
               <ArticleDescBlock>
                 <ArticleDesc>{article.title}</ArticleDesc>
                 <ArticleDesc>{article.description}</ArticleDesc>
