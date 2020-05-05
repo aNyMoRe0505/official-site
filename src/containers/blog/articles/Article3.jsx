@@ -4,16 +4,12 @@ import styled from 'styled-components';
 import Text from '../../../components/blog/Text';
 import Title from '../../../components/blog/Title';
 import Image from '../../../components/blog/Image';
-import SubTitle from '../../../components/blog/SubTitle';
+import Reference from '../../../components/blog/Reference';
 
 import { ARTICLE_META_TYPE } from '../../../helper/article';
 
 const SmallerImage = styled(Image)`
   max-width: 480px;
-`;
-
-const SmallMarginText = styled(Text)`
-  margin: 10px 0 0;
 `;
 
 function Article3() {
@@ -168,19 +164,14 @@ function Article3() {
       <Text>
         當初發現這個問題時懊惱了許久XD 後來才發現是快取的問題，在這裡寫下這篇提醒自己不管是在前端或後端，在設計 schema 時要特別注意小心。
       </Text>
-      <SubTitle strong>
-        參考資料
-      </SubTitle>
-      <SmallMarginText
-        meta={[{
+      <Reference
+        list={[{
           start: 3,
           end: 59,
-          type: ARTICLE_META_TYPE.LINK,
           url: 'https://kamranicus.com/posts/2018-03-06-graphql-apollo-object-caching',
+          name: '1. Elusive Bugs with GraphQL Object Caching in Apollo Client',
         }]}
-      >
-        1. Elusive Bugs with GraphQL Object Caching in Apollo Client
-      </SmallMarginText>
+      />
     </>
   );
 }

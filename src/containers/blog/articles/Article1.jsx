@@ -1,16 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
 
 import Text from '../../../components/blog/Text';
 import Title from '../../../components/blog/Title';
-import SubTitle from '../../../components/blog/SubTitle';
 import Image from '../../../components/blog/Image';
+import Reference from '../../../components/blog/Reference';
 
 import { ARTICLE_META_TYPE } from '../../../helper/article';
-
-const SmallMarginText = styled(Text)`
-  margin: 10px 0 0;
-`;
 
 function Article1() {
   return (
@@ -171,29 +166,19 @@ function Article1() {
       >
         看到這裡應該就能明白為什麼 hooks 的執行順序很重要，如果 hooks 在條件式內執行導致第一次 render 和 後續 render 順序不同，hook 將會使用錯誤的 index 取得錯誤的資料！
       </Text>
-      <SubTitle strong>
-        參考資料
-      </SubTitle>
-      <SmallMarginText
-        meta={[{
+      <Reference
+        list={[{
           start: 3,
           end: 16,
-          type: ARTICLE_META_TYPE.LINK,
           url: 'https://reactjs.org/docs/hooks-rules.html',
-        }]}
-      >
-        1. Rules of Hooks
-      </SmallMarginText>
-      <SmallMarginText
-        meta={[{
+          name: '1. Rules of Hooks',
+        }, {
           start: 3,
           end: 37,
-          type: ARTICLE_META_TYPE.LINK,
           url: 'https://medium.com/@ryardley/react-hooks-not-magic-just-arrays-cd4f1857236e',
+          name: '2. React hooks: not magic, just arrays',
         }]}
-      >
-        2. React hooks: not magic, just arrays
-      </SmallMarginText>
+      />
     </>
   );
 }
