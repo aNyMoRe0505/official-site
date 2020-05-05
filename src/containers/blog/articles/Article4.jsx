@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 import Text from '../../../components/blog/Text';
 import Title from '../../../components/blog/Title';
-import Image from '../../../components/blog/Image';
 import Reference from '../../../components/blog/Reference';
 
 import { ARTICLE_META_TYPE } from '../../../helper/article';
