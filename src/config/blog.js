@@ -1,6 +1,7 @@
 import Article1 from '../containers/blog/articles/Article1';
 import Article2 from '../containers/blog/articles/Article2';
 import Article3 from '../containers/blog/articles/Article3';
+import Article4 from '../containers/blog/articles/Article4';
 import logo from '../static/logo.png';
 
 export const categories = {
@@ -17,6 +18,15 @@ export const tags = {
 };
 
 export const articles = [{
+  id: 4,
+  cover: logo,
+  categoryIds: [1],
+  tagIds: [1],
+  title: 'React - PureComponent',
+  description: '前陣子有朋友開始學 React 問到 PureComponent 和 Component 的差別在哪裡，剛好順便寫下來做個簡單筆記。',
+  component: Article4,
+  date: new Date('2020/02/29'),
+}, {
   id: 3,
   cover: logo,
   categoryIds: [1],
