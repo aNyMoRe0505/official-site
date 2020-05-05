@@ -42,10 +42,7 @@ export const metaConverter = (meta, text) => {
         case ARTICLE_META_TYPE.LINK:
           result.push((
             <a
-              style={{
-                color: 'blue',
-                // textDecoration: 'none',
-              }}
+              className="article_link"
               rel="noopener noreferrer"
               target="_blank"
               href={meta[currentMetaIndex].url}
