@@ -108,6 +108,9 @@ const links = [{
   }, {
     path: '/hook-form',
     name: 'Hook Form',
+  }, {
+    path: '/indexTool',
+    name: 'Index Tool',
   }],
 }, {
   path: '/blog',

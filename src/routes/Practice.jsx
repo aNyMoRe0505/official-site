@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import Calendar from '../components/Calendar';
 import YoutubeContainer from '../containers/practice/YoutubeContainer';
 import HookForm from '../containers/practice/HookForm';
+import IndexTool from '../containers/practice/IndexTool';
 
 function Practice({
   match: {
@@ -17,6 +18,7 @@ function Practice({
 }) {
   return (
     <Switch>
+      <Route path={`${url}/indexTool`} component={IndexTool} />
       <Route path={`${url}/hook-form`} component={HookForm} />
       <Route path={`${url}/youtube`} component={YoutubeContainer} />
       <Route path={`${url}/calendar`} component={() => <Calendar defaultShowStatus />} />
