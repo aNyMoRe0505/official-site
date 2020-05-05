@@ -45,7 +45,6 @@ const ProfilePicture = styled.img`
 `;
 
 const NameDesc = styled.p`
-  margin: 0;
   font-size: 30px;
   font-weight: 300;
   margin: 0 0 15px;
