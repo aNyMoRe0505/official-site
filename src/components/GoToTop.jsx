@@ -41,7 +41,7 @@ function GoToTop() {
       const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
       const clientHeight = document.documentElement.clientHeight || document.body.clientHeight;
 
-      if (element.scrollTop > (scrollHeight - clientHeight) / 3) {
+      if (element.scrollTop > (scrollHeight - clientHeight) / 3 && element.scrollTop > 600) {
         btnRef.current.style.display = 'block';
       } else {
         btnRef.current.style.display = 'none';
