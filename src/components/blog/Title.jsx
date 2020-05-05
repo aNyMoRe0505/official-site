@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 const StyledTitle = styled.h1`
+  width: 100%;
+  text-align: start;
   font-size: 30px;
   margin: 30px 0 0;
   line-height: 1.6;

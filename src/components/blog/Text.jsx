@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import { metaConverter } from '../../helper/article';
 
 const StyledText = styled.p`
+  width: 100%;
+  text-align: start;
   margin: 30px 0 0;
   font-size: 18px;
   line-height: 1.6;

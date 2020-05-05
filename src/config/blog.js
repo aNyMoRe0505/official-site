@@ -1,5 +1,6 @@
 import Article1 from '../containers/blog/articles/Article1';
 import Article2 from '../containers/blog/articles/Article2';
+import Article3 from '../containers/blog/articles/Article3';
 import logo from '../static/logo.png';
 
 export const categories = {
@@ -16,6 +17,15 @@ export const tags = {
 };
 
 export const articles = [{
+  id: 3,
+  cover: logo,
+  categoryIds: [1],
+  tagIds: [1, 4, 5],
+  title: 'GraphQL Apollo Cache',
+  description: '之前在用 Apollo Client 來串接 GraphQL API 碰到了一些有關快取的問題，在這邊筆記一下。',
+  component: Article3,
+  date: new Date('2020/02/23'),
+}, {
   id: 2,
   cover: logo,
   categoryIds: [1],

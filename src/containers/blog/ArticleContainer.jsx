@@ -13,6 +13,10 @@ const Wrapper = styled.div`
   width: 100%;
   max-width: 750px;
   padding: 0 0 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
   @media (max-width: 768px) {
     padding: 0 0 15px;
   };

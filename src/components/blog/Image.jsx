@@ -30,9 +30,10 @@ const StyledRemark = styled.p`
 function Image({
   src,
   remark,
+  className,
 }) {
   return (
-    <ImageWrapper>
+    <ImageWrapper className={className}>
       <StyledImage src={src} alt="Article Image" />
       {remark && (
         <StyledRemark>
@@ -46,10 +47,12 @@ function Image({
 Image.propTypes = {
   src: PropTypes.string.isRequired,
   remark: PropTypes.string,
+  className: PropTypes.string,
 };
 
 Image.defaultProps = {
   remark: '',
+  className: '',
 };
 
 export default Image;
