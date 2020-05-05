@@ -1,16 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
 
 import Text from '../../../components/blog/Text';
 import Title from '../../../components/blog/Title';
-import SubTitle from '../../../components/blog/SubTitle';
 import Image from '../../../components/blog/Image';
 
 import { ARTICLE_META_TYPE } from '../../../helper/article';
-
-const SmallMarginText = styled(Text)`
-  margin: 10px 0 0;
-`;
 
 function Article2() {
   return (
