@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import { useForm, Controller } from 'react-hook-form';
 import moment from 'moment';
 
-import Input from '../components/form/Input';
-import Selector from '../components/form/Selector';
-import Checkbox from '../components/form/Checkbox';
-import WorkExperience from '../components/form/WorkExperience';
-import Button from '../components/Button';
+import Input from '../../components/form/Input';
+import Selector from '../../components/form/Selector';
+import Checkbox from '../../components/form/Checkbox';
+import WorkExperience from '../../components/form/WorkExperience';
+import Button from '../../components/Button';
 
 const Wrapper = styled.div`
   width: 100%;

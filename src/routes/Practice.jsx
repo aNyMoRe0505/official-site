@@ -7,8 +7,8 @@ import {
 import PropTypes from 'prop-types';
 
 import Calendar from '../components/Calendar';
-import YoutubeContainer from '../containers/YoutubeContainer';
-import HookForm from '../containers/HookForm';
+import YoutubeContainer from '../containers/practice/YoutubeContainer';
+import HookForm from '../containers/practice/HookForm';
 
 function Practice({
   match: {

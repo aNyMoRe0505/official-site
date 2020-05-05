@@ -2,8 +2,8 @@ import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
-import YoutubeSearcher from '../components/YoutubeSearcher';
-import LoadingBox from '../components/LoadingBox';
+import YoutubeSearcher from '../../components/YoutubeSearcher';
+import LoadingBox from '../../components/LoadingBox';
 
 const Wrapper = styled.div`
   width: 100%;
