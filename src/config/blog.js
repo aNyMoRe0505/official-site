@@ -2,6 +2,8 @@ import Article1 from '../containers/blog/articles/Article1';
 import Article2 from '../containers/blog/articles/Article2';
 import Article3 from '../containers/blog/articles/Article3';
 import Article4 from '../containers/blog/articles/Article4';
+import Article5 from '../containers/blog/articles/Article5';
+
 import logo from '../static/logo.png';
 
 export const categories = {
@@ -18,6 +20,15 @@ export const tags = {
 };
 
 export const articles = [{
+  id: 5,
+  cover: logo,
+  categoryIds: [1],
+  tagIds: [1],
+  title: 'React state update on an unmounted component',
+  description: '在做這個網站 About 的動畫時碰到這個 bug, 順便筆記一下',
+  component: Article5,
+  date: new Date('2020/05/07'),
+}, {
   id: 4,
   cover: logo,
   categoryIds: [1],

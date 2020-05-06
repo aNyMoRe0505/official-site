@@ -80,17 +80,30 @@ const ArticleDescBlock = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  font-size: 18px;
+  font-size: 15px;
   font-weight: 300;
   @media (max-width: 768px) {
     align-items: center;
-    font-size: 15px;
+    font-size: 13px;
   };
 `;
 
 const ArticlePublishTime = styled.p`
   margin: 0 0 10px;
   color: gray;
+`;
+
+const ArticleTitle = styled.p`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 18px;
+  margin: 0 0 10px;
+  @media (max-width: 768px) {
+    justify-content: center;
+    font-size: 15px;
+  };
 `;
 
 const ArticleDesc = styled.p`
@@ -121,7 +134,7 @@ const CategoryTagBtn = styled.div`
   padding: 0 8px;
   margin: 0 5px 5px;
   border-radius: 5px;
-  font-size: 16px;
+  font-size: 13px;
   color: white;
   background-color: ${({ actived }) => (actived ? styles.mainRed : styles.mainColor)};
 `;
@@ -216,7 +229,7 @@ function Blog() {
             <ArticleBlock to={`/blog/article/${article.id}`} key={`article-${article.id}`}>
               <ArticleCover src={article.cover} alt="articleCover" />
               <ArticleDescBlock>
-                <ArticleDesc>{article.title}</ArticleDesc>
+                <ArticleTitle>{article.title}</ArticleTitle>
                 <ArticleDesc>{article.description}</ArticleDesc>
                 <ArticlePublishTime>{moment(article.date).format('YYYY-MM-DD')}</ArticlePublishTime>
                 {article.categoryIds.length ? (
