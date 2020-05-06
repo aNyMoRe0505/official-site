@@ -251,15 +251,15 @@ const educationHistory = [{
   logo: klcivs,
   name: '國立基隆高級商工職業學校',
   department: '綜合高中科',
-  from: new Date('2019/01/01'),
-  to: new Date('2020/02/28'),
+  from: '2011-09',
+  to: '2014-06',
 }, {
   id: 'NCCU',
   logo: nccu,
   name: '國立政治大學',
   department: '資訊管理學系',
-  from: new Date('2019/01/01'),
-  to: new Date('2020/02/28'),
+  from: '2014-09',
+  to: '2018-06',
 }];
 
 const workExperiences = [{
@@ -358,7 +358,7 @@ function About() {
             <DescBlock>
               <Desc>{`${education.id} - ${education.name}`}</Desc>
               <Desc>{education.department}</Desc>
-              <Desc>{`${moment(education.from).format('YYYY-MM-DD')} ~ ${moment(education.to).format('YYYY-MM-DD')}`}</Desc>
+              <Desc>{`${education.from} ~ ${education.to}`}</Desc>
             </DescBlock>
           </Card>
         ))}
