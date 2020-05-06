@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import moment from 'moment';
 
 import styles from '../config/style';
 import { useRepeatedAnimation } from '../helper/hooks';
+
+import Button from '../components/Button';
 
 import profile from '../static/profile.jpg';
 import gogoro from '../static/gogoro.png';
@@ -12,6 +14,8 @@ import mail from '../static/mail.png';
 import medium from '../static/medium.png';
 import github from '../static/github.png';
 import facebook from '../static/facebook.png';
+import klcivs from '../static/klcivs.gif';
+import nccu from '../static/nccu.jpg';
 
 const wave = keyframes`
   0% {
@@ -53,7 +57,7 @@ const NameDesc = styled.p`
   };
 `;
 
-const Desc = styled.p`
+const ProfileDesc = styled.p`
   margin: 0;
   font-size: 20px;
   text-align: start;
@@ -65,43 +69,75 @@ const Desc = styled.p`
   };
 `;
 
-const WorkExperienceWrapper = styled.div`
+const FadeIn = css`
+  max-height: 100%;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+`;
+
+const FadeOut = css`
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0s 0.5s, opacity 0.5s ease-in-out;
+`;
+
+const BlockWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   margin: 0 0 15px;
+  ${({ status }) => (status && FadeIn) || FadeOut}
 `;
 
-const WorkExperienceTitle = styled.p`
+const BlockTitleWrap = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0 15px;
+`;
+
+const StyledBlcokMarkBtn = styled(Button)`
+  width: 26px;
+  height: 26px;
+  border-radius: 100%;
+  background-color: ${({ status }) => (status ? styles.mainRed : styles.mainColor)};
+  transform: ${({ status }) => (status ? 'rotate(135deg)' : 'rotate(0deg)')};
+  transition-duration: 0.3s;
+  transition-property: transform;
+  transition-timing-function: ease-in-out;
+`;
+
+const BlockTitle = styled.p`
+  margin: 0;
   font-size: 25px;
   font-weight: 300;
-  margin: 0 0 15px;
   @media (max-width: 768px) {
     font-size: 22px;
   };
 `;
 
-const WorkExperienceBlock = styled.div`
+const Card = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   box-shadow: 0px 0px 4px #80808078;
   margin: 0 0 20px;
+  padding: 15px;
   @media (max-width: 768px) {
     flex-direction: column;
   };
 `;
 
-const WorkExperienceDescBlock = styled.div`
+const DescBlock = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  padding: 15px;
   font-size: 18px;
   font-weight: 300;
   @media (max-width: 768px) {
@@ -110,10 +146,10 @@ const WorkExperienceDescBlock = styled.div`
   };
 `;
 
-const WorkExperienceDesc = styled.p`
+const Desc = styled.p`
   width: 100%;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
   margin: 0 0 10px;
   @media (max-width: 768px) {
@@ -138,8 +174,13 @@ const WorkingTimeTotal = styled.p`
   letter-spacing: 2px;
 `;
 
-const CompanyLogo = styled.img`
+const Logo = styled.img`
   width: 200px;
+  margin: 0 15px 0 0;
+  @media (max-width: 768px) {
+    margin: 0 0 15px;
+    flex-direction: column;
+  };
 `;
 
 const IconWrap = styled.div`
@@ -172,7 +213,7 @@ const SkillAnimation = css`
   animation-duration: 1.5s;
   animation-delay: ${({ delay }) => (delay)};
   animation-iteration-count: 1;
-  animation-timing-function: ease;
+  animation-timing-function: ease-in-out;
   animation-fill-mode: forwards;
 `;
 
@@ -205,11 +246,27 @@ const skills = [
   'Webpack',
 ];
 
+const educationHistory = [{
+  id: 'KLCIVS',
+  logo: klcivs,
+  name: '國立基隆高級商工職業學校',
+  department: '綜合高中科',
+  from: new Date('2019/01/01'),
+  to: new Date('2020/02/28'),
+}, {
+  id: 'NCCU',
+  logo: nccu,
+  name: '國立政治大學',
+  department: '資訊管理學系',
+  from: new Date('2019/01/01'),
+  to: new Date('2020/02/28'),
+}];
+
 const workExperiences = [{
   id: 'gogoro',
   companyAbbrev: 'Gogoro',
   companyName: '睿能創意股份有限公司',
-  companyLogo: gogoro,
+  logo: gogoro,
   jobTitle: 'React 前端工程師',
   jobDesc: [
     '以 React 開發公司內部系統、對外網頁',
@@ -221,7 +278,7 @@ const workExperiences = [{
   id: 'rytass',
   companyAbbrev: 'Rytass',
   companyName: '八拍子股份有限公司',
-  companyLogo: rytass,
+  logo: rytass,
   jobTitle: '軟體工程師',
   jobDesc: [
     '以 React 開發客戶網頁、後台，串接 Restful、GraphQL API',
@@ -234,13 +291,16 @@ const workExperiences = [{
 
 function About() {
   const [animationElementRef, actived] = useRepeatedAnimation(1500);
+  const [workExperienceExpanded, setWorkExperienceExpanded] = useState(true);
+  const [educationExpanded, setEducationExpanded] = useState(true);
+
   return (
     <Wrapper>
       <ProfilePicture src={profile} alt="profile" />
       <NameDesc>Paul Wang</NameDesc>
-      <Desc>
+      <ProfileDesc>
         喜歡寫程式，擁有良好的溝通能力，樂於和同事分享、學習以及嘗試新的技術。前後端領域在求學階段以及畢業後都有接觸，具備基本專業知識。
-      </Desc>
+      </ProfileDesc>
       <IconWrap>
         <a
           rel="noopener noreferrer"
@@ -283,36 +343,63 @@ function About() {
           </Skill>
         ))}
       </SkillWrapper>
-      <WorkExperienceWrapper>
-        <WorkExperienceTitle>工作經歷</WorkExperienceTitle>
+      <BlockTitleWrap>
+        <BlockTitle>教育背景</BlockTitle>
+        <StyledBlcokMarkBtn
+          status={educationExpanded}
+          onClick={() => setEducationExpanded(!educationExpanded)}
+          label="＋"
+        />
+      </BlockTitleWrap>
+      <BlockWrapper status={educationExpanded}>
+        {educationHistory.map((education) => (
+          <Card key={education.id}>
+            <Logo src={education.logo} alt="logo" />
+            <DescBlock>
+              <Desc>{`${education.id} - ${education.name}`}</Desc>
+              <Desc>{education.department}</Desc>
+              <Desc>{`${moment(education.from).format('YYYY-MM-DD')} ~ ${moment(education.to).format('YYYY-MM-DD')}`}</Desc>
+            </DescBlock>
+          </Card>
+        ))}
+      </BlockWrapper>
+      <BlockTitleWrap>
+        <BlockTitle>工作經歷</BlockTitle>
+        <StyledBlcokMarkBtn
+          status={workExperienceExpanded}
+          onClick={() => setWorkExperienceExpanded(!workExperienceExpanded)}
+          label="＋"
+        />
+      </BlockTitleWrap>
+      <BlockWrapper status={workExperienceExpanded}>
         {workExperiences.map((experience) => {
           const monthDiff = moment(experience.to).diff(experience.from, 'months');
           const yearDiff = Math.floor(monthDiff / 12);
           return (
-            <WorkExperienceBlock key={experience.id}>
-              <CompanyLogo src={experience.companyLogo} alt="companyLogo" />
-              <WorkExperienceDescBlock>
-                <WorkExperienceDesc>{`${experience.companyAbbrev} - ${experience.companyName}`}</WorkExperienceDesc>
-                <WorkExperienceDesc>{experience.jobTitle}</WorkExperienceDesc>
+            <Card key={experience.id}>
+              <Logo src={experience.logo} alt="logo" />
+              <DescBlock>
+                <Desc>{`${experience.companyAbbrev} - ${experience.companyName}`}</Desc>
+                <Desc>{experience.jobTitle}</Desc>
                 <WorkingTimeWrap>
-                  <WorkExperienceDesc style={{ margin: 0 }}>
+                  <Desc style={{ margin: 0 }}>
                     {`${moment(experience.from).format('YYYY-MM-DD')} ~ ${moment(experience.to).format('YYYY-MM-DD')}`}
-                  </WorkExperienceDesc>
+                  </Desc>
                   <WorkingTimeTotal>
                     {`${yearDiff}年${monthDiff - 12 * yearDiff}個月`}
                   </WorkingTimeTotal>
                 </WorkingTimeWrap>
                 {experience.jobDesc.map((desc) => (
-                  <WorkExperienceDesc key={desc}>
+                  <Desc key={desc}>
                     。
                     <span style={{ flex: 1 }}>{desc}</span>
-                  </WorkExperienceDesc>
+                  </Desc>
                 ))}
-              </WorkExperienceDescBlock>
-            </WorkExperienceBlock>
+              </DescBlock>
+            </Card>
           );
         })}
-      </WorkExperienceWrapper>
+      </BlockWrapper>
     </Wrapper>
   );
 }
