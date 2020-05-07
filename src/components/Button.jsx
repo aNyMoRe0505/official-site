@@ -17,7 +17,7 @@ const StyledButton = styled.button`
   border-radius: 5px;
   padding: 0;
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
-  font-size: 16px;
+  font-size: 14px;
   margin: 0 10px;
   :hover {
     opacity: 0.8;
