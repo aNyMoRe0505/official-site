@@ -3,6 +3,7 @@ import Article2 from '../containers/blog/articles/Article2';
 import Article3 from '../containers/blog/articles/Article3';
 import Article4 from '../containers/blog/articles/Article4';
 import Article5 from '../containers/blog/articles/Article5';
+import Article6 from '../containers/blog/articles/Article6';
 
 import logo from '../static/logo.png';
 
@@ -20,6 +21,15 @@ export const tags = {
 };
 
 export const articles = [{
+  id: 6,
+  cover: logo,
+  categoryIds: [1],
+  tagIds: [1, 6],
+  title: 'usePrevious Hook',
+  description: '探討如何在 function component 取得之前的 props/state',
+  component: Article6,
+  date: new Date('2020/05/07'),
+}, {
   id: 5,
   cover: logo,
   categoryIds: [1],
@@ -27,7 +37,7 @@ export const articles = [{
   title: 'React state update on an unmounted component',
   description: '在做這個網站 About 的動畫時碰到這個 bug, 順便筆記一下',
   component: Article5,
-  date: new Date('2020/05/07'),
+  date: new Date('2020/05/06'),
 }, {
   id: 4,
   cover: logo,

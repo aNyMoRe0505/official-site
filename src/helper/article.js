@@ -3,6 +3,7 @@ import React from 'react';
 export const ARTICLE_META_TYPE = {
   STRONG: 'STRONG',
   LINK: 'LINK',
+  BLOCK: 'BLOCK',
 };
 
 export const metaConverter = (meta, text) => {
@@ -52,6 +53,24 @@ export const metaConverter = (meta, text) => {
             </a>
           ));
           break;
+
+        case ARTICLE_META_TYPE.BLOCK:
+          result.push((
+            <span
+              style={{
+                color: '#bd4147',
+                borderRadius: '5px',
+                padding: '3px 6px',
+                backgroundColor: 'rgb(246, 246, 249)',
+                border: '1px solid #e6e6e6',
+              }}
+              key={currentMetaIndex}
+            >
+              {`${content}`}
+            </span>
+          ));
+          break;
+
 
         default:
           result.push(`${content}${char}`);
