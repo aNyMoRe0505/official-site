@@ -34,7 +34,7 @@ export const metaConverter = (meta, text) => {
       switch (meta[currentMetaIndex].type) {
         case ARTICLE_META_TYPE.STRONG:
           result.push((
-            <span key={currentMetaIndex} style={{ fontWeight: 400 }}>
+            <span key={currentMetaIndex} style={{ fontWeight: 500 }}>
               {content}
             </span>
           ));
