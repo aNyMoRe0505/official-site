@@ -147,7 +147,6 @@ function Blog() {
   const [articleCachedList, setArticleCachedList] = useState([]);
   const [reachingEnd, setReachingEnd] = useState(false);
 
-  // 分開拿才不會造成無意義的re render(shallow compared) (?為什麼array tags, categories 不會 應該也是比較ref..)
   const tags = useSelector((state) => state.Blog.searcherParam.tags);
   const keyword = useSelector((state) => state.Blog.searcherParam.keyword);
   const categories = useSelector((state) => state.Blog.searcherParam.categories);
