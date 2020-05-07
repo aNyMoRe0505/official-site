@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 const StyledSyntaxHighlighter = styled(SyntaxHighlighter)`
   margin: 30px 0 0;
+  width: 100%;
   @media (max-width: 768px) {
     margin: 15px 0 0;
   };
