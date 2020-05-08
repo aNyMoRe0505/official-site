@@ -8,7 +8,7 @@ const StyledSubTitle = styled.h1`
   font-size: 25px;
   margin: 30px 0 0;
   line-height: 1.6;
-  font-weight: ${({ strong }) => (strong ? '400' : '300')};
+  font-weight: ${({ strong }) => (strong ? '500' : '300')};
   @media (max-width: 768px) {
     font-size: 22px;
     margin: 15px 0 0;

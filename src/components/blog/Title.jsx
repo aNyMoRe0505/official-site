@@ -8,7 +8,7 @@ const StyledTitle = styled.h1`
   font-size: 30px;
   margin: 30px 0 0;
   line-height: 1.6;
-  font-weight: ${({ strong }) => (strong ? '400' : '300')};
+  font-weight: ${({ strong }) => (strong ? '500' : '300')};
   @media (max-width: 768px) {
     font-size: 27px;
     margin: 15px 0 0;
