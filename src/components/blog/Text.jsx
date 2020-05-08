@@ -10,7 +10,7 @@ const StyledText = styled.p`
   margin: 30px 0 0;
   font-size: 18px;
   line-height: 1.6;
-  font-weight: ${({ strong }) => (strong ? '400' : '300')};
+  font-weight: ${({ strong }) => (strong ? '500' : '300')};
   @media (max-width: 768px) {
     font-size: 15px;
     margin: 15px 0 0;
