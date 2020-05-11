@@ -86,8 +86,8 @@ const Dot = styled.button`
 `;
 
 const slideToShowDecider = (width) => {
-  if (width >= 768) return 3;
-  if (width < 768 && width > 414) return 2;
+  if (width > 768) return 3;
+  if (width <= 768 && width > 414) return 2;
   return 1;
 };
 
