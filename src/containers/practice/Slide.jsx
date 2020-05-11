@@ -1,5 +1,5 @@
 /* eslint-disable react/no-array-index-key */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled, { css } from 'styled-components';
 
 import Button from '../../components/Button';
@@ -17,7 +17,7 @@ const imagesArray = [
   'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ0cAAuK4C4v8g58Wv_KbdNnxWY3V5tO_ZHCw2fmDf10gmeIJTt&usqp=CAU',
 ];
 
-const IMAGE_WIDTH = 200;
+// const IMAGE_WIDTH = 200;
 
 const Wrapper = styled.div`
   width: 100%;
@@ -29,7 +29,7 @@ const Wrapper = styled.div`
 
 const SlideWrapper = styled.div`
   width: 100%;
-  max-width: ${({ slideToShow }) => `${slideToShow * IMAGE_WIDTH}px`};
+  max-width: 615px;
   height: 200px;
   position: relative;
   display: flex;
@@ -39,13 +39,14 @@ const SlideWrapper = styled.div`
 `;
 
 const Image = styled.img`
-  width: ${`${IMAGE_WIDTH}px`};
-  height: ${`${IMAGE_WIDTH}px`};
+  width: 200px;
+  height: 200px;
   position: absolute;
   transform: ${({ translateXValue }) => `translateX(${translateXValue}px)`};
   transition-duration: 0.5s;
   transition-property: transform;
   transition-timing-function: ease-in-out;
+  ${({ customStyle }) => customStyle && customStyle}
 `;
 
 const PrevStyle = css`
@@ -96,22 +97,29 @@ const slideToShowDecider = (width) => {
 function Slide() {
   const [slideToShow, setSlideToShow] = useState(slideToShowDecider(document.body.clientWidth || document.documentElement.clientWidth));
   const [currentIndex, setIndex] = useState(0);
+  const slideWrapperRef = useRef();
+  const [slideRect, setSlideRect] = useState();
 
   useEffect(() => {
+    setSlideRect(slideWrapperRef.current.getBoundingClientRect());
+
     const resizing = () => {
       setIndex(0);
       const clientWidth = document.body.clientWidth || document.documentElement.clientWidth;
       const showValue = slideToShowDecider(clientWidth);
       setSlideToShow(showValue);
+      setSlideRect(slideWrapperRef.current.getBoundingClientRect());
     };
 
     window.addEventListener('resize', resizing);
     return () => window.removeEventListener('resize', resizing);
   }, []);
 
+  const slideWidth = slideRect?.width ?? 0;
+
   return (
     <Wrapper>
-      <SlideWrapper slideToShow={slideToShow}>
+      <SlideWrapper ref={slideWrapperRef} slideToShow={slideToShow}>
         <ArrowBtn
           disabled={currentIndex - slideToShow < 0}
           onClick={() => {
@@ -126,7 +134,15 @@ function Slide() {
         />
         {imagesArray.map((image, index) => (
           <Image
-            translateXValue={(index - currentIndex) * IMAGE_WIDTH}
+            customStyle={css`
+              @media (max-width: 768px) {
+                width: ${`${slideWidth / 2}px`};
+              };
+              @media (max-width: 414px) {
+                width: ${`${slideWidth}px`};
+              };
+            `}
+            translateXValue={(index - currentIndex) * ((slideWidth / slideToShow) + 5)}
             key={`${image}-${index}`}
             src={image}
           />
