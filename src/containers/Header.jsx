@@ -111,6 +111,9 @@ const links = [{
   }, {
     path: '/indexTool',
     name: 'Index Tool',
+  }, {
+    path: '/slide',
+    name: 'Slide',
   }],
 }, {
   path: '/blog',

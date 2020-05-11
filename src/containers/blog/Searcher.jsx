@@ -203,7 +203,7 @@ function Searcher() {
           </ListWrapper>
         </TagCategoryWrapper>
         <FunctionWrapper>
-          <Button loading={loading} onClick={submit} label={loading ? '搜尋中' : '搜尋'} />
+          <Button disabled={loading} onClick={submit} label={loading ? '搜尋中' : '搜尋'} />
           <ResetButton
             onClick={() => {
               setKeyword('');

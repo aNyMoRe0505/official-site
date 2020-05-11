@@ -30,11 +30,11 @@ function Button({
   label,
   type,
   onClick,
-  loading,
+  disabled,
 }) {
   return (
     <StyledButton
-      disabled={loading}
+      disabled={disabled}
       onClick={() => {
         if (onClick) onClick();
       }}
@@ -51,14 +51,14 @@ Button.propTypes = {
   label: PropTypes.string.isRequired,
   type: PropTypes.string,
   onClick: PropTypes.func,
-  loading: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 Button.defaultProps = {
   className: '',
   type: 'button',
   onClick: null,
-  loading: false,
+  disabled: false,
 };
 
 export default Button;
