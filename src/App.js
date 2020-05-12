@@ -27,11 +27,12 @@ const store = getStore();
 
 const Wrapper = styled.div`
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  position: relative;
 `;
 
 const Container = styled.div`
@@ -46,6 +47,16 @@ const Container = styled.div`
   transition-duration: 0.2s;
   transition-property: background-color;
   transition-timing-function: ease;
+`;
+
+const IconProviderWrap = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  color: gray;
 `;
 
 function MainBoard() {
@@ -86,6 +97,17 @@ function App() {
           <Wrapper>
             <Header />
             <MainBoard />
+            <IconProviderWrap>
+              Icon:
+              <a
+                style={{ margin: '0 0 0 5px', color: 'rgb(87, 173, 92)' }}
+                rel="noopener noreferrer"
+                target="_blank"
+                href="https://icons8.com/"
+              >
+                Icons8
+              </a>
+            </IconProviderWrap>
           </Wrapper>
         </DarkModeContext.Provider>
       </Provider>

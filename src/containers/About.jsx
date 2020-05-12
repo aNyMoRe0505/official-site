@@ -10,10 +10,6 @@ import Button from '../components/Button';
 import profile from '../static/profile.jpg';
 import gogoro from '../static/gogoro.png';
 import rytass from '../static/rytass.png';
-import mail from '../static/mail.png';
-import medium from '../static/medium.png';
-import github from '../static/github.png';
-import facebook from '../static/facebook.png';
 import klcivs from '../static/klcivs.gif';
 import nccu from '../static/nccu.jpg';
 
@@ -306,28 +302,28 @@ function About() {
           target="_blank"
           href="https://mail.google.com/mail/u/0/?view=cm&fs=1&tf=1&to=anymore0505@gmail.com"
         >
-          <Icon src={mail} alt="mail" />
+          <Icon src="https://img.icons8.com/material-rounded/96/000000/important-mail.png" alt="mail" />
         </a>
         <a
           rel="noopener noreferrer"
           target="_blank"
           href="https://medium.com/@anymore0505"
         >
-          <Icon style={{ width: 30, height: 30 }} src={medium} alt="medium" />
+          <Icon style={{ width: 30, height: 30 }} src="https://img.icons8.com/ios-filled/50/000000/medium-new.png" alt="medium" />
         </a>
         <a
           rel="noopener noreferrer"
           target="_blank"
           href="https://github.com/aNyMoRe0505"
         >
-          <Icon src={github} alt="github" />
+          <Icon src="https://img.icons8.com/ios-filled/100/000000/github.png" alt="github" />
         </a>
         <a
           rel="noopener noreferrer"
           target="_blank"
           href="https://www.facebook.com/profile.php?id=100000335534011"
         >
-          <Icon style={{ margin: '0px 0px 3px 0px' }} src={facebook} alt="facebook" />
+          <Icon src="https://img.icons8.com/ios-filled/50/000000/facebook-new.png" alt="facebook" />
         </a>
       </IconWrap>
       <SkillWrapper>

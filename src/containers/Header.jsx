@@ -130,7 +130,7 @@ function Header() {
   return (
     <HeaderWrapper>
       <LogoLink onClick={() => setMobileMenu(false)} to="/">
-        <Logo src="https://img.icons8.com/ios/100/000000/circled-a.png" alt="logo" />
+        <Logo src="https://img.icons8.com/ios/100/000000/circled-p.png" alt="logo" />
       </LogoLink>
       <LinkWrapper>
         {links.map((link) => (
