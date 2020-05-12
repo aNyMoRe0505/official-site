@@ -5,8 +5,6 @@ import moment from 'moment';
 import styles from '../config/style';
 import { useRepeatedAnimation } from '../helper/hooks';
 
-import Button from '../components/Button';
-
 import profile from '../static/profile.jpg';
 import gogoro from '../static/gogoro.png';
 import rytass from '../static/rytass.png';
@@ -94,11 +92,17 @@ const BlockTitleWrap = styled.div`
   margin: 0 0 15px;
 `;
 
-const StyledBlcokMarkBtn = styled(Button)`
+const StyledBlcokMarkBtn = styled.button`
   width: 26px;
   height: 26px;
-  border-radius: 100%;
-  background-color: ${({ status }) => (status ? styles.mainRed : styles.mainColor)};
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0 10px;
+  :hover {
+    opacity: 0.8
+  };
   transform: ${({ status }) => (status ? 'rotate(135deg)' : 'rotate(0deg)')};
   transition-duration: 0.3s;
   transition-property: transform;
@@ -343,8 +347,9 @@ function About() {
         <StyledBlcokMarkBtn
           status={educationExpanded}
           onClick={() => setEducationExpanded(!educationExpanded)}
-          label="＋"
-        />
+        >
+          <img style={{ width: '100%' }} alt="plus" src="https://img.icons8.com/ios/80/000000/plus.png" />
+        </StyledBlcokMarkBtn>
       </BlockTitleWrap>
       <BlockWrapper status={educationExpanded}>
         {educationHistory.map((education) => (
@@ -363,8 +368,9 @@ function About() {
         <StyledBlcokMarkBtn
           status={workExperienceExpanded}
           onClick={() => setWorkExperienceExpanded(!workExperienceExpanded)}
-          label="＋"
-        />
+        >
+          <img style={{ width: '100%' }} alt="plus" src="https://img.icons8.com/ios/80/000000/plus.png" />
+        </StyledBlcokMarkBtn>
       </BlockTitleWrap>
       <BlockWrapper status={workExperienceExpanded}>
         {workExperiences.map((experience) => {
