@@ -6,7 +6,7 @@ export const ARTICLE_META_TYPE = {
   BLOCK: 'BLOCK',
 };
 
-export const metaConverter = (meta, text) => {
+export const metaConverter = (meta, text, darkMode = false) => {
   if (!meta.length) return text;
 
   const result = [];
@@ -46,6 +46,7 @@ export const metaConverter = (meta, text) => {
               className="article_link"
               rel="noopener noreferrer"
               target="_blank"
+              style={(darkMode && { color: '#ffa7c4' }) || {}}
               href={meta[currentMetaIndex].url}
               key={currentMetaIndex}
             >

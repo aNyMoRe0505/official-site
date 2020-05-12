@@ -34,7 +34,9 @@ const FilterWrapper = styled.div`
   justify-content: flex-start;
   border-radius: 5px;
   padding: 20px;
-  box-shadow: 0px 0px 25px #80808078;
+  box-shadow: 0px 0px 4px #80808078;
+  color: white;
+  background-color: white;
 `;
 
 const InputWrapper = styled.div`
@@ -46,6 +48,7 @@ const InputWrapper = styled.div`
 `;
 
 const StyledLabel = styled.span`
+  color: black;
   font-size: 16px;
   width: ${({ width }) => width || '64px'};
 `;
@@ -64,6 +67,8 @@ const StyledInput = styled.input`
   };
   transition-duration: 0.3s;
   transition-property: border-color;
+  background-color: transparent;
+  color: black;
   transition-timing-function: ease-in-out;
 `;
 

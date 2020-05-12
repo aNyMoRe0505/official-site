@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
-import logo from '../static/logo.png';
 import hamburger from '../static/hamburger.png';
 
 import Link from '../components/Link';
@@ -131,7 +130,7 @@ function Header() {
   return (
     <HeaderWrapper>
       <LogoLink onClick={() => setMobileMenu(false)} to="/">
-        <Logo src={logo} alt="logo" />
+        <Logo src="https://img.icons8.com/ios/100/000000/circled-a.png" alt="logo" />
       </LogoLink>
       <LinkWrapper>
         {links.map((link) => (

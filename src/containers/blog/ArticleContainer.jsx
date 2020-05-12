@@ -9,7 +9,7 @@ import {
   articles,
 } from '../../config/blog';
 
-const Wrapper = styled.div`
+const ArticleWrapper = styled.div`
   width: 100%;
   max-width: 750px;
   padding: 0 0 30px;
@@ -29,9 +29,9 @@ function ArticleContainer() {
   if (!targetArticle) return <Redirect to="/blog" />;
 
   return (
-    <Wrapper>
+    <ArticleWrapper>
       <targetArticle.component />
-    </Wrapper>
+    </ArticleWrapper>
   );
 }
 

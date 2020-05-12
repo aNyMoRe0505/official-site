@@ -22,6 +22,7 @@ const GoTopBtn = styled.button`
   border: none;
   display: none;
   cursor: pointer;
+  z-index: 99;
   :hover {
     opacity: 0.8;
   };

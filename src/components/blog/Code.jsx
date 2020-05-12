@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
+import { tomorrowNight, defaultStyle } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+
+import { DarkModeContext } from '../../config/context';
 
 const StyledSyntaxHighlighter = styled(SyntaxHighlighter)`
   margin: 30px 0 0;
@@ -14,8 +17,10 @@ const StyledSyntaxHighlighter = styled(SyntaxHighlighter)`
 function Code({
   children,
 }) {
+  const darkMode = useContext(DarkModeContext);
+
   return (
-    <StyledSyntaxHighlighter showLineNumbers language="javascript">
+    <StyledSyntaxHighlighter style={(darkMode && tomorrowNight) || defaultStyle} showLineNumbers language="javascript">
       {children}
     </StyledSyntaxHighlighter>
   );

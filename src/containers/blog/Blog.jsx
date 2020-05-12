@@ -28,7 +28,7 @@ const Wrapper = styled.div`
   max-width: 1200px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 `;
 
@@ -48,16 +48,17 @@ const ArticleBlock = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  box-shadow: 0px 0px 4px #80808078;
   border-radius: 5px;
   padding: 15px;
   margin: 0 0 20px 0;
-  transition-property: transform;
-  transition-timing-function: ease-in-out;
-  transition-duration: 0.3s;
   text-decoration: none;
+  box-shadow: 0px 0px 4px #80808078;
   color: black;
   cursor: pointer;
+  background-color: white;
+  transition-duration: 0.2s;
+  transition-property: transform;
+  transition-timing-function: ease;
   :hover {
     transform: scale(1.05);
   };
