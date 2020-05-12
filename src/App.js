@@ -49,6 +49,7 @@ const Container = styled.div`
 `;
 
 function MainBoard() {
+  // 先暫時為了用useRouteMatch拆開
   const darkMode = useContext(DarkModeContext);
   const matchArticleDetailRoute = useRouteMatch('/blog/article/:articleId');
 
