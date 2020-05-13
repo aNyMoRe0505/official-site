@@ -98,6 +98,7 @@ const StyledBlcokMarkBtn = styled.button`
   border: none;
   outline: none;
   cursor: pointer;
+  background-color: transparent;
   padding: 0;
   margin: 0 10px;
   :hover {
