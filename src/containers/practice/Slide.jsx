@@ -132,21 +132,25 @@ function Slide() {
           }}
           label="＜"
         />
-        {imagesArray.map((image, index) => (
-          <Image
-            customStyle={css`
-              @media (max-width: 768px) {
-                width: ${`${slideWidth / 2}px`};
-              };
-              @media (max-width: 414px) {
-                width: ${`${slideWidth}px`};
-              };
-            `}
-            translateXValue={(index - currentIndex) * ((slideWidth / slideToShow) + 5)}
-            key={`${image}-${index}`}
-            src={image}
-          />
-        ))}
+        {slideWidth && (
+          <>
+            {imagesArray.map((image, index) => (
+              <Image
+                customStyle={css`
+                  @media (max-width: 768px) {
+                    width: ${`${slideWidth / 2}px`};
+                  };
+                  @media (max-width: 414px) {
+                    width: ${`${slideWidth}px`};
+                  };
+                `}
+                translateXValue={(index - currentIndex) * ((slideWidth / slideToShow) + 5)}
+                key={`${image}-${index}`}
+                src={image}
+              />
+            ))}
+          </>
+        )}
         <ArrowBtn
           disabled={currentIndex + slideToShow >= imagesArray.length}
           onClick={() => {
