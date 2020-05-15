@@ -37,8 +37,8 @@ const Wrapper = styled.div`
 
 const Container = styled.div`
   width: 100%;
-  min-height: 100%;
-  padding: 95px 25px 25px;
+  min-height: 100vh;
+  padding: 95px 25px 45px;
   display: flex;
   flex-direction: column;
   align-items: center;

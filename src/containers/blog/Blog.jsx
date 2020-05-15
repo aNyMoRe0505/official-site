@@ -25,6 +25,7 @@ import LoadingBox from '../../components/LoadingBox';
 
 const Wrapper = styled.div`
   width: 100%;
+  height: 100%;
   max-width: 1200px;
   display: flex;
   flex-direction: column;

@@ -113,6 +113,9 @@ const links = [{
   }, {
     path: '/slide',
     name: 'Slide',
+  }, {
+    path: '/notification',
+    name: 'Notification',
   }],
 }, {
   path: '/blog',

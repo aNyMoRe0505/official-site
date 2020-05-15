@@ -11,6 +11,7 @@ import YoutubeContainer from '../containers/practice/YoutubeContainer';
 import HookForm from '../containers/practice/HookForm';
 import IndexTool from '../containers/practice/IndexTool';
 import Slide from '../containers/practice/Slide';
+import Notification from '../containers/practice/Notification';
 
 function Practice({
   match: {
@@ -19,6 +20,7 @@ function Practice({
 }) {
   return (
     <Switch>
+      <Route path={`${url}/notification`} component={Notification} />
       <Route path={`${url}/slide`} component={Slide} />
       <Route path={`${url}/indexTool`} component={IndexTool} />
       <Route path={`${url}/hook-form`} component={HookForm} />
