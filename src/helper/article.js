@@ -16,7 +16,7 @@ export const metaConverter = (meta, text, darkMode = false) => {
   // [h,e,l,l,o, ,w,o,r,l,d,!]
   //      l,l,o < strong
   // expected <span font-weight..>llo</span>
-  Array.from(text).forEach((char, index) => {
+  text.split('').forEach((char, index) => {
     if (index === meta[currentMetaIndex].start) {
       // 第一個遇到的為 l
       // 把目前content推到 result (he)
@@ -34,7 +34,7 @@ export const metaConverter = (meta, text, darkMode = false) => {
       switch (meta[currentMetaIndex].type) {
         case ARTICLE_META_TYPE.STRONG:
           result.push((
-            <span key={currentMetaIndex} style={{ fontWeight: 500 }}>
+            <span key={`${currentMetaIndex}-strong`} style={{ fontWeight: 500 }}>
               {content}
             </span>
           ));
@@ -48,7 +48,7 @@ export const metaConverter = (meta, text, darkMode = false) => {
               target="_blank"
               style={(darkMode && { color: '#ffa7c4' }) || {}}
               href={meta[currentMetaIndex].url}
-              key={currentMetaIndex}
+              key={`${currentMetaIndex}-link`}
             >
               {`${content}`}
             </a>
@@ -65,7 +65,7 @@ export const metaConverter = (meta, text, darkMode = false) => {
                 backgroundColor: 'rgb(246, 246, 249)',
                 border: '1px solid #e6e6e6',
               }}
-              key={currentMetaIndex}
+              key={`${currentMetaIndex}-block`}
             >
               {`${content}`}
             </span>

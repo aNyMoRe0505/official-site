@@ -1,23 +1,19 @@
-import _ from 'lodash';
-
 import {
-  NOTIFICATION_DISPLAYED,
-  NOTIFICATION_HIDDEN,
+  NOTIFICATION_UPDATE,
 } from '../actions/Notification';
 
 export default (
-  state = [],
+  state = {
+    activedNotification: [],
+  },
   action,
 ) => {
   switch (action.type) {
-    case NOTIFICATION_DISPLAYED:
-      return [
+    case NOTIFICATION_UPDATE:
+      return {
         ...state,
-        action.notification,
-      ];
-
-    case NOTIFICATION_HIDDEN:
-      return _.without(state, action.notification);
+        activedNotification: action.newActivedNotificationList,
+      };
 
     default:
       return state;
