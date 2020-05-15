@@ -69,10 +69,10 @@ const ArticleBlock = styled(Link)`
 `;
 
 const ArticleCover = styled.img`
-  width: 200px;
-  margin: 0 10px 0 0;
+  width: 170px;
+  margin: 0 15px 0 0;
   @media (max-width: 768px) {
-    margin: 0 0 10px;
+    margin: 0 0 15px;
   };
 `;
 

@@ -4,8 +4,9 @@ import Article3 from '../containers/blog/articles/Article3';
 import Article4 from '../containers/blog/articles/Article4';
 import Article5 from '../containers/blog/articles/Article5';
 import Article6 from '../containers/blog/articles/Article6';
+import Article7 from '../containers/blog/articles/Article7';
 
-import logo from '../static/logo.png';
+import noteLogo from '../static/noteLogo.png';
 
 export const categories = {
   1: 'Notes',
@@ -21,8 +22,17 @@ export const tags = {
 };
 
 export const articles = [{
+  id: 7,
+  cover: noteLogo,
+  categoryIds: [1],
+  tagIds: [1, 2],
+  title: '用 redux-saga 製作通知系統',
+  description: '記錄用 saga 製作通知系統的過程',
+  component: Article7,
+  date: new Date('2020/05/15'),
+}, {
   id: 6,
-  cover: logo,
+  cover: noteLogo,
   categoryIds: [1],
   tagIds: [1, 6],
   title: 'usePrevious Hook',
@@ -31,7 +41,7 @@ export const articles = [{
   date: new Date('2020/05/07'),
 }, {
   id: 5,
-  cover: logo,
+  cover: noteLogo,
   categoryIds: [1],
   tagIds: [1],
   title: 'React state update on an unmounted component',
@@ -40,7 +50,7 @@ export const articles = [{
   date: new Date('2020/05/06'),
 }, {
   id: 4,
-  cover: logo,
+  cover: noteLogo,
   categoryIds: [1],
   tagIds: [1],
   title: 'React - PureComponent',
@@ -49,7 +59,7 @@ export const articles = [{
   date: new Date('2020/02/29'),
 }, {
   id: 3,
-  cover: logo,
+  cover: noteLogo,
   categoryIds: [1],
   tagIds: [1, 4, 5],
   title: 'GraphQL Apollo Cache',
@@ -58,7 +68,7 @@ export const articles = [{
   date: new Date('2020/02/23'),
 }, {
   id: 2,
-  cover: logo,
+  cover: noteLogo,
   categoryIds: [1],
   tagIds: [3],
   title: 'Webpack Config Note',
@@ -67,7 +77,7 @@ export const articles = [{
   date: new Date('2020/02/21'),
 }, {
   id: 1,
-  cover: logo,
+  cover: noteLogo,
   categoryIds: [1],
   tagIds: [1, 6],
   title: 'React Hook 順序重要性',
