@@ -1,10 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
-
-import {
-  NOTIFICATION_REQUESTED,
-} from '../../actions/Notification';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -26,7 +21,6 @@ function IndexTool() {
   const [selectedText, setSelectedText] = useState('');
   const [start, setStart] = useState(0);
   const [end, setEnd] = useState(0);
-  const dispatch = useDispatch();
 
   const handleSelection = () => {
     const text = window.getSelection().toString();
@@ -51,9 +45,6 @@ function IndexTool() {
         end:
         {selectedText && end}
       </p>
-      <button onClick={() => dispatch({ type: NOTIFICATION_REQUESTED, notification: '測試通知' })} type="button">
-        測試通知
-      </button>
     </Wrapper>
   );
 }
