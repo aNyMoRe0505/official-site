@@ -6,6 +6,7 @@ import {
   call,
   take,
   fork,
+  select,
 } from 'redux-saga/effects';
 
 import {
@@ -25,7 +26,7 @@ import {
   NOTIFICATION_REQUESTED,
   NOTIFICATION_UPDATE,
   NOTIFICATION_REMOVE_REQUEST,
-  NOTIFICATION_REMOVE_SUCCESS,
+  NOTIFICATION_UPDATE_PENDING,
 } from './actions/Notification';
 
 import { fetchYoutube } from './helper/api';
@@ -66,63 +67,68 @@ function* handleCacheBlogSearcher({ params }) {
 function* notificatioSaga() {
   const maxNotification = 3;
   const notificationDisplayTime = 4000;
-  const notificationFadeOutTIme = 700;
+  const notificationFadeOutTIme = 500;
 
-  let pendingNotification = [];
   let activedNotification = [];
   let notificationId = 1;
 
-  function* removeNotification({ notification }) {
-    const targetNotification = activedNotification.find((a) => a.id === notification.id);
-    if (targetNotification) {
-      targetNotification.open = false;
-      yield put({ type: NOTIFICATION_UPDATE, newActivedNotificationList: [...activedNotification] });
-      activedNotification = activedNotification.filter((a) => a.id !== targetNotification.id);
-      yield call(delay, notificationFadeOutTIme);
+  function* notificationScheduler() {
+    const pendingNotification = yield select((state) => state.Notification.pendingNotification);
+    // 檢查通知數量
+    if (pendingNotification.length && activedNotification.length < maxNotification) {
+      const [firstNotification, ...remainPendingNotification] = pendingNotification;
+      const newPendingNotificationList = remainPendingNotification;
+      yield put({ type: NOTIFICATION_UPDATE_PENDING, newPendingNotificationList });
 
+      activedNotification = [firstNotification, ...activedNotification];
       yield put({ type: NOTIFICATION_UPDATE, newActivedNotificationList: [...activedNotification] });
-      yield put({ type: NOTIFICATION_REMOVE_SUCCESS });
+      // 最多顯示4秒
+      yield call(delay, notificationDisplayTime);
+      // 移除
+      yield put({ type: NOTIFICATION_REMOVE_REQUEST, notification: firstNotification });
     }
   }
 
-  function* displayNotification(notification) {
-    const targetNotification = { ...notification };
-    activedNotification = [targetNotification, ...activedNotification];
+  function* handleRemoveNotification({ notification }) {
+    // 檢查還存不存在 (手動先刪除了 => notificationScheduler的 remove request還是會打)
+    const targetNotification = activedNotification.find((ac) => ac.id === notification.id);
+    if (targetNotification) {
+      // 將 open 設成 true 讓前端執行 fadeout 動畫, 同個 ref 所以可直接更新
+      targetNotification.open = false;
+      yield put({ type: NOTIFICATION_UPDATE, newActivedNotificationList: [...activedNotification] });
+      // 動畫執行完成後才將空間清出
+      yield call(delay, notificationFadeOutTIme);
+      activedNotification = activedNotification.filter((ac) => ac.id !== notification.id);
 
-    yield put({ type: NOTIFICATION_UPDATE, newActivedNotificationList: [...activedNotification] });
-    yield call(delay, notificationDisplayTime);
-    yield put({ type: NOTIFICATION_REMOVE_REQUEST, notification: targetNotification });
+      yield put({ type: NOTIFICATION_UPDATE, newActivedNotificationList: [...activedNotification] });
+      // remove 後要檢查是否有 pending的通知 有的話顯示
+      yield fork(notificationScheduler);
+    }
   }
 
-  function* notificationScheduler() {
+  function* handleNotificationRequest() {
     while (true) {
-      const payload = yield take([
-        NOTIFICATION_REQUESTED,
-        NOTIFICATION_REMOVE_SUCCESS,
-      ]);
-
-      if (payload.type === NOTIFICATION_REQUESTED) {
-        const newNoti = {
-          id: notificationId,
-          message: payload.message,
-          open: true,
-        };
-        pendingNotification = [...pendingNotification, newNoti];
-        notificationId += 1;
-      }
-
-      if (pendingNotification.length && activedNotification.length < maxNotification) {
-        const [firstNotification, ...remainingNotification] = pendingNotification;
-        pendingNotification = remainingNotification;
-        yield fork(displayNotification, firstNotification);
-        yield call(delay, 300);
-      }
+      const { message } = yield take(NOTIFICATION_REQUESTED);
+      const pendingNotification = yield select((state) => state.Notification.pendingNotification);
+      const newRequestedNotification = {
+        id: notificationId,
+        message,
+        open: true,
+      };
+      notificationId += 1;
+      // 將通知排程
+      const newPendingNotificationList = [...pendingNotification, newRequestedNotification];
+      yield put({ type: NOTIFICATION_UPDATE_PENDING, newPendingNotificationList });
+      // 執行 schedule 去顯示通知
+      yield fork(notificationScheduler);
+      // 避免太多request進來 噴的速度太快 用 call 來造成間格, 在300毫秒之後才會繼續監聽 NOTIFICATION_REQUESTED
+      yield call(delay, 300);
     }
   }
 
   yield all([
-    notificationScheduler(),
-    takeEvery(NOTIFICATION_REMOVE_REQUEST, removeNotification),
+    handleNotificationRequest(),
+    takeEvery(NOTIFICATION_REMOVE_REQUEST, handleRemoveNotification),
   ]);
 }
 

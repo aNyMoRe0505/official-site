@@ -96,6 +96,10 @@ const StyledBlcokMarkBtn = styled.button`
   top: 5px;
 `;
 
+const PendingText = styled.p`
+  margin: 5px 0;
+`;
+
 const messageTemplate = [
   '您好，歡迎回來',
   '我的人生',
@@ -115,6 +119,7 @@ const messageTemplate = [
 function Notification() {
   const dispatch = useDispatch();
   const notifications = useSelector((state) => state.Notification.activedNotification);
+  const pendingNotifications = useSelector((state) => state.Notification.pendingNotification);
 
   return (
     <Wrapper>
@@ -174,6 +179,14 @@ function Notification() {
           </a>
         </DescBlock>
       </DescWrap>
+      <p>列隊中通知</p>
+      {pendingNotifications.length ? (
+        <>
+          {pendingNotifications.map((pn) => (
+            <PendingText key={pn.id}>{pn.message}</PendingText>
+          ))}
+        </>
+      ) : <PendingText>無</PendingText>}
     </Wrapper>
   );
 }
