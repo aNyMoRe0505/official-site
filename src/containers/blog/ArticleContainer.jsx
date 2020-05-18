@@ -2,8 +2,10 @@ import React from 'react';
 import {
   useParams,
   Redirect,
+  useLocation,
 } from 'react-router-dom';
 import styled from 'styled-components';
+import { DiscussionEmbed } from 'disqus-react';
 
 import {
   articles,
@@ -22,8 +24,14 @@ const ArticleWrapper = styled.div`
   };
 `;
 
+const DisqusContainer = styled.div`
+  margin: 30px 0 0;
+  width: 100%;
+`;
+
 function ArticleContainer() {
   const { articleId } = useParams();
+  const { pathname } = useLocation();
   const targetArticle = articles.find((article) => article.id === parseInt(articleId, 10));
 
   if (!targetArticle) return <Redirect to="/blog" />;
@@ -31,6 +39,17 @@ function ArticleContainer() {
   return (
     <ArticleWrapper>
       <targetArticle.component />
+      <DisqusContainer>
+        <DiscussionEmbed
+          shortname="https-anymore0505-github-io-official-site"
+          config={{
+            url: `https://anymore0505.github.io/official-site${pathname}`,
+            identifier: `${targetArticle.id}-${targetArticle.title}`,
+            title: targetArticle.title,
+            language: 'zh_TW',
+          }}
+        />
+      </DisqusContainer>
     </ArticleWrapper>
   );
 }
