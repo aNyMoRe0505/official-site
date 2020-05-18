@@ -35,7 +35,7 @@ const WrappedLink = styled(NavLink)`
   border-radius: 10px;
   text-decoration: none;
   transition-duration: 0.3s;
-  transition-property: background-color, font-size;
+  transition-property: background-color, font-size, color;
   transition-timing-function: ease-in-out;
   :hover {
     background-color: ${styles.mainColor};
