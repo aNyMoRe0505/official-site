@@ -208,7 +208,6 @@ function Blog() {
   }, [getArticleList]);
 
   useBodyFetchMore(async () => {
-    if (reachingEnd) return;
     setPage(page + 1);
     const { filteredArticles: nextPageArticles } = await getArticleList(page + 1, articleCachedList);
     if (nextPageArticles.length) {
@@ -219,7 +218,7 @@ function Blog() {
     } else {
       setReachingEnd(true);
     }
-  }, loading);
+  }, loading || reachingEnd);
 
   return (
     <Wrapper>

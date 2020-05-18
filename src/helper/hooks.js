@@ -47,10 +47,8 @@ export function useBodyFetchMore(
   }, [loading]);
 
   useEffect(() => {
-    let unMounted = false;
-
     const fetchMoreScope = () => {
-      if (fetching.current || unMounted) return;
+      if (fetching.current) return;
       savedFetchMoreFunc.current();
     };
 
@@ -67,9 +65,6 @@ export function useBodyFetchMore(
 
     window.addEventListener('scroll', scrolling);
 
-    return () => {
-      unMounted = true;
-      window.removeEventListener('scroll', scrolling);
-    };
+    return () => window.removeEventListener('scroll', scrolling);
   }, []);
 }
