@@ -22,13 +22,14 @@ const StyledSubTitle = styled.h1`
 `;
 
 function SubTitle({
+  className,
   children,
   strong,
 }) {
   const darkMode = useContext(DarkModeContext);
 
   return (
-    <StyledSubTitle darkMode={darkMode} strong={strong}>
+    <StyledSubTitle className={className} darkMode={darkMode} strong={strong}>
       {children}
     </StyledSubTitle>
   );
@@ -37,10 +38,12 @@ function SubTitle({
 SubTitle.propTypes = {
   children: PropTypes.string.isRequired,
   strong: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 SubTitle.defaultProps = {
   strong: false,
+  className: '',
 };
 
 export default SubTitle;
