@@ -168,15 +168,21 @@ function Article1() {
       </Text>
       <Reference
         list={[{
-          start: 3,
-          end: 16,
-          url: 'https://reactjs.org/docs/hooks-rules.html',
-          name: '1. Rules of Hooks',
+          meta: [{
+            start: 0,
+            end: 13,
+            type: ARTICLE_META_TYPE.LINK,
+            url: 'https://reactjs.org/docs/hooks-rules.html',
+          }],
+          text: 'Rules of Hooks',
         }, {
-          start: 3,
-          end: 37,
-          url: 'https://medium.com/@ryardley/react-hooks-not-magic-just-arrays-cd4f1857236e',
-          name: '2. React hooks: not magic, just arrays',
+          meta: [{
+            start: 0,
+            end: 34,
+            type: ARTICLE_META_TYPE.LINK,
+            url: 'https://medium.com/@ryardley/react-hooks-not-magic-just-arrays-cd4f1857236e',
+          }],
+          text: 'React hooks: not magic, just arrays',
         }]}
       />
     </>

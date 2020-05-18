@@ -166,10 +166,13 @@ function Article3() {
       </Text>
       <Reference
         list={[{
-          start: 3,
-          end: 59,
-          url: 'https://kamranicus.com/posts/2018-03-06-graphql-apollo-object-caching',
-          name: '1. Elusive Bugs with GraphQL Object Caching in Apollo Client',
+          meta: [{
+            start: 0,
+            end: 56,
+            type: ARTICLE_META_TYPE.LINK,
+            url: 'https://kamranicus.com/posts/2018-03-06-graphql-apollo-object-caching',
+          }],
+          text: 'Elusive Bugs with GraphQL Object Caching in Apollo Client',
         }]}
       />
     </>

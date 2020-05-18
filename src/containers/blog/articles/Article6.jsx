@@ -253,10 +253,13 @@ function Counter() {
       </Text>
       <Reference
         list={[{
-          start: 3,
-          end: 50,
-          url: 'https://blog.logrocket.com/how-to-get-previous-props-state-with-react-hooks/',
-          name: '1. How to get previous props/state with React Hooks (可以看看原文解釋會更清楚)',
+          meta: [{
+            start: 0,
+            end: 47,
+            url: 'https://blog.logrocket.com/how-to-get-previous-props-state-with-react-hooks/',
+            type: ARTICLE_META_TYPE.LINK,
+          }],
+          text: 'How to get previous props/state with React Hooks (可以看看原文解釋會更清楚)',
         }]}
       />
     </>

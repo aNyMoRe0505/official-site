@@ -82,20 +82,29 @@ function Article4() {
       </Text>
       <Reference
         list={[{
-          start: 3,
-          end: 32,
-          url: 'https://blog.cloudboost.io/react-purecomponents-children-979e3da15ba8',
-          name: '1. React.PureComponent’s children',
+          meta: [{
+            start: 0,
+            end: 29,
+            type: ARTICLE_META_TYPE.LINK,
+            url: 'https://blog.cloudboost.io/react-purecomponents-children-979e3da15ba8',
+          }],
+          text: 'React.PureComponent’s children',
         }, {
-          start: 3,
-          end: 42,
-          url: 'https://cdb.reacttraining.com/react-inline-functions-and-performance-bdff784f5578',
-          name: '2. React, Inline Functions, and Performance',
+          meta: [{
+            start: 0,
+            end: 39,
+            url: 'https://cdb.reacttraining.com/react-inline-functions-and-performance-bdff784f5578',
+            type: ARTICLE_META_TYPE.LINK,
+          }],
+          text: 'React, Inline Functions, and Performance',
         }, {
-          start: 3,
-          end: 28,
-          url: 'https://medium.com/@xyz030206/react-%E6%95%88%E8%83%BD%E5%84%AA%E5%8C%96-purecomponent-f971fb56f90a',
-          name: '3. React 效能優化 — PureComponent',
+          meta: [{
+            start: 0,
+            end: 25,
+            url: 'https://medium.com/@xyz030206/react-%E6%95%88%E8%83%BD%E5%84%AA%E5%8C%96-purecomponent-f971fb56f90a',
+            type: ARTICLE_META_TYPE.LINK,
+          }],
+          text: 'React 效能優化 — PureComponent',
         }]}
       />
     </>
