@@ -61,7 +61,7 @@ export const metaConverter = (meta, text, darkMode = false) => {
               style={{
                 color: '#bd4147',
                 borderRadius: '5px',
-                padding: '3px 6px',
+                padding: '0px 6px',
                 backgroundColor: 'rgb(246, 246, 249)',
                 border: '1px solid #e6e6e6',
               }}
