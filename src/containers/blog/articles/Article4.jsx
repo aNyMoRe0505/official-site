@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import Text from '../../../components/blog/Text';
 import Title from '../../../components/blog/Title';
-import Reference from '../../../components/blog/Reference';
+import List from '../../../components/blog/List';
 
 import { ARTICLE_META_TYPE } from '../../../helper/article';
 
@@ -80,7 +80,8 @@ function Article4() {
       >
         另外還需要注意避免傳入的 props 是不是每次都是新的物件或是陣列，可以參考相關資料。
       </Text>
-      <Reference
+      <List
+        title="參考資料"
         list={[{
           meta: [{
             start: 0,

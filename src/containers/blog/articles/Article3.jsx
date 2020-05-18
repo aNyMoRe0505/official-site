@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Text from '../../../components/blog/Text';
 import Title from '../../../components/blog/Title';
 import Image from '../../../components/blog/Image';
-import Reference from '../../../components/blog/Reference';
+import List from '../../../components/blog/List';
 
 import { ARTICLE_META_TYPE } from '../../../helper/article';
 
@@ -164,7 +164,8 @@ function Article3() {
       <Text>
         當初發現這個問題時懊惱了許久XD 後來才發現是快取的問題，在這裡寫下這篇提醒自己不管是在前端或後端，在設計 schema 時要特別注意小心。
       </Text>
-      <Reference
+      <List
+        title="參考資料"
         list={[{
           meta: [{
             start: 0,

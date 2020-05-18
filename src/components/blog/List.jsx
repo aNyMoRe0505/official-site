@@ -23,14 +23,17 @@ const SmallMarginText = styled(Text)`
   flex: 1;
 `;
 
-function Reference({
+function List({
+  title,
   list,
 }) {
   return (
     <>
+      {title && (
       <SubTitle strong>
-        參考資料
+        {title}
       </SubTitle>
+      )}
       {list.map((i, index) => (
         <TextWrap key={i.text}>
           <Number>{`${index + 1}.`}</Number>
@@ -45,8 +48,13 @@ function Reference({
   );
 }
 
-Reference.propTypes = {
+List.propTypes = {
+  title: PropTypes.string,
   list: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
 
-export default Reference;
+List.defaultProps = {
+  title: '',
+};
+
+export default List;

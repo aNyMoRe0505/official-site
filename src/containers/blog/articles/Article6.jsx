@@ -3,7 +3,7 @@ import React from 'react';
 import Text from '../../../components/blog/Text';
 import Title from '../../../components/blog/Title';
 import Code from '../../../components/blog/Code';
-import Reference from '../../../components/blog/Reference';
+import List from '../../../components/blog/List';
 
 import { ARTICLE_META_TYPE } from '../../../helper/article';
 
@@ -251,7 +251,8 @@ function Counter() {
       >
         這就是 usePrevious 為什麼能取得上一次值的原理
       </Text>
-      <Reference
+      <List
+        title="參考資料"
         list={[{
           meta: [{
             start: 0,

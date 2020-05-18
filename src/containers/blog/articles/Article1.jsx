@@ -3,7 +3,7 @@ import React from 'react';
 import Text from '../../../components/blog/Text';
 import Title from '../../../components/blog/Title';
 import Image from '../../../components/blog/Image';
-import Reference from '../../../components/blog/Reference';
+import List from '../../../components/blog/List';
 
 import { ARTICLE_META_TYPE } from '../../../helper/article';
 
@@ -166,7 +166,8 @@ function Article1() {
       >
         看到這裡應該就能明白為什麼 hooks 的執行順序很重要，如果 hooks 在條件式內執行導致第一次 render 和 後續 render 順序不同，hook 將會使用錯誤的 index 取得錯誤的資料！
       </Text>
-      <Reference
+      <List
+        title="參考資料"
         list={[{
           meta: [{
             start: 0,
