@@ -20,7 +20,7 @@ const delay = (ms) => new Promise((resolove) => setTimeout(resolove, ms));
 export function* notificatioSaga() {
   const maxNotification = 3;
   const notificationDisplayTime = 4000;
-  const notificationFadeOutTIme = 500;
+  const notificationFadeOutTime = 500;
 
   let activedNotification = [];
   let notificationId = 1;
@@ -50,7 +50,7 @@ export function* notificatioSaga() {
       targetNotification.open = false;
       yield put({ type: NOTIFICATION_UPDATE, newActivedNotificationList: [...activedNotification] });
       // 動畫執行完成後才將空間清出
-      yield call(delay, notificationFadeOutTIme);
+      yield call(delay, notificationFadeOutTime);
       activedNotification = activedNotification.filter((ac) => ac.id !== notification.id);
 
       yield put({ type: NOTIFICATION_UPDATE, newActivedNotificationList: [...activedNotification] });
