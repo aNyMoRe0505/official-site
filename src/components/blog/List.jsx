@@ -13,7 +13,7 @@ const TextWrap = styled.div`
   width: 100%;
 `;
 
-const Number = styled(Text)`
+const NumberDot = styled(Text)`
   width: auto;
   margin: 0 5px 0 0;
 `;
@@ -26,6 +26,7 @@ const SmallMarginText = styled(Text)`
 function List({
   title,
   list,
+  prefixType,
 }) {
   return (
     <>
@@ -36,7 +37,7 @@ function List({
       )}
       {list.map((i, index) => (
         <TextWrap key={i.text}>
-          <Number>{`${index + 1}.`}</Number>
+          <NumberDot>{prefixType === 'NUMBER' ? `${index + 1}.` : '・'}</NumberDot>
           <SmallMarginText
             meta={i.meta || []}
           >
@@ -51,10 +52,12 @@ function List({
 List.propTypes = {
   title: PropTypes.string,
   list: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  prefixType: PropTypes.oneOf(['NUMBER', 'DOT']),
 };
 
 List.defaultProps = {
   title: '',
+  prefixType: 'NUMBER',
 };
 
 export default List;
