@@ -12,6 +12,7 @@ import {
   NOTIFICATION_REQUESTED,
   NOTIFICATION_UPDATE,
   NOTIFICATION_REMOVE_REQUEST,
+  NOTIFICATION_REMOVE,
   NOTIFICATION_UPDATE_PENDING,
 } from '../actions/Notification';
 
@@ -22,10 +23,10 @@ export function* notificatioSaga() {
   const notificationDisplayTime = 4000;
   const notificationFadeOutTime = 500;
 
-  let activedNotification = [];
   let notificationId = 1;
 
   function* notificationScheduler() {
+    const activedNotification = yield select((state) => state.Notification.activedNotification);
     const pendingNotification = yield select((state) => state.Notification.pendingNotification);
     // 檢查通知數量
     if (pendingNotification.length && activedNotification.length < maxNotification) {
@@ -33,8 +34,8 @@ export function* notificatioSaga() {
       const newPendingNotificationList = remainPendingNotification;
       yield put({ type: NOTIFICATION_UPDATE_PENDING, newPendingNotificationList });
 
-      activedNotification = [firstNotification, ...activedNotification];
-      yield put({ type: NOTIFICATION_UPDATE, newActivedNotificationList: [...activedNotification] });
+      const newActivedNotificationList = [firstNotification, ...activedNotification];
+      yield put({ type: NOTIFICATION_UPDATE, newActivedNotificationList });
       // 最多顯示4秒
       yield call(delay, notificationDisplayTime);
       // 移除
@@ -43,6 +44,7 @@ export function* notificatioSaga() {
   }
 
   function* handleRemoveNotification({ notification }) {
+    const activedNotification = yield select((state) => state.Notification.activedNotification);
     // 檢查還存不存在 (手動先刪除了 => notificationScheduler的 remove request還是會打)
     const targetNotification = activedNotification.find((ac) => ac.id === notification.id);
     if (targetNotification) {
@@ -51,9 +53,7 @@ export function* notificatioSaga() {
       yield put({ type: NOTIFICATION_UPDATE, newActivedNotificationList: [...activedNotification] });
       // 動畫執行完成後才將空間清出
       yield call(delay, notificationFadeOutTime);
-      activedNotification = activedNotification.filter((ac) => ac.id !== notification.id);
-
-      yield put({ type: NOTIFICATION_UPDATE, newActivedNotificationList: [...activedNotification] });
+      yield put({ type: NOTIFICATION_REMOVE, notification: targetNotification });
       // remove 後要檢查是否有 pending的通知 有的話顯示
       yield fork(notificationScheduler);
     }
