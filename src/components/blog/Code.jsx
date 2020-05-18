@@ -9,6 +9,7 @@ import { DarkModeContext } from '../../config/context';
 const StyledSyntaxHighlighter = styled(SyntaxHighlighter)`
   margin: 30px 0 0;
   width: 100%;
+  max-height: 700px;
   @media (max-width: 768px) {
     margin: 15px 0 0;
   };
