@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
@@ -24,8 +24,13 @@ const HeaderWrapper = styled.header`
   justify-content: center;
   padding: 0 40px;
   position: fixed;
-  top: 0;
+  top: ${({ hiding }) => (hiding && '-70px') || 0};
+  opacity: ${({ hiding }) => (!hiding && 1) || 0};
+  pointer-events: ${({ hiding }) => (hiding && 'none') || 'auto'};
   z-index: 999;
+  transition-property: opacity, top;
+  transition-duration: 0.5s;
+  transition-timing-function: ease;
 `;
 
 const LogoLink = styled(NavLink)`
@@ -129,9 +134,31 @@ const links = [{
 
 function Header() {
   const [showMobileMenu, setMobileMenu] = useState(false);
+  const [headerHiding, setHeaderHiding] = useState(false);
+
+  useEffect(() => {
+    let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+
+    const scrolling = () => {
+      const currentScrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+
+      if (Math.abs(currentScrollTop - scrollTop) > 200) {
+        if (currentScrollTop > scrollTop) {
+          setHeaderHiding(true);
+        } else {
+          setHeaderHiding(false);
+        }
+        scrollTop = currentScrollTop;
+      }
+    };
+
+    window.addEventListener('scroll', scrolling);
+
+    return () => window.removeEventListener('scroll', scrolling);
+  }, []);
 
   return (
-    <HeaderWrapper>
+    <HeaderWrapper hiding={headerHiding}>
       <LogoLink onClick={() => setMobileMenu(false)} to="/">
         <Logo src="https://img.icons8.com/ios/100/000000/circled-p.png" alt="logo" />
       </LogoLink>
