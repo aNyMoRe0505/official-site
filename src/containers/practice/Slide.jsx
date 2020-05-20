@@ -4,21 +4,6 @@ import styled, { css } from 'styled-components';
 
 import Button from '../../components/Button';
 
-const imagesArray = [
-  'https://i.imgur.com/4AiXzf8.jpg',
-  'https://i.imgur.com/Jvh1OQm.jpg',
-  'https://i.imgur.com/pqggrK0.jpg',
-  'https://i.imgur.com/pIUsuyE.jpg',
-  'https://i.imgur.com/lVlPvCB.gif',
-  'https://i.imgur.com/0LINzxs.jpeg',
-  'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/1200px-Cat03.jpg',
-  'https://upload.wikimedia.org/wikipedia/commons/6/66/An_up-close_picture_of_a_curious_male_domestic_shorthair_tabby_cat.jpg',
-  'https://nenow.in/wp-content/uploads/2020/04/cat-image-2-600x375.jpg',
-  'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ0cAAuK4C4v8g58Wv_KbdNnxWY3V5tO_ZHCw2fmDf10gmeIJTt&usqp=CAU',
-];
-
-// const IMAGE_WIDTH = 200;
-
 const Wrapper = styled.div`
   width: 100%;
   display: flex;
@@ -29,8 +14,8 @@ const Wrapper = styled.div`
 
 const SlideWrapper = styled.div`
   width: 100%;
-  max-width: 615px;
-  height: 200px;
+  max-width: 1210px;
+  height: 240px;
   position: relative;
   display: flex;
   align-items: center;
@@ -38,15 +23,21 @@ const SlideWrapper = styled.div`
   overflow: hidden;
 `;
 
-const Image = styled.img`
-  width: 200px;
-  height: 200px;
+const Block = styled.div`
+  width: ${({ width }) => width}px;
+  height: 240px;
   position: absolute;
+  color: white;
+  font-size: 60px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #282c35;
   transform: ${({ translateXValue }) => `translateX(${translateXValue}px)`};
   transition-duration: 0.5s;
   transition-property: transform;
   transition-timing-function: ease-in-out;
-  ${({ customStyle }) => customStyle && customStyle}
 `;
 
 const PrevStyle = css`
@@ -85,42 +76,68 @@ const Dot = styled.button`
   };
 `;
 
+const FunctionWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0 0;
+`;
+
+const SettingWrap = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 15px 0 0;
+`;
+
+const Input = styled.input`
+  width: 40px;
+  font-size: 16px;
+  height: 40px;
+  outline: none;
+  border-radius: 5px;
+  border-width: 1px;
+`;
+
 const slideToShowDecider = (width) => {
   if (width > 768) return 3;
   if (width <= 768 && width > 414) return 2;
   return 1;
 };
 
-// TODO
-// touch drag event, infinite scroll..
+const defaultGap = 5;
+const defaultBlockArray = Array.from(new Array(10));
 
 function Slide() {
   const [slideToShow, setSlideToShow] = useState(slideToShowDecider(document.body.clientWidth || document.documentElement.clientWidth));
   const [currentIndex, setIndex] = useState(0);
-  const slideWrapperRef = useRef();
-  const [slideRect, setSlideRect] = useState();
+  const sliderRef = useRef();
+  const [rect, setRect] = useState({});
+  const [gap, setGap] = useState(defaultGap);
+  const [blockArray, setBlockArray] = useState(defaultBlockArray);
 
   useEffect(() => {
-    setSlideRect(slideWrapperRef.current.getBoundingClientRect());
-
+    setRect(sliderRef.current.getBoundingClientRect());
     const resizing = () => {
       setIndex(0);
       const clientWidth = document.body.clientWidth || document.documentElement.clientWidth;
       const showValue = slideToShowDecider(clientWidth);
       setSlideToShow(showValue);
-      setSlideRect(slideWrapperRef.current.getBoundingClientRect());
+      setRect(sliderRef.current.getBoundingClientRect());
     };
 
     window.addEventListener('resize', resizing);
     return () => window.removeEventListener('resize', resizing);
   }, []);
 
-  const slideWidth = slideRect?.width ?? 0;
+  const sliderWrapperWidth = rect.width || 0;
+  const blockWidth = (sliderWrapperWidth - gap * (slideToShow - 1)) / slideToShow;
 
   return (
     <Wrapper>
-      <SlideWrapper ref={slideWrapperRef} slideToShow={slideToShow}>
-        {slideWidth && (
+      <SlideWrapper ref={sliderRef} slideToShow={slideToShow}>
+        {sliderWrapperWidth && (
           <>
             <ArrowBtn
               disabled={currentIndex - slideToShow < 0}
@@ -134,28 +151,22 @@ function Slide() {
               }}
               label="＜"
             />
-            {imagesArray.map((image, index) => (
-              <Image
-                customStyle={css`
-                  @media (max-width: 768px) {
-                    width: ${`${slideWidth / 2}px`};
-                  };
-                  @media (max-width: 414px) {
-                    width: ${`${slideWidth}px`};
-                  };
-                `}
-                translateXValue={(index - currentIndex) * ((slideWidth / slideToShow) + 5)}
-                key={`${image}-${index}`}
-                src={image}
-              />
+            {blockArray.map((_, index) => (
+              <Block
+                width={blockWidth}
+                translateXValue={(index - currentIndex) * (blockWidth + gap)}
+                key={`block-${index}`}
+              >
+                {index + 1}
+              </Block>
             ))}
             <ArrowBtn
-              disabled={currentIndex + slideToShow >= imagesArray.length}
+              disabled={currentIndex + slideToShow >= blockArray.length}
               onClick={() => {
                 const nextShowNum = currentIndex + slideToShow * 2;
-                if (nextShowNum > imagesArray.length) {
+                if (nextShowNum > blockArray.length) {
                   // 多顯示幾張扣回去
-                  setIndex(currentIndex + slideToShow - (nextShowNum - imagesArray.length));
+                  setIndex(currentIndex + slideToShow - (nextShowNum - blockArray.length));
                   return;
                 }
                 setIndex(currentIndex + slideToShow);
@@ -167,20 +178,20 @@ function Slide() {
         )}
       </SlideWrapper>
       <DotWrapper>
-        {Array.from(new Array(Math.ceil(imagesArray.length / slideToShow))).map((_, index) => (
+        {blockArray.length > slideToShow && Array.from(new Array(Math.ceil(blockArray.length / slideToShow))).map((_, index) => (
           <Dot
             onClick={() => {
               const indexTotalShowNum = index * slideToShow + slideToShow;
-              if (indexTotalShowNum > imagesArray.length) {
-                setIndex(index * slideToShow - (indexTotalShowNum - imagesArray.length));
+              if (indexTotalShowNum > blockArray.length) {
+                setIndex(index * slideToShow - (indexTotalShowNum - blockArray.length));
                 return;
               }
               setIndex(index * slideToShow);
             }}
             isCurrent={() => {
               const indexTotalShowNum = index * slideToShow + slideToShow;
-              if (indexTotalShowNum > imagesArray.length) {
-                return currentIndex === index * slideToShow - (indexTotalShowNum - imagesArray.length);
+              if (indexTotalShowNum > blockArray.length) {
+                return currentIndex === index * slideToShow - (indexTotalShowNum - blockArray.length);
               }
               return index * slideToShow === currentIndex;
             }}
@@ -189,6 +200,45 @@ function Slide() {
           />
         ))}
       </DotWrapper>
+      <FunctionWrapper>
+        <SettingWrap>
+          <Input
+            min="0"
+            type="number"
+            id="slideGap"
+            defaultValue={gap}
+          />
+          <Button
+            onClick={() => {
+              const { value } = document.getElementById('slideGap');
+              setGap(parseInt(value, 10));
+            }}
+            label="更新間距"
+            type="button"
+          />
+        </SettingWrap>
+        <SettingWrap>
+          <Button
+            onClick={() => {
+              const newArray = Array.from(new Array(blockArray.length + 1));
+              setBlockArray(newArray);
+              setIndex(0);
+            }}
+            label="增加BLOCK"
+            type="button"
+          />
+          <Button
+            disabled={blockArray.length <= slideToShow}
+            onClick={() => {
+              const newArray = Array.from(new Array(blockArray.length - 1));
+              setBlockArray(newArray);
+              setIndex(0);
+            }}
+            label="減少BLOCK"
+            type="button"
+          />
+        </SettingWrap>
+      </FunctionWrapper>
     </Wrapper>
   );
 }
