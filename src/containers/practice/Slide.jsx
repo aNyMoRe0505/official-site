@@ -112,10 +112,10 @@ const defaultBlockArray = Array.from(new Array(10));
 function Slide() {
   const [slideToShow, setSlideToShow] = useState(slideToShowDecider(document.body.clientWidth || document.documentElement.clientWidth));
   const [currentIndex, setIndex] = useState(0);
-  const sliderRef = useRef();
   const [rect, setRect] = useState({});
   const [gap, setGap] = useState(defaultGap);
   const [blockArray, setBlockArray] = useState(defaultBlockArray);
+  const sliderRef = useRef();
 
   useEffect(() => {
     setRect(sliderRef.current.getBoundingClientRect());
@@ -140,7 +140,7 @@ function Slide() {
         {sliderWrapperWidth && (
           <>
             <ArrowBtn
-              disabled={currentIndex - slideToShow < 0}
+              disabled={!currentIndex}
               onClick={() => {
                 const currentShowNum = currentIndex + slideToShow;
                 if (currentShowNum % slideToShow !== 0) {
