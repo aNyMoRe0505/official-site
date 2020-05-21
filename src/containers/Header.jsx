@@ -25,10 +25,9 @@ const HeaderWrapper = styled.header`
   padding: 0 40px;
   position: fixed;
   top: ${({ hiding }) => (hiding && '-70px') || 0};
-  opacity: ${({ hiding }) => (!hiding && 1) || 0};
   pointer-events: ${({ hiding }) => (hiding && 'none') || 'auto'};
   z-index: 999;
-  transition-property: opacity, top;
+  transition-property: top;
   transition-duration: 0.5s;
   transition-timing-function: ease;
 `;
