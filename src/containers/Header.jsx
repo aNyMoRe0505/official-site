@@ -107,7 +107,7 @@ const links = [{
     name: 'Calendar',
   }, {
     path: '/youtube',
-    name: 'Youtube (SAGA)',
+    name: 'Youtube',
   }, {
     path: '/hook-form',
     name: 'Hook Form',
@@ -120,6 +120,9 @@ const links = [{
   }, {
     path: '/notification',
     name: 'Notification',
+  }, {
+    path: '/rxjs',
+    name: 'RxJS',
   }],
 }, {
   path: '/blog',

@@ -12,6 +12,7 @@ import HookForm from '../containers/practice/HookForm';
 import IndexTool from '../containers/practice/IndexTool';
 import Slide from '../containers/practice/Slide';
 import Notification from '../containers/practice/Notification';
+import RxJS from '../containers/practice/RxJS';
 
 function Practice({
   match: {
@@ -20,6 +21,7 @@ function Practice({
 }) {
   return (
     <Switch>
+      <Route path={`${url}/rxjs`} component={RxJS} />
       <Route path={`${url}/notification`} component={Notification} />
       <Route path={`${url}/slide`} component={Slide} />
       <Route path={`${url}/indexTool`} component={IndexTool} />
