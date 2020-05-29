@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
 
-import { useBodyFetchMore } from '../../helper/hooks';
+import { useBodyFetchMore, useUnmounted } from '../../helper/hooks';
 import {
   articles,
   categories as categoryList,
@@ -148,6 +148,7 @@ function Blog() {
   const [articleList, setArticleList] = useState([]);
   const [articleCachedList, setArticleCachedList] = useState([]);
   const [reachingEnd, setReachingEnd] = useState(false);
+  const unmounted = useUnmounted();
 
   const tags = useSelector((state) => state.Blog.searcherParam.tags);
   const keyword = useSelector((state) => state.Blog.searcherParam.keyword);
@@ -190,33 +191,33 @@ function Blog() {
   }, [dispatch, keyword, categories, tags]);
 
   useEffect(() => {
-    let unMounted = false;
     setReachingEnd(false);
     setPage(0);
     const mockFetchArticles = async () => {
       // if articleList.length(?)
       setArticleList([]);
       const { filteredArticles, caching } = await getArticleList();
-      if (!unMounted) {
+      if (!unmounted.current) {
         setArticleCachedList(caching);
         setArticleList(filteredArticles);
       }
     };
 
     mockFetchArticles();
-    return () => { unMounted = true; };
-  }, [getArticleList]);
+  }, [getArticleList, unmounted]);
 
   useBodyFetchMore(async () => {
     setPage(page + 1);
     const { filteredArticles: nextPageArticles } = await getArticleList(page + 1, articleCachedList);
-    if (nextPageArticles.length) {
-      setArticleList([
-        ...articleList,
-        ...nextPageArticles,
-      ]);
-    } else {
-      setReachingEnd(true);
+    if (!unmounted.current) {
+      if (nextPageArticles.length) {
+        setArticleList([
+          ...articleList,
+          ...nextPageArticles,
+        ]);
+      } else {
+        setReachingEnd(true);
+      }
     }
   }, loading || reachingEnd);
 

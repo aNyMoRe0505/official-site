@@ -68,3 +68,9 @@ export function useBodyFetchMore(
     return () => window.removeEventListener('scroll', scrolling);
   }, []);
 }
+
+export function useUnmounted() {
+  const ummountedRef = useRef(false);
+  useEffect(() => () => { ummountedRef.current = true; }, []);
+  return ummountedRef;
+}
