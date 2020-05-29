@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { fromEvent } from 'rxjs';
+import { fromEvent, from } from 'rxjs';
 import {
   map,
+  switchMap,
   debounceTime,
 } from 'rxjs/operators';
 
@@ -74,8 +75,8 @@ function AutoComplete() {
     const subscriber = inputEvent.pipe(
       debounceTime(500),
       map((e) => e.target.value),
-    ).subscribe(async (value) => {
-      const filterdKeywords = await mockKeywordAPI(value);
+      switchMap((value) => from(mockKeywordAPI(value))),
+    ).subscribe(async (filterdKeywords) => {
       setHotKeywords(filterdKeywords);
       setFocus(true);
     });
