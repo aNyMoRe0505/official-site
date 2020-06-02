@@ -4,7 +4,7 @@ import React, {
   useCallback,
 } from 'react';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
 
@@ -47,6 +47,17 @@ const ArticleWrapper = styled.div`
   }
 `;
 
+const ArticleAnimation = keyframes`
+  0% {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+`;
+
 const ArticleBlock = styled(Link)`
   width: 100%;
   display: flex;
@@ -63,6 +74,9 @@ const ArticleBlock = styled(Link)`
   transition-duration: 0.2s;
   transition-property: transform;
   transition-timing-function: ease;
+  animation-name: ${ArticleAnimation};
+  animation-duration: 1s;
+  animation-timing-function: ease;
   :hover {
     transform: scale(1.05);
   };
