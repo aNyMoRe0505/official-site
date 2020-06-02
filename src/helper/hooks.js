@@ -1,8 +1,70 @@
+/* eslint-disable no-console */
 import {
   useEffect,
   useRef,
   useState,
 } from 'react';
+
+const checkImageLoaded = (url) => new Promise((resolve) => {
+  const img = new Image();
+  img.src = url;
+  if (img.complete) {
+    resolve();
+  } else {
+    img.onload = () => {
+      resolve();
+    };
+  }
+});
+
+export function useImageLoadCompleted() {
+  const [completed, setComplete] = useState(false);
+
+  useEffect(() => {
+    let unmounted = false;
+
+    const allImages = document.getElementsByTagName('img');
+    const allImagesPromise = Array.from(allImages).map((img) => checkImageLoaded(img.src));
+    Promise.all(allImagesPromise)
+      .then(() => {
+        if (!unmounted) setComplete(true);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+
+    return () => { unmounted = true; };
+  }, []);
+
+  return completed;
+}
+
+export function useAnimation() {
+  const targetRef = useRef();
+  const [actived, setActived] = useState(false);
+  const activedRef = useRef(actived);
+
+  useEffect(() => {
+    activedRef.current = actived;
+  }, [actived]);
+
+  useEffect(() => {
+    const scrollFun = () => {
+      if (!activedRef.current) {
+        const { top } = targetRef.current.getBoundingClientRect();
+        if (top <= window.innerHeight / 1.5) {
+          setActived(true);
+        }
+      }
+    };
+
+    window.addEventListener('scroll', scrollFun);
+
+    return () => window.removeEventListener('scroll', scrollFun);
+  }, []);
+
+  return [targetRef, actived];
+}
 
 export function useRepeatedAnimation(gapTime) {
   const [actived, setActived] = useState(true);
