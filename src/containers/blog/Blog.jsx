@@ -159,7 +159,7 @@ function Blog() {
 
   const getArticleList = useCallback(async (currentPage = 0, cachedList = []) => {
     dispatch({ type: UPDATE_MOCK_LOADING_STATUS, status: true });
-    await new Promise((res) => setTimeout(res, 1000));
+    await new Promise((res) => setTimeout(res, 500));
 
     let filteredArticles = currentPage ? cachedList : articles;
     let caching = [];
