@@ -76,7 +76,7 @@ function AutoComplete() {
       debounceTime(500),
       map((e) => e.target.value),
       switchMap((value) => from(mockKeywordAPI(value))),
-    ).subscribe(async (filterdKeywords) => {
+    ).subscribe((filterdKeywords) => {
       setHotKeywords(filterdKeywords);
       setFocus(true);
     });
