@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { fromEvent, from } from 'rxjs';
+import { fromEvent } from 'rxjs';
 import {
-  map,
   switchMap,
   debounceTime,
 } from 'rxjs/operators';
@@ -66,19 +65,15 @@ const mockKeywordAPI = async (keyword) => {
 
 function AutoComplete() {
   const inputRef = useRef();
-  const [focus, setFocus] = useState(false);
-  const [keyword, setKeyword] = useState('');
   const [hotKeywords, setHotKeywords] = useState([]);
 
   useEffect(() => {
     const inputEvent = fromEvent(inputRef.current, 'input');
     const subscriber = inputEvent.pipe(
       debounceTime(500),
-      map((e) => e.target.value),
-      switchMap((value) => from(mockKeywordAPI(value))),
+      switchMap((e) => mockKeywordAPI(e.target.value)),
     ).subscribe((filterdKeywords) => {
       setHotKeywords(filterdKeywords);
-      setFocus(true);
     });
 
     return () => subscriber.unsubscribe();
@@ -89,17 +84,15 @@ function AutoComplete() {
       <Title>AutoComplete (R, A, W, G)</Title>
       <InputWrapper>
         <Input
-          onBlur={() => setFocus(false)}
           ref={inputRef}
-          onChange={(e) => setKeyword(e.target.value)}
-          value={keyword}
         />
-        {focus && hotKeywords.length ? (
+        {hotKeywords.length ? (
           <DropdownWrapper>
             {hotKeywords.map((hotKeyword) => (
               <Keyword
                 onMouseDown={() => {
-                  setKeyword(hotKeyword);
+                  inputRef.current.value = hotKeyword;
+                  setHotKeywords([]);
                 }}
                 key={hotKeyword}
               >
