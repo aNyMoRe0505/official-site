@@ -35,23 +35,26 @@ const Wrapper = styled.div`
 
 const ArticleWrapper = styled.div`
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
   margin: 30px 0 0;
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 const ArticleBlock = styled(Link)`
   width: 100%;
-  max-width: 750px;
-  min-height: 230px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  flex-direction: column;
   border-radius: 5px;
   padding: 15px;
-  margin: 0 0 20px 0;
   text-decoration: none;
   box-shadow: 0px 0px 4px #80808078;
   color: black;
@@ -63,17 +66,11 @@ const ArticleBlock = styled(Link)`
   :hover {
     transform: scale(1.05);
   };
-  @media (max-width: 768px) {
-    flex-direction: column;
-  };
 `;
 
 const ArticleCover = styled.img`
   width: 170px;
-  margin: 0 15px 0 0;
-  @media (max-width: 768px) {
-    margin: 0 0 15px;
-  };
+  margin: 0 0 15px;
 `;
 
 const ArticleDescBlock = styled.div`
@@ -81,11 +78,10 @@ const ArticleDescBlock = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
   font-size: 15px;
   font-weight: 300;
   @media (max-width: 768px) {
-    align-items: center;
     font-size: 13px;
   };
 `;
@@ -99,11 +95,11 @@ const ArticleTitle = styled.p`
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
+  text-align: center;
   font-size: 18px;
   margin: 0 0 10px;
   @media (max-width: 768px) {
-    justify-content: center;
     font-size: 15px;
   };
 `;
@@ -112,11 +108,8 @@ const ArticleDesc = styled.p`
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   margin: 0 0 10px;
-  @media (max-width: 768px) {
-    justify-content: center;
-  };
 `;
 
 const CategoryTagListWrapper = styled.div`
