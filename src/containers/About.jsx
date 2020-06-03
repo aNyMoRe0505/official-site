@@ -79,14 +79,14 @@ const ProfileDesc = styled.p`
 const FadeIn = css`
   max-height: 100%;
   opacity: 1;
-  transition: opacity 0.5s ease-in-out;
+  transition: opacity 0.5s ease;
 `;
 
 const FadeOut = css`
   max-height: 0;
   opacity: 0;
   overflow: hidden;
-  transition: max-height 0s 0.5s, opacity 0.5s ease-in-out;
+  transition: max-height 0s 0.5s, opacity 0.5s ease;
 `;
 
 const BlockWrapper = styled.div`

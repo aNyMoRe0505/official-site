@@ -88,7 +88,6 @@ const ArticleCover = styled.img`
 `;
 
 const ArticleDescBlock = styled.div`
-  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -127,7 +126,6 @@ const ArticleDesc = styled.p`
 `;
 
 const CategoryTagListWrapper = styled.div`
-  flex: 1;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -148,7 +146,7 @@ const CategoryTagBtn = styled.div`
   background-color: ${({ actived }) => (actived ? styles.mainRed : styles.mainColor)};
 `;
 
-const ARTICLE_LIMIT = 10;
+const ARTICLE_LIMIT = 9;
 
 function Blog() {
   const [page, setPage] = useState(0);

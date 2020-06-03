@@ -1,5 +1,5 @@
 import React, { useState, memo } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
@@ -26,9 +26,25 @@ const Wrapper = styled.div`
   max-width: 700px;
 `;
 
+const FadeIn = css`
+  opacity: 1;
+  max-height: 100%;
+  transition-property: opacity;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+`;
+
+const FadeOut = css`
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  padding: 0;
+  transition: padding 0s 0.3s, max-height 0s 0.3s, opacity 0.3s ease;
+`;
+
 const FilterWrapper = styled.div`
   width: 100%;
-  display: ${({ filterShowed }) => (filterShowed ? 'flex' : 'none')};
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
@@ -37,6 +53,7 @@ const FilterWrapper = styled.div`
   box-shadow: 0px 0px 4px #80808078;
   color: white;
   background-color: white;
+  ${({ filterShowed }) => (filterShowed && FadeIn) || FadeOut}
 `;
 
 const InputWrapper = styled.div`
