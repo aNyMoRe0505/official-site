@@ -19,12 +19,13 @@ const scale = keyframes`
 const AnimationStyle = css`
   opacity: 1;
   height: 60px;
+  margin: 10px;
   animation: ${scale} 1s linear infinite;
 `;
 
 const StyledLoadingBox = styled.div`
   width: 200px;
-  margin: 10px;
+  margin: 0;
   background-color: white;
   box-shadow: 0px 0px 25px #80808078;
   border-radius: 10px;

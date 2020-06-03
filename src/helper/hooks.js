@@ -34,6 +34,7 @@ export function useImageLoadCompleted(sources = []) {
       allImagesPromise = sourcesRef.current.map((src) => checkImageLoaded(src));
     } else {
       const allImages = document.getElementsByTagName('img');
+      console.log('allImages', allImages, allImages.length);
       allImagesPromise = Array.from(allImages).map((img) => checkImageLoaded(img.src));
     }
 

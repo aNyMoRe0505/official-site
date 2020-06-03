@@ -98,10 +98,12 @@ const MobileMenuWrapper = styled.div`
 const links = [{
   path: '/',
   name: 'About',
+  exact: true,
   dropdown: [],
 }, {
   path: '/practice',
   name: 'Practice',
+  exact: false,
   dropdown: [{
     path: '/calendar',
     name: 'Calendar',
@@ -127,10 +129,12 @@ const links = [{
 }, {
   path: '/blog',
   name: 'Blog',
+  exact: false,
   dropdown: [],
 }, {
   path: '/heyhey',
   name: '???',
+  exact: true,
   dropdown: [],
 }];
 
@@ -167,6 +171,7 @@ function Header() {
       <LinkWrapper>
         {links.map((link) => (
           <StyledLink
+            exact={link.exact}
             dropdown={link.dropdown}
             name={link.name}
             key={link.path}
@@ -186,8 +191,8 @@ function Header() {
       >
         {links.map((link) => (
           <StyledLink
+            exact={link.exact}
             dropdown={link.dropdown}
-            menuShowed={showMobileMenu}
             name={link.name}
             onClick={() => setMobileMenu(false)}
             key={`mobile-${link.path}`}

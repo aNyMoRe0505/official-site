@@ -7,6 +7,10 @@ import {
 import styled from 'styled-components';
 import { DiscussionEmbed } from 'disqus-react';
 
+import { useImageLoadCompleted } from '../../helper/hooks';
+
+import LoadingBox from '../../components/LoadingBox';
+
 import {
   articles,
 } from '../../config/blog';
@@ -20,6 +24,8 @@ const ArticleWrapper = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  overflow: hidden;
+  ${({ imageLoaded }) => !imageLoaded && 'height: 0px'};
   @media (max-width: 768px) {
     padding: 0 0 15px;
   };
@@ -32,11 +38,11 @@ const DisqusContainer = styled.div`
   background-color: ${({ darkMode }) => (darkMode && '#282c35') || 'white'};
 `;
 
-
 function ArticleContainer() {
   const { articleId } = useParams();
   const { pathname } = useLocation();
   const darkMode = useContext(DarkModeContext);
+  const imageLoaded = useImageLoadCompleted();
 
   const targetArticle = articles.find((article) => article.id === parseInt(articleId, 10));
 
@@ -44,20 +50,23 @@ function ArticleContainer() {
 
 
   return (
-    <ArticleWrapper>
-      <targetArticle.component />
-      <DisqusContainer darkMode={darkMode}>
-        <DiscussionEmbed
-          shortname="https-anymore0505-github-io-official-site"
-          config={{
-            url: `https://anymore0505.github.io/official-site${pathname}`,
-            identifier: `${targetArticle.id}-${targetArticle.title}`,
-            title: targetArticle.title,
-            language: 'zh_TW',
-          }}
-        />
-      </DisqusContainer>
-    </ArticleWrapper>
+    <>
+      <LoadingBox loadingStatus={!imageLoaded} />
+      <ArticleWrapper imageLoaded={imageLoaded}>
+        <targetArticle.component />
+        <DisqusContainer darkMode={darkMode}>
+          <DiscussionEmbed
+            shortname="https-anymore0505-github-io-official-site"
+            config={{
+              url: `https://anymore0505.github.io/official-site${pathname}`,
+              identifier: `${targetArticle.id}-${targetArticle.title}`,
+              title: targetArticle.title,
+              language: 'zh_TW',
+            }}
+          />
+        </DisqusContainer>
+      </ArticleWrapper>
+    </>
   );
 }
 

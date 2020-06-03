@@ -105,17 +105,18 @@ function Link({
   onClick,
   to,
   name,
+  exact,
   dropdown,
   className,
 }) {
   return (
     <Wrapper>
       <WrappedLink
+        exact={exact}
         className={className}
         onClick={() => {
           if (onClick) onClick();
         }}
-        exact={!dropdown.length}
         activeStyle={{
           backgroundColor: styles.mainColor,
           fontSize: 18,
@@ -179,6 +180,7 @@ function Link({
 Link.propTypes = {
   to: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  exact: PropTypes.bool.isRequired,
   dropdown: PropTypes.arrayOf(PropTypes.shape({})),
   className: PropTypes.string,
   onClick: PropTypes.func,
