@@ -3,6 +3,7 @@ import styled, { keyframes, css } from 'styled-components';
 import moment from 'moment';
 
 import FadeInBlock from '../components/FadeInBlock';
+import LoadingBox from '../components/LoadingBox';
 
 import styles from '../config/style';
 import { useRepeatedAnimation, useImageLoadCompleted } from '../helper/hooks';
@@ -336,7 +337,7 @@ function About() {
 
   return (
     <>
-      {!imageLoaded && <p>讀取中..</p>}
+      <LoadingBox loadingStatus={!imageLoaded} />
       <Wrapper imageLoaded={imageLoaded}>
         <FadeInBlock defaultStatus={imageLoaded}>
           <MainBlock first>
