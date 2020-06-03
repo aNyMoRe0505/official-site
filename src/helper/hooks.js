@@ -42,7 +42,7 @@ export function useImageLoadCompleted() {
 export function useAnimation() {
   const targetRef = useRef();
   const [actived, setActived] = useState(false);
-  const activedRef = useRef(actived);
+  const activedRef = useRef();
 
   useEffect(() => {
     activedRef.current = actived;

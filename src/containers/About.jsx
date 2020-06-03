@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import moment from 'moment';
 
+import FadeInBlock from '../components/FadeInBlock';
+
 import styles from '../config/style';
-import { useRepeatedAnimation, useImageLoadCompleted, useAnimation } from '../helper/hooks';
+import { useRepeatedAnimation, useImageLoadCompleted } from '../helper/hooks';
 
 import profile from '../static/profile.jpg';
 import gogoro from '../static/gogoro.png';
@@ -30,27 +32,19 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  overflow: hidden;
   ${({ imageLoaded }) => !imageLoaded && css`
     height: 0;
-    overflow: hidden;
   `};
 `;
 
-const BlockAnimationWrap = styled.div`
+const MainBlock = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  transform: translateX(100px);
-  opacity: 0;
-  transition-property: transform, opacity;
-  transition-timing-function: ease;
-  transition-duration: 1s;
-  ${({ actived }) => actived && css`
-    transform: translateX(0px);
-    opacity: 1;
-  `};
+  margin: ${({ first }) => (first && '0px') || '15px 0 0'};
 `;
 
 const ProfilePicture = styled.img`
@@ -102,7 +96,7 @@ const BlockWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 0 0 15px;
+  margin: 0;
   ${({ status }) => (status && FadeIn) || FadeOut}
 `;
 
@@ -141,7 +135,7 @@ const BlockTitle = styled.p`
 `;
 
 const Card = styled.div`
-  width: 100%;
+  width: 99%;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -226,7 +220,7 @@ const SkillWrapper = styled.div`
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  margin: 0 0 15px;
+  margin: 0;
 `;
 
 const SkillAnimation = css`
@@ -315,126 +309,129 @@ function About() {
   const [workExperienceExpanded, setWorkExperienceExpanded] = useState(true);
   const [educationExpanded, setEducationExpanded] = useState(true);
   const imageLoaded = useImageLoadCompleted();
-  const [educationRef, educationDisplay] = useAnimation();
-  const [experienceRef, experienceDisplay] = useAnimation();
-
 
   return (
     <>
       {!imageLoaded && <p>讀取中..</p>}
       <Wrapper imageLoaded={imageLoaded}>
-        <BlockAnimationWrap actived={imageLoaded}>
-          <ProfilePicture src={profile} alt="profile" />
-          <NameDesc>Paul Wang</NameDesc>
-          <ProfileDesc>
-            喜歡寫程式，擁有良好的溝通能力，樂於和同事分享、學習以及嘗試新的技術。前後端領域在求學階段以及畢業後都有接觸，具備基本專業知識。
-          </ProfileDesc>
-          <IconWrap>
-            <a
-              rel="noopener noreferrer"
-              target="_blank"
-              href="https://mail.google.com/mail/u/0/?view=cm&fs=1&tf=1&to=anymore0505@gmail.com"
-            >
-              <Icon src="https://img.icons8.com/material-rounded/96/000000/important-mail.png" alt="mail" />
-            </a>
-            <a
-              rel="noopener noreferrer"
-              target="_blank"
-              href="https://medium.com/@anymore0505"
-            >
-              <Icon style={{ width: 30, height: 30 }} src="https://img.icons8.com/ios-filled/50/000000/medium-new.png" alt="medium" />
-            </a>
-            <a
-              rel="noopener noreferrer"
-              target="_blank"
-              href="https://github.com/aNyMoRe0505"
-            >
-              <Icon src="https://img.icons8.com/ios-filled/100/000000/github.png" alt="github" />
-            </a>
-            <a
-              rel="noopener noreferrer"
-              target="_blank"
-              href="https://www.facebook.com/profile.php?id=100000335534011"
-            >
-              <Icon src="https://img.icons8.com/ios-filled/50/000000/facebook-new.png" alt="facebook" />
-            </a>
-          </IconWrap>
-          <SkillWrapper>
-            {skills.map((skill, index) => (
-              <Skill
-                ref={(index + 1 === skills.length && animationElementRef) || null}
-                actived={actived}
-                delay={`${0.1 * index}s`}
-                key={skill}
+        <FadeInBlock defaultStatus={imageLoaded}>
+          <MainBlock first>
+            <ProfilePicture src={profile} alt="profile" />
+            <NameDesc>Paul Wang</NameDesc>
+            <ProfileDesc>
+              喜歡寫程式，擁有良好的溝通能力，樂於和同事分享、學習以及嘗試新的技術。前後端領域在求學階段以及畢業後都有接觸，具備基本專業知識。
+            </ProfileDesc>
+            <IconWrap>
+              <a
+                rel="noopener noreferrer"
+                target="_blank"
+                href="https://mail.google.com/mail/u/0/?view=cm&fs=1&tf=1&to=anymore0505@gmail.com"
               >
-                {skill}
-              </Skill>
-            ))}
-          </SkillWrapper>
-        </BlockAnimationWrap>
-        <BlockAnimationWrap actived={educationDisplay} ref={educationRef}>
-          <BlockTitleWrap>
-            <BlockTitle>教育背景</BlockTitle>
-            <StyledBlcokMarkBtn
-              status={educationExpanded}
-              onClick={() => setEducationExpanded(!educationExpanded)}
-            >
-              <img style={{ width: '100%' }} alt="plus" src="https://img.icons8.com/ios/80/000000/plus.png" />
-            </StyledBlcokMarkBtn>
-          </BlockTitleWrap>
-          <BlockWrapper status={educationExpanded}>
-            {educationHistory.map((education) => (
-              <Card key={education.id}>
-                <Logo src={education.logo} alt="logo" />
-                <DescBlock>
-                  <Desc>{`${education.id} - ${education.name}`}</Desc>
-                  <Desc>{education.department}</Desc>
-                  <Desc>{`${education.from} ~ ${education.to}`}</Desc>
-                </DescBlock>
-              </Card>
-            ))}
-          </BlockWrapper>
-        </BlockAnimationWrap>
-        <BlockAnimationWrap actived={experienceDisplay} ref={experienceRef}>
-          <BlockTitleWrap>
-            <BlockTitle>工作經歷</BlockTitle>
-            <StyledBlcokMarkBtn
-              status={workExperienceExpanded}
-              onClick={() => setWorkExperienceExpanded(!workExperienceExpanded)}
-            >
-              <img style={{ width: '100%' }} alt="plus" src="https://img.icons8.com/ios/80/000000/plus.png" />
-            </StyledBlcokMarkBtn>
-          </BlockTitleWrap>
-          <BlockWrapper status={workExperienceExpanded}>
-            {workExperiences.map((experience) => {
-              const monthDiff = moment(experience.to).diff(experience.from, 'months');
-              const yearDiff = Math.floor(monthDiff / 12);
-              return (
-                <Card key={experience.id}>
-                  <Logo src={experience.logo} alt="logo" />
+                <Icon src="https://img.icons8.com/material-rounded/96/000000/important-mail.png" alt="mail" />
+              </a>
+              <a
+                rel="noopener noreferrer"
+                target="_blank"
+                href="https://medium.com/@anymore0505"
+              >
+                <Icon style={{ width: 30, height: 30 }} src="https://img.icons8.com/ios-filled/50/000000/medium-new.png" alt="medium" />
+              </a>
+              <a
+                rel="noopener noreferrer"
+                target="_blank"
+                href="https://github.com/aNyMoRe0505"
+              >
+                <Icon src="https://img.icons8.com/ios-filled/100/000000/github.png" alt="github" />
+              </a>
+              <a
+                rel="noopener noreferrer"
+                target="_blank"
+                href="https://www.facebook.com/profile.php?id=100000335534011"
+              >
+                <Icon src="https://img.icons8.com/ios-filled/50/000000/facebook-new.png" alt="facebook" />
+              </a>
+            </IconWrap>
+            <SkillWrapper>
+              {skills.map((skill, index) => (
+                <Skill
+                  ref={(index + 1 === skills.length && animationElementRef) || null}
+                  actived={actived}
+                  delay={`${0.1 * index}s`}
+                  key={skill}
+                >
+                  {skill}
+                </Skill>
+              ))}
+            </SkillWrapper>
+          </MainBlock>
+        </FadeInBlock>
+        <FadeInBlock>
+          <MainBlock>
+            <BlockTitleWrap>
+              <BlockTitle>教育背景</BlockTitle>
+              <StyledBlcokMarkBtn
+                status={educationExpanded}
+                onClick={() => setEducationExpanded(!educationExpanded)}
+              >
+                <img style={{ width: '100%' }} alt="plus" src="https://img.icons8.com/ios/80/000000/plus.png" />
+              </StyledBlcokMarkBtn>
+            </BlockTitleWrap>
+            <BlockWrapper status={educationExpanded}>
+              {educationHistory.map((education) => (
+                <Card key={education.id}>
+                  <Logo src={education.logo} alt="logo" />
                   <DescBlock>
-                    <Desc>{`${experience.companyAbbrev} - ${experience.companyName}`}</Desc>
-                    <Desc>{experience.jobTitle}</Desc>
-                    <WorkingTimeWrap>
-                      <Desc style={{ margin: 0 }}>
-                        {`${moment(experience.from).format('YYYY-MM-DD')} ~ ${moment(experience.to).format('YYYY-MM-DD')}`}
-                      </Desc>
-                      <WorkingTimeTotal>
-                        {`${yearDiff}年${monthDiff - 12 * yearDiff}個月`}
-                      </WorkingTimeTotal>
-                    </WorkingTimeWrap>
-                    {experience.jobDesc.map((desc) => (
-                      <Desc key={desc}>
-                        。
-                        <span style={{ flex: 1 }}>{desc}</span>
-                      </Desc>
-                    ))}
+                    <Desc>{`${education.id} - ${education.name}`}</Desc>
+                    <Desc>{education.department}</Desc>
+                    <Desc>{`${education.from} ~ ${education.to}`}</Desc>
                   </DescBlock>
                 </Card>
-              );
-            })}
-          </BlockWrapper>
-        </BlockAnimationWrap>
+              ))}
+            </BlockWrapper>
+          </MainBlock>
+        </FadeInBlock>
+        <FadeInBlock>
+          <MainBlock>
+            <BlockTitleWrap>
+              <BlockTitle>工作經歷</BlockTitle>
+              <StyledBlcokMarkBtn
+                status={workExperienceExpanded}
+                onClick={() => setWorkExperienceExpanded(!workExperienceExpanded)}
+              >
+                <img style={{ width: '100%' }} alt="plus" src="https://img.icons8.com/ios/80/000000/plus.png" />
+              </StyledBlcokMarkBtn>
+            </BlockTitleWrap>
+            <BlockWrapper status={workExperienceExpanded}>
+              {workExperiences.map((experience) => {
+                const monthDiff = moment(experience.to).diff(experience.from, 'months');
+                const yearDiff = Math.floor(monthDiff / 12);
+                return (
+                  <Card key={experience.id}>
+                    <Logo src={experience.logo} alt="logo" />
+                    <DescBlock>
+                      <Desc>{`${experience.companyAbbrev} - ${experience.companyName}`}</Desc>
+                      <Desc>{experience.jobTitle}</Desc>
+                      <WorkingTimeWrap>
+                        <Desc style={{ margin: 0 }}>
+                          {`${moment(experience.from).format('YYYY-MM-DD')} ~ ${moment(experience.to).format('YYYY-MM-DD')}`}
+                        </Desc>
+                        <WorkingTimeTotal>
+                          {`${yearDiff}年${monthDiff - 12 * yearDiff}個月`}
+                        </WorkingTimeTotal>
+                      </WorkingTimeWrap>
+                      {experience.jobDesc.map((desc) => (
+                        <Desc key={desc}>
+                          。
+                          <span style={{ flex: 1 }}>{desc}</span>
+                        </Desc>
+                      ))}
+                    </DescBlock>
+                  </Card>
+                );
+              })}
+            </BlockWrapper>
+          </MainBlock>
+        </FadeInBlock>
       </Wrapper>
     </>
   );
