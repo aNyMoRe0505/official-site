@@ -17,12 +17,13 @@ const scale = keyframes`
 `;
 
 const AnimationStyle = css`
+  opacity: 1;
+  height: 60px;
   animation: ${scale} 1s linear infinite;
 `;
 
 const StyledLoadingBox = styled.div`
   width: 200px;
-  height: ${({ loadingStatus }) => (loadingStatus ? '60px' : 0)};
   margin: 10px;
   background-color: white;
   box-shadow: 0px 0px 25px #80808078;
@@ -31,7 +32,8 @@ const StyledLoadingBox = styled.div`
   align-items: center;
   justify-content: center;
   pointer-events: none;
-  opacity: ${({ loadingStatus }) => (loadingStatus ? 1 : 0)};
+  height: 0;
+  opacity: 0;
   transition-duration: 0.3s;
   transition-property: opacity, height;
   transition-timing-function: ease-in-out;
