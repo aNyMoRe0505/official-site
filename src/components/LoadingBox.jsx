@@ -37,7 +37,7 @@ const StyledLoadingBox = styled.div`
   opacity: 0;
   transition-duration: 0.3s;
   transition-property: opacity, height;
-  transition-timing-function: ease-in-out;
+  transition-timing-function: ease;
   ${({ loadingStatus }) => loadingStatus && AnimationStyle}
 `;
 
