@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -56,4 +56,4 @@ LoadingBox.defaultProps = {
   loadingStatus: false,
 };
 
-export default LoadingBox;
+export default memo(LoadingBox);
