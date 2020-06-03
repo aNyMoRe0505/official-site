@@ -17,20 +17,32 @@ const checkImageLoaded = (url) => new Promise((resolve) => {
   }
 });
 
-export function useImageLoadCompleted() {
+export function useImageLoadCompleted(sources = []) {
   const [completed, setComplete] = useState(false);
+  const sourcesRef = useRef();
+
+  useEffect(() => {
+    sourcesRef.current = sources;
+  }, [sources]);
+
 
   useEffect(() => {
     let unmounted = false;
+    let allImagesPromise;
 
-    const allImages = document.getElementsByTagName('img');
-    const allImagesPromise = Array.from(allImages).map((img) => checkImageLoaded(img.src));
+    if (sourcesRef.current.length) {
+      allImagesPromise = sourcesRef.current.map((src) => checkImageLoaded(src));
+    } else {
+      const allImages = document.getElementsByTagName('img');
+      allImagesPromise = Array.from(allImages).map((img) => checkImageLoaded(img.src));
+    }
+
     Promise.all(allImagesPromise)
       .then(() => {
         if (!unmounted) setComplete(true);
       })
       .catch((e) => {
-        console.log(e);
+        console.error(e);
       });
 
     return () => { unmounted = true; };
@@ -39,7 +51,7 @@ export function useImageLoadCompleted() {
   return completed;
 }
 
-export function useAnimation() {
+export function useScrollAnimation() {
   const targetRef = useRef();
   const [actived, setActived] = useState(false);
   const activedRef = useRef();

@@ -33,9 +33,7 @@ const Wrapper = styled.div`
   justify-content: flex-start;
   align-items: center;
   overflow: hidden;
-  ${({ imageLoaded }) => !imageLoaded && css`
-    height: 0;
-  `};
+  ${({ imageLoaded }) => !imageLoaded && 'height: 0px'};
 `;
 
 const MainBlock = styled.div`
@@ -304,11 +302,37 @@ const workExperiences = [{
   to: new Date('2020/02/28'),
 }];
 
-function About() {
+function SkillBlock() {
   const [animationElementRef, actived] = useRepeatedAnimation(1500);
+
+  return (
+    <SkillWrapper>
+      {skills.map((skill, index) => (
+        <Skill
+          ref={(index + 1 === skills.length && animationElementRef) || null}
+          actived={actived}
+          delay={`${0.1 * index}s`}
+          key={skill}
+        >
+          {skill}
+        </Skill>
+      ))}
+    </SkillWrapper>
+  );
+}
+
+const imgSources = [
+  profile,
+  gogoro,
+  rytass,
+  klcivs,
+  nccu,
+];
+
+function About() {
   const [workExperienceExpanded, setWorkExperienceExpanded] = useState(true);
   const [educationExpanded, setEducationExpanded] = useState(true);
-  const imageLoaded = useImageLoadCompleted();
+  const imageLoaded = useImageLoadCompleted(imgSources);
 
   return (
     <>
@@ -351,18 +375,7 @@ function About() {
                 <Icon src="https://img.icons8.com/ios-filled/50/000000/facebook-new.png" alt="facebook" />
               </a>
             </IconWrap>
-            <SkillWrapper>
-              {skills.map((skill, index) => (
-                <Skill
-                  ref={(index + 1 === skills.length && animationElementRef) || null}
-                  actived={actived}
-                  delay={`${0.1 * index}s`}
-                  key={skill}
-                >
-                  {skill}
-                </Skill>
-              ))}
-            </SkillWrapper>
+            <SkillBlock />
           </MainBlock>
         </FadeInBlock>
         <FadeInBlock>

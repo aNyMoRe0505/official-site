@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 
-import { useAnimation } from '../helper/hooks';
+import { useScrollAnimation } from '../helper/hooks';
 
 const FadeInAnimationWrap = styled.div`
   width: 100%;
@@ -18,8 +18,7 @@ const FadeInAnimationWrap = styled.div`
 `;
 
 function FadeInBlock({ children, defaultStatus }) {
-  const [ref, actived] = useAnimation();
-
+  const [ref, actived] = useScrollAnimation();
   return (
     <FadeInAnimationWrap actived={defaultStatus || actived} ref={ref}>
       {children}
