@@ -196,10 +196,10 @@ function Blog() {
   }, [dispatch, keyword, categories, tags]);
 
   useEffect(() => {
-    setReachingEnd(false);
-    setPage(0);
     const mockFetchArticles = async () => {
       // if articleList.length(?)
+      setReachingEnd(false);
+      setPage(0);
       setArticleList([]);
       const { filteredArticles, caching } = await getArticleList();
       if (!unmounted.current) {
