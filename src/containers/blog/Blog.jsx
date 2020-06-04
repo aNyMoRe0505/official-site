@@ -197,7 +197,6 @@ function Blog() {
 
   useEffect(() => {
     const mockFetchArticles = async () => {
-      // if articleList.length(?)
       setReachingEnd(false);
       setPage(0);
       setArticleList([]);
