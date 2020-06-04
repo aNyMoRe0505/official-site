@@ -82,8 +82,12 @@ const ArticleBlock = styled(Link)`
   };
 `;
 
-const ArticleCover = styled.img`
-  width: 170px;
+const ArticleCover = styled.div`
+  width: 100%;
+  height: 170px;
+  background-image: url(${({ src }) => src});
+  background-position: center;
+  background-size: cover;
   margin: 0 0 15px;
 `;
 
@@ -232,7 +236,7 @@ function Blog() {
         <ArticleWrapper>
           {articleList.map((article) => (
             <ArticleBlock to={`/blog/article/${article.id}`} key={`article-${article.id}`}>
-              <ArticleCover src={article.cover} alt="articleCover" />
+              <ArticleCover src={article.cover} />
               <ArticleDescBlock>
                 <ArticleTitle>{article.title}</ArticleTitle>
                 <ArticleDesc>{article.description}</ArticleDesc>

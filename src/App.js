@@ -57,6 +57,7 @@ const IconProviderWrap = styled.div`
   bottom: 15px;
   left: 15px;
   color: gray;
+  white-space: pre-wrap;
 `;
 
 function MainBoard() {
@@ -107,6 +108,8 @@ function App() {
               >
                 Icons8
               </a>
+              {' & '}
+              Google Images
             </IconProviderWrap>
           </Wrapper>
         </DarkModeContext.Provider>

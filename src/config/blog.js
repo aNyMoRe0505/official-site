@@ -5,6 +5,7 @@ import Article4 from '../containers/blog/articles/Article4';
 import Article5 from '../containers/blog/articles/Article5';
 import Article6 from '../containers/blog/articles/Article6';
 import Article7 from '../containers/blog/articles/Article7';
+import Article8 from '../containers/blog/articles/Article8';
 
 import noteLogo from '../static/noteLogo.png';
 
@@ -19,11 +20,23 @@ export const tags = {
   4: 'GraphQL',
   5: 'Apollo',
   6: 'React Hook',
+  7: 'CSRF',
+  8: 'CORS',
+  9: 'Security',
 };
 
 export const articles = [{
-  id: 7,
+  id: 8,
   cover: noteLogo,
+  categoryIds: [1],
+  tagIds: [7, 8, 9],
+  title: 'CORS & CSRF 筆記',
+  description: '筆記一下 CORS 和 CSRF 相關的東西',
+  component: Article8,
+  date: new Date('2020/06/04'),
+}, {
+  id: 7,
+  cover: 'https://miro.medium.com/max/312/1*zcK3vvoVjsqkqB0oja8RWw.png',
   categoryIds: [1],
   tagIds: [1, 2],
   title: '用 redux-saga 製作通知系統',
@@ -32,7 +45,7 @@ export const articles = [{
   date: new Date('2020/05/15'),
 }, {
   id: 6,
-  cover: noteLogo,
+  cover: 'https://miro.medium.com/max/3000/1*-Ijet6kVJqGgul6adezDLQ.png',
   categoryIds: [1],
   tagIds: [1, 6],
   title: 'usePrevious Hook',
@@ -41,7 +54,7 @@ export const articles = [{
   date: new Date('2020/05/07'),
 }, {
   id: 5,
-  cover: noteLogo,
+  cover: 'https://i.imgur.com/rs8Y9jU.png',
   categoryIds: [1],
   tagIds: [1],
   title: 'React state update on an unmounted component',
@@ -50,7 +63,7 @@ export const articles = [{
   date: new Date('2020/05/06'),
 }, {
   id: 4,
-  cover: noteLogo,
+  cover: 'https://daqxzxzy8xq3u.cloudfront.net/wp-content/uploads/2019/08/19115633/react-pure-component-illustration.jpg',
   categoryIds: [1],
   tagIds: [1],
   title: 'React - PureComponent',
@@ -59,7 +72,7 @@ export const articles = [{
   date: new Date('2020/02/29'),
 }, {
   id: 3,
-  cover: noteLogo,
+  cover: 'https://miro.medium.com/max/1360/1*BzeM8yhiSwERTGvM3h1V4A.jpeg',
   categoryIds: [1],
   tagIds: [1, 4, 5],
   title: 'GraphQL Apollo Cache',
@@ -68,7 +81,7 @@ export const articles = [{
   date: new Date('2020/02/23'),
 }, {
   id: 2,
-  cover: noteLogo,
+  cover: 'https://webpack.js.org/dcd5e077cf9f54ebe52d4f7ebe8c3080.png',
   categoryIds: [1],
   tagIds: [3],
   title: 'Webpack Config Note',
@@ -77,7 +90,7 @@ export const articles = [{
   date: new Date('2020/02/21'),
 }, {
   id: 1,
-  cover: noteLogo,
+  cover: 'https://miro.medium.com/max/3000/1*-Ijet6kVJqGgul6adezDLQ.png',
   categoryIds: [1],
   tagIds: [1, 6],
   title: 'React Hook 順序重要性',
