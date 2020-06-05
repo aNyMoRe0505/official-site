@@ -234,8 +234,6 @@ function Blog() {
     }
   }, loading || reachingEnd);
 
-  console.log('loading', loading)
-
   return (
     <Wrapper>
       <Searcher />
