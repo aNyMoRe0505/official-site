@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
 
 import { useBodyFetchMore, useUnmounted } from '../../helper/hooks';
+import { checkAllImagesLoadCompleted } from '../../helper/helper';
 import {
   articles,
   categories as categoryList,
@@ -167,9 +168,6 @@ function Blog() {
   const dispatch = useDispatch();
 
   const getArticleList = useCallback(async (currentPage = 0, cachedList = []) => {
-    dispatch({ type: UPDATE_MOCK_LOADING_STATUS, status: true });
-    await new Promise((res) => setTimeout(res, 500));
-
     let filteredArticles = currentPage ? cachedList : articles;
     let caching = [];
 
@@ -192,7 +190,14 @@ function Blog() {
 
     filteredArticles = filteredArticles.slice(currentPage * ARTICLE_LIMIT, currentPage * ARTICLE_LIMIT + ARTICLE_LIMIT);
 
+    const articleCover = filteredArticles.map((article) => article.cover);
+
+    // mock loading
+    dispatch({ type: UPDATE_MOCK_LOADING_STATUS, status: true });
+    await new Promise((resolve) => setTimeout(resolve, 200));
+    await checkAllImagesLoadCompleted(articleCover);
     dispatch({ type: UPDATE_MOCK_LOADING_STATUS, status: false });
+
     return {
       caching,
       filteredArticles,
@@ -228,6 +233,8 @@ function Blog() {
       }
     }
   }, loading || reachingEnd);
+
+  console.log('loading', loading)
 
   return (
     <Wrapper>

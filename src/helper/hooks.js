@@ -5,17 +5,7 @@ import {
   useState,
 } from 'react';
 
-const checkImageLoaded = (url) => new Promise((resolve) => {
-  const img = new Image();
-  img.src = url;
-  if (img.complete) {
-    resolve();
-  } else {
-    img.onload = () => {
-      resolve();
-    };
-  }
-});
+import { checkAllImagesLoadCompleted } from './helper';
 
 export function useImageLoadCompleted(sources = []) {
   const [completed, setComplete] = useState(false);
@@ -28,21 +18,21 @@ export function useImageLoadCompleted(sources = []) {
 
   useEffect(() => {
     let unmounted = false;
-    let allImagesPromise;
+    let allImagesSources = [];
 
     if (sourcesRef.current.length) {
-      allImagesPromise = sourcesRef.current.map((src) => checkImageLoaded(src));
+      allImagesSources = sourcesRef.current;
     } else {
       const allImages = document.getElementsByTagName('img');
-      allImagesPromise = Array.from(allImages).map((img) => checkImageLoaded(img.src));
+      allImagesSources = Array.from(allImages).map((img) => img.src);
     }
 
-    Promise.all(allImagesPromise)
-      .then(() => {
-        if (!unmounted) setComplete(true);
-      })
+    checkAllImagesLoadCompleted(allImagesSources)
       .catch((e) => {
         console.error(e);
+      })
+      .finally(() => {
+        if (!unmounted) setComplete(true);
       });
 
     return () => { unmounted = true; };
