@@ -285,7 +285,7 @@ export function jwtSign(payload) {
         登入過後，就可以使用 accessToken 去取的需要權限的資源嚕，使用者將 accessToken 帶在 header 的 authorization，並且加上前綴 Bearer (這只是一個 convention)
       </Text>
       <Text>
-        寫了一個 middleware 去判斷每次 request 使用者又沒有帶上 token，有的話就去認證並且將資訊帶到 ctx.req 裡
+        寫了一個 middleware 去判斷每次 request 使用者有沒有帶上 token，有的話就去認證並且將資訊帶到 ctx.req 裡
       </Text>
       <Code>
         {`export default async (ctx, next) => {
