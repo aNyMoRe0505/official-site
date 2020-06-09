@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React, {
   useState,
   useEffect,
@@ -67,7 +68,7 @@ const ArticleBlockDark = css`
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
 `;
 
-const ArticleBlock = styled(Link)`
+const ArticleBlock = styled(({ darkMode, ...rest }) => <Link {...rest} />)`
   width: 100%;
   display: flex;
   align-items: center;

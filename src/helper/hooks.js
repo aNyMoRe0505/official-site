@@ -122,7 +122,7 @@ export function useBodyFetchMore(
       const clientHeight = document.documentElement.clientHeight || document.body.clientHeight;
 
       const remainingHeight = scrollHeight - (scrollTop + clientHeight);
-      if (remainingHeight < 200) {
+      if (remainingHeight < 100) {
         fetchMoreScope();
       }
     };
