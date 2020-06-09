@@ -2,9 +2,10 @@ import React, {
   useState,
   useEffect,
   useCallback,
+  useContext,
 } from 'react';
 import { Link } from 'react-router-dom';
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
 
@@ -19,6 +20,7 @@ import styles from '../../config/style';
 import {
   UPDATE_MOCK_LOADING_STATUS,
 } from '../../actions/Blog';
+import { DarkModeContext } from '../../config/context';
 
 
 import Searcher from './Searcher';
@@ -59,6 +61,12 @@ const ArticleAnimation = keyframes`
   }
 `;
 
+const ArticleBlockDark = css`
+  color: white;
+  background-color: rgb(38, 44, 60);
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+`;
+
 const ArticleBlock = styled(Link)`
   width: 100%;
   display: flex;
@@ -69,15 +77,16 @@ const ArticleBlock = styled(Link)`
   padding: 15px;
   text-decoration: none;
   box-shadow: 0px 0px 4px #80808078;
-  color: black;
   cursor: pointer;
+  color: black;
   background-color: white;
   transition-duration: 0.2s;
-  transition-property: transform;
+  transition-property: transform, color, background-color;
   transition-timing-function: ease;
   animation-name: ${ArticleAnimation};
   animation-duration: 1s;
   animation-timing-function: ease;
+  ${({ darkMode }) => darkMode && ArticleBlockDark}
   :hover {
     transform: scale(1.05);
   };
@@ -159,6 +168,7 @@ function Blog() {
   const [articleCachedList, setArticleCachedList] = useState([]);
   const [reachingEnd, setReachingEnd] = useState(false);
   const unmounted = useUnmounted();
+  const darkMode = useContext(DarkModeContext);
 
   const tags = useSelector((state) => state.Blog.searcherParam.tags);
   const keyword = useSelector((state) => state.Blog.searcherParam.keyword);
@@ -240,7 +250,7 @@ function Blog() {
       {articleList.length ? (
         <ArticleWrapper>
           {articleList.map((article) => (
-            <ArticleBlock to={`/blog/article/${article.id}`} key={`article-${article.id}`}>
+            <ArticleBlock darkMode={darkMode} to={`/blog/article/${article.id}`} key={`article-${article.id}`}>
               <ArticleCover src={article.cover} />
               <ArticleDescBlock>
                 <ArticleTitle>{article.title}</ArticleTitle>

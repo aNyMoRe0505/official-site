@@ -43,7 +43,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  background-color: ${({ darkMode }) => (darkMode && '#282c35') || 'white'};
+  background-color: ${({ darkMode }) => (darkMode && '#1e2330') || 'white'};
   transition-duration: 0.2s;
   transition-property: background-color;
   transition-timing-function: ease;
@@ -63,7 +63,7 @@ const IconProviderWrap = styled.div`
 function MainBoard() {
   // 先暫時為了用useRouteMatch拆開
   const darkMode = useContext(DarkModeContext);
-  const matchArticleDetailRoute = useRouteMatch('/blog/article/:articleId');
+  const matchArticleDetailRoute = useRouteMatch('/blog');
 
   return (
     <Container darkMode={darkMode && matchArticleDetailRoute}>
@@ -86,7 +86,7 @@ function MainBoard() {
 }
 
 function App() {
-  // 暫時只有Article文章可切換darkMode
+  // 暫時只有Blog可切換darkMode
   const [darkMode, setDarkMode] = useState(false);
 
   return (

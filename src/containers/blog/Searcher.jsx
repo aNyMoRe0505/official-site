@@ -1,4 +1,4 @@
-import React, { useState, memo } from 'react';
+import React, { useState, memo, useContext } from 'react';
 import styled, { css } from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -8,6 +8,7 @@ import {
 } from '../../config/blog';
 import styles from '../../config/style';
 import { SAGA_CACHE_SEARCHER } from '../../actions/Blog';
+import { DarkModeContext } from '../../config/context';
 
 import Button from '../../components/Button';
 
@@ -42,6 +43,15 @@ const FadeOut = css`
   transition: padding 0s 0.3s, max-height 0s 0.3s, opacity 0.3s ease;
 `;
 
+const FilterWrapperDark = css`
+  color: white;
+  background-color: rgb(38, 44, 60);
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+  transition-duration: 0.2s;
+  transition-property: transform, color, background-color;
+  transition-timing-function: ease;
+`;
+
 const FilterWrapper = styled.div`
   width: 100%;
   display: flex;
@@ -53,7 +63,8 @@ const FilterWrapper = styled.div`
   box-shadow: 0px 0px 4px #80808078;
   color: white;
   background-color: white;
-  ${({ filterShowed }) => (filterShowed && FadeIn) || FadeOut}
+  ${({ filterShowed }) => (filterShowed && FadeIn) || FadeOut};
+  ${({ darkMode }) => darkMode && FilterWrapperDark};
 `;
 
 const InputWrapper = styled.div`
@@ -65,7 +76,7 @@ const InputWrapper = styled.div`
 `;
 
 const StyledLabel = styled.span`
-  color: black;
+  color: ${({ darkMode }) => (darkMode && 'white') || 'black'};
   font-size: 16px;
   width: ${({ width }) => width || '64px'};
 `;
@@ -85,7 +96,7 @@ const StyledInput = styled.input`
   transition-duration: 0.3s;
   transition-property: border-color;
   background-color: transparent;
-  color: black;
+  color: ${({ darkMode }) => (darkMode && 'white') || 'black'};
   transition-timing-function: ease-in-out;
 `;
 
@@ -145,6 +156,7 @@ function Searcher() {
   const storeTags = useSelector((state) => state.Blog.searcherParam.tags);
   const loading = useSelector((state) => state.Blog.loading);
   const dispatch = useDispatch();
+  const darkMode = useContext(DarkModeContext);
 
   const [filterShowed, setFilterShowed] = useState(true);
   const [keyword, setKeyword] = useState(storeKeyword);
@@ -189,17 +201,18 @@ function Searcher() {
       >
         <Logo src={hamburger} alt="hamburger" />
       </HamburgerButton>
-      <FilterWrapper filterShowed={filterShowed}>
+      <FilterWrapper darkMode={darkMode} filterShowed={filterShowed}>
         <InputWrapper>
-          <StyledLabel>關鍵字：</StyledLabel>
+          <StyledLabel darkMode={darkMode}>關鍵字：</StyledLabel>
           <StyledInput
+            darkMode={darkMode}
             onChange={(e) => setKeyword(e.target.value)}
             value={keyword}
             type="text"
           />
         </InputWrapper>
         <TagCategoryWrapper>
-          <StyledLabel width="59px">分類：</StyledLabel>
+          <StyledLabel darkMode={darkMode} width="59px">分類：</StyledLabel>
           <ListWrapper>
             {Object.keys(categoryList).map((key) => (
               <CategoryTagBtn
@@ -212,7 +225,7 @@ function Searcher() {
           </ListWrapper>
         </TagCategoryWrapper>
         <TagCategoryWrapper>
-          <StyledLabel width="59px">標籤：</StyledLabel>
+          <StyledLabel darkMode={darkMode} width="59px">標籤：</StyledLabel>
           <ListWrapper>
             {Object.keys(tagList).map((key) => (
               <CategoryTagBtn

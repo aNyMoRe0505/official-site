@@ -44,7 +44,7 @@ function DarkModeSwitcher({
   setDarkMode,
   darkMode,
 }) {
-  const matchArticleDetailRoute = useRouteMatch('/blog/article/:articleId');
+  const matchArticleDetailRoute = useRouteMatch('/blog');
 
   if (!matchArticleDetailRoute) return null;
 
