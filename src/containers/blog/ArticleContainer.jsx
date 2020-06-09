@@ -35,7 +35,7 @@ const ArticleWrapper = styled.div`
 const DisqusContainer = styled.div`
   margin: 30px 0 0;
   width: 100%;
-  background-color: ${({ darkMode }) => (darkMode && '#282c35') || 'white'};
+  background-color: ${({ darkMode }) => (darkMode && '#1e2330') || 'white'};
 `;
 
 function ArticleContainer() {
