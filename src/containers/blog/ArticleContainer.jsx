@@ -48,7 +48,6 @@ function ArticleContainer() {
 
   if (!targetArticle) return <Redirect to="/blog" />;
 
-
   return (
     <>
       <LoadingBox loadingStatus={!imageLoaded} />
