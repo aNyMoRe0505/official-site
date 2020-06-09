@@ -6,6 +6,7 @@ import Article5 from '../containers/blog/articles/Article5';
 import Article6 from '../containers/blog/articles/Article6';
 import Article7 from '../containers/blog/articles/Article7';
 import Article8 from '../containers/blog/articles/Article8';
+import Article9 from '../containers/blog/articles/Article9';
 
 import noteLogo from '../static/noteLogo.png';
 
@@ -23,9 +24,20 @@ export const tags = {
   7: 'CSRF',
   8: 'CORS',
   9: 'Security',
+  10: 'JWT',
+  11: 'oAuth',
 };
 
 export const articles = [{
+  id: 9,
+  cover: 'https://cdn.auth0.com/blog/jwtalgos/logo.png',
+  categoryIds: [1],
+  tagIds: [9, 10, 11],
+  title: '練習 JWT Auth 實作',
+  description: '記錄練習過程',
+  component: Article9,
+  date: new Date('2020/06/09'),
+}, {
   id: 8,
   cover: noteLogo,
   categoryIds: [1],
