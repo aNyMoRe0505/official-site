@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { FETCH_YOUTUBE_LIST, SAGA_CLEAR_YOUTUBE_RESULT } from '../actions/Youtube';
+import { FETCH_YOUTUBE_LIST, CLEAR_YOUTUBE_RESULT } from '../actions/Youtube';
 import { useBodyFetchMore } from '../helper/hooks';
 
 import searchIcon from '../static/searchIcon.png';
@@ -69,7 +69,7 @@ function YoutubeSearcher({
 
     setLoading(true);
 
-    dispatch({ type: SAGA_CLEAR_YOUTUBE_RESULT });
+    dispatch({ type: CLEAR_YOUTUBE_RESULT });
     dispatch({
       type: FETCH_YOUTUBE_LIST,
       keyword,
@@ -78,7 +78,7 @@ function YoutubeSearcher({
     });
   };
 
-  useEffect(() => () => dispatch({ type: SAGA_CLEAR_YOUTUBE_RESULT }), [dispatch]);
+  useEffect(() => () => dispatch({ type: CLEAR_YOUTUBE_RESULT }), [dispatch]);
 
   useBodyFetchMore(() => {
     if (nextPageToken && keyword) {

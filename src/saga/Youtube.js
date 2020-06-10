@@ -6,7 +6,6 @@ import {
 import {
   FETCH_YOUTUBE_LIST_SUCCESS,
   FETCH_MORE_YOUTUBE_LIST_SUCCESS,
-  CLEAR_YOUTUBE_RESULT,
 } from '../actions/Youtube';
 
 import { fetchYoutube } from '../helper/api';
@@ -32,8 +31,4 @@ export function* handleFetchYoutube({
   } finally {
     callback();
   }
-}
-
-export function* handleClearYoutubeResult() {
-  yield put({ type: CLEAR_YOUTUBE_RESULT });
 }

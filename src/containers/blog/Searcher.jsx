@@ -7,7 +7,7 @@ import {
   tags as tagList,
 } from '../../config/blog';
 import styles from '../../config/style';
-import { SAGA_CACHE_SEARCHER } from '../../actions/Blog';
+import { CACHE_SEARCHER } from '../../actions/Blog';
 import { DarkModeContext } from '../../config/context';
 
 import Button from '../../components/Button';
@@ -183,7 +183,7 @@ function Searcher() {
 
   const submit = () => {
     dispatch({
-      type: SAGA_CACHE_SEARCHER,
+      type: CACHE_SEARCHER,
       params: {
         keyword,
         categories,
