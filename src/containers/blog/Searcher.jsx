@@ -63,8 +63,8 @@ const FilterWrapper = styled.div`
   box-shadow: 0px 0px 4px #80808078;
   color: white;
   background-color: white;
-  ${({ filterShowed }) => (filterShowed && FadeIn) || FadeOut};
   ${({ darkMode }) => darkMode && FilterWrapperDark};
+  ${({ filterShowed }) => (filterShowed && FadeIn) || FadeOut};
 `;
 
 const InputWrapper = styled.div`
