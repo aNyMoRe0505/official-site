@@ -33,7 +33,7 @@ function GoToTop() {
   const btnRef = useRef();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    if (pathname !== '/blog') window.scrollTo(0, 0);
   }, [pathname]);
 
   useEffect(() => {

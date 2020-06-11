@@ -151,10 +151,13 @@ const Logo = styled.img`
 `;
 
 function Searcher() {
-  const storeKeyword = useSelector((state) => state.Blog.searcherParam.keyword);
-  const storeCategories = useSelector((state) => state.Blog.searcherParam.categories);
-  const storeTags = useSelector((state) => state.Blog.searcherParam.tags);
+  const {
+    keyword: storeKeyword,
+    categories: storeCategories,
+    tags: storeTags,
+  } = useSelector((state) => state.Blog.searcherParam); // 不拆開 影響不大 可讀性好一點
   const loading = useSelector((state) => state.Blog.loading);
+
   const dispatch = useDispatch();
   const darkMode = useContext(DarkModeContext);
 
