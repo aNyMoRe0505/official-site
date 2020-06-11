@@ -228,7 +228,7 @@ function Blog() {
       dispatch({ type: UPDATE_MOCK_LOADING_STATUS, status: true });
       dispatch({ type: BEFORE_ARTICLE_SEARCH });
 
-      const { filteredArticles, caching } = await mockAPIGetArticleList(0, [], keyword, categories, tags);
+      const { filteredArticles, caching } = await mockAPIGetArticleList();
 
       dispatch({
         type: AFTER_ARTICLE_SEARCH_COMPLETED,
@@ -240,7 +240,7 @@ function Blog() {
 
     if (!articleList.length) mockFetchArticles();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // better way (?)
+  }, [dispatch]); // better way (?) articleList.length..
 
   useEffect(() => {
     const mockFetchArticles = async () => {
