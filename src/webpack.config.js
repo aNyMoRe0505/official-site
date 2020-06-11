@@ -13,7 +13,7 @@ module.exports = {
   output: {
     filename: '[name].[hash].js',
     path: path.resolve(__dirname, '../build'),
-    publicPath: NODE_ENV !== 'production' ? '/' : '/official-site/',
+    publicPath: '/official-site/',
   },
   optimization: {
     splitChunks: {
@@ -39,11 +39,12 @@ module.exports = {
     contentBase: [
       path.resolve(__dirname, 'static'),
     ],
-    publicPath: NODE_ENV !== 'production' ? '/' : '/official-site/',
+    publicPath: '/official-site/',
     compress: true,
     port: 6767,
-    filename: 'bundle.js',
-    historyApiFallback: true,
+    historyApiFallback: {
+      index: '/official-site/index.html',
+    },
     host: '0.0.0.0',
   },
   resolve: {
