@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import React, {
   useEffect,
   useContext,
@@ -25,7 +24,6 @@ import {
   AFTER_ARTICLE_FETCH_MORE_SEARCH_COMPLETED,
 } from '../../actions/Blog';
 import { DarkModeContext } from '../../config/context';
-
 
 import Searcher from './Searcher';
 import LoadingBox from '../../components/LoadingBox';

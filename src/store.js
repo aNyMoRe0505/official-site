@@ -18,6 +18,11 @@ const getStore = () => {
       applyMiddleware(sagaMiddleware),
     ),
   );
+
+  if (module.hot) {
+    module.hot.accept('./reducers', () => store.replaceReducer(rootReducer));
+  }
+
   sagaMiddleware.run(rootSaga);
 
   return store;
