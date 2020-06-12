@@ -39,10 +39,7 @@ function GoToTop() {
   useEffect(() => {
     const trackScrollTop = () => {
       const element = document.scrollingElement || document.documentElement;
-      const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
-      const clientHeight = document.documentElement.clientHeight || document.body.clientHeight;
-
-      if (element.scrollTop > (scrollHeight - clientHeight) / 3 && element.scrollTop > 600) {
+      if (element.scrollTop > 600) {
         btnRef.current.style.display = 'block';
       } else {
         btnRef.current.style.display = 'none';
