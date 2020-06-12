@@ -43,6 +43,8 @@ module.exports = {
       index: '/official-site/index.html',
     },
     host: '0.0.0.0',
+    open: true,
+    openPage: 'official-site',
   },
   resolve: {
     extensions: [
