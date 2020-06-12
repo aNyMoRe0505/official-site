@@ -17,14 +17,7 @@ module.exports = {
   },
   optimization: {
     splitChunks: {
-      cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          chunks: 'all',
-          priority: 1,
-          name: 'vendor',
-        },
-      },
+      chunks: 'all',
     },
   },
   plugins: [
