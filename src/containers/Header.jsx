@@ -101,6 +101,11 @@ const links = [{
   exact: true,
   dropdown: [],
 }, {
+  path: '/blog',
+  name: 'Blog',
+  exact: false,
+  dropdown: [],
+}, {
   path: '/practice',
   name: 'Practice',
   exact: false,
@@ -126,11 +131,6 @@ const links = [{
     path: '/rxjs',
     name: 'RxJS',
   }],
-}, {
-  path: '/blog',
-  name: 'Blog',
-  exact: false,
-  dropdown: [],
 }, {
   path: '/heyhey',
   name: '???',
