@@ -36,9 +36,6 @@ module.exports = {
   mode: NODE_ENV === 'production' ? 'production' : 'development',
   devServer: {
     hot: true,
-    contentBase: [
-      path.resolve(__dirname, 'static'),
-    ],
     publicPath: '/official-site/',
     compress: true,
     port: 6767,
