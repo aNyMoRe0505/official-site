@@ -224,7 +224,6 @@ function Blog() {
   useEffect(() => {
     const mockFetchArticles = async () => {
       dispatch({ type: UPDATE_MOCK_LOADING_STATUS, status: true });
-      dispatch({ type: BEFORE_ARTICLE_SEARCH });
 
       const { filteredArticles, caching } = await mockAPIGetArticleList();
 
