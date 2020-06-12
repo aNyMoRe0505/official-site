@@ -5,6 +5,7 @@
   "dependencies": {
     "@babel/runtime": "^7.10.2",
     "axios": "^0.19.2",
+    "debug": "^4.1.1",
     "disqus-react": "^1.0.8",
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
@@ -24,7 +25,7 @@
   "scripts": {
     "start": "webpack-dev-server --config ./src/webpack.config.js",
     "build": "NODE_ENV=production webpack --config ./src/webpack.config.js && cp ./src/static/404.html ./build/",
-    "deploy": "npm run build && node script/deploy"
+    "deploy": "npm run build && babel-node ./src/script/deploy"
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",
