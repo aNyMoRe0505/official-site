@@ -41,7 +41,6 @@ const DateButton = styled.button`
   background-color: transparent;
 `;
 
-
 const CalendarWrapper = styled.div`
   width: 230px;
   display: flex;

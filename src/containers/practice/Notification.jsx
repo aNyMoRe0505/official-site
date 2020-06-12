@@ -9,7 +9,6 @@ import {
   NOTIFICATION_REMOVE_REQUEST,
 } from '../../actions/Notification';
 
-
 const Wrapper = styled.div`
   width: 100%;
   display: flex;

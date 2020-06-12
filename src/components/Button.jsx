@@ -24,7 +24,6 @@ const StyledButton = styled.button`
   };
 `;
 
-
 function Button({
   className,
   label,

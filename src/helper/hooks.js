@@ -15,7 +15,6 @@ export function useImageLoadCompleted(sources = []) {
     sourcesRef.current = sources;
   }, [sources]);
 
-
   useEffect(() => {
     let unmounted = false;
     let allImagesSources = [];

@@ -69,5 +69,4 @@ DarkModeSwitcher.propTypes = {
   darkMode: PropTypes.bool.isRequired,
 };
 
-
 export default DarkModeSwitcher;

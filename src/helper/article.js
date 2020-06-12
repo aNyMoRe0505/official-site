@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 
 export const ARTICLE_META_TYPE = {
@@ -71,7 +72,6 @@ export const metaConverter = (meta, text, darkMode = false) => {
             </span>
           ));
           break;
-
 
         default:
           result.push(`${content}${char}`);

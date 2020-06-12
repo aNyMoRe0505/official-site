@@ -25,6 +25,7 @@
   "scripts": {
     "start": "webpack-dev-server --config ./src/webpack.config.js",
     "build": "NODE_ENV=production webpack --config ./src/webpack.config.js && cp ./src/static/404.html ./build/",
+    "lint": "eslint --ext .jsx,.js ./src/",
     "deploy": "npm run build && babel-node ./src/script/deploy"
   },
   "devDependencies": {

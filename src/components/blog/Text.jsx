@@ -22,7 +22,6 @@ const StyledText = styled.p`
   };
 `;
 
-
 function Text({
   children,
   strong,

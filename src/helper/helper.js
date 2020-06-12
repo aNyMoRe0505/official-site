@@ -26,5 +26,4 @@ export const checkAllImagesLoadCompleted = (sources) => new Promise((resolve, re
     .catch(reject);
 });
 
-
 export default null;
