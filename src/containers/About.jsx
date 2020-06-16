@@ -106,7 +106,7 @@ const BlockTitleWrap = styled.div`
   margin: 0 0 15px;
 `;
 
-const StyledBlcokMarkBtn = styled.button`
+const StyledPlusMarkBtn = styled.button`
   width: 26px;
   height: 26px;
   border: none;
@@ -383,12 +383,12 @@ function About() {
           <MainBlock>
             <BlockTitleWrap>
               <BlockTitle>教育背景</BlockTitle>
-              <StyledBlcokMarkBtn
+              <StyledPlusMarkBtn
                 status={educationExpanded}
                 onClick={() => setEducationExpanded(!educationExpanded)}
               >
                 <img style={{ width: '100%' }} alt="plus" src="https://img.icons8.com/ios/80/000000/plus.png" />
-              </StyledBlcokMarkBtn>
+              </StyledPlusMarkBtn>
             </BlockTitleWrap>
             <BlockWrapper status={educationExpanded}>
               {educationHistory.map((education) => (
@@ -408,12 +408,12 @@ function About() {
           <MainBlock>
             <BlockTitleWrap>
               <BlockTitle>工作經歷</BlockTitle>
-              <StyledBlcokMarkBtn
+              <StyledPlusMarkBtn
                 status={workExperienceExpanded}
                 onClick={() => setWorkExperienceExpanded(!workExperienceExpanded)}
               >
                 <img style={{ width: '100%' }} alt="plus" src="https://img.icons8.com/ios/80/000000/plus.png" />
-              </StyledBlcokMarkBtn>
+              </StyledPlusMarkBtn>
             </BlockTitleWrap>
             <BlockWrapper status={workExperienceExpanded}>
               {workExperiences.map((experience) => {
