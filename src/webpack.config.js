@@ -26,7 +26,7 @@ module.exports = {
       template: path.resolve(__dirname, 'static/index.html'),
     }),
   ],
-  mode: NODE_ENV === 'production' ? 'production' : 'development',
+  mode: NODE_ENV,
   devServer: {
     hot: true,
     publicPath: '/official-site/',

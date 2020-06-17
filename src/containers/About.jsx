@@ -6,6 +6,7 @@ import LoadingBox from '../components/LoadingBox';
 import Profile from '../components/about/Profile';
 import Education from '../components/about/Education';
 import WorkExperience from '../components/about/WorkExperience';
+import Works from '../components/about/Works';
 
 import { useImageLoadCompleted } from '../helper/hooks';
 
@@ -35,6 +36,9 @@ function About() {
         </FadeInBlock>
         <FadeInBlock>
           <WorkExperience />
+        </FadeInBlock>
+        <FadeInBlock>
+          <Works />
         </FadeInBlock>
       </Wrapper>
     </>

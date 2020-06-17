@@ -1,12 +1,12 @@
 import styled, { css } from 'styled-components';
 
-const FadeIn = css`
+export const FadeIn = css`
   max-height: 100%;
   opacity: 1;
   transition: opacity 0.5s ease;
 `;
 
-const FadeOut = css`
+export const FadeOut = css`
   max-height: 0;
   opacity: 0;
   overflow: hidden;
