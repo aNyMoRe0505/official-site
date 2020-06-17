@@ -1,4 +1,4 @@
-## Paul Wang Official Site [https://anymore0505.github.io/official-site](https://anymore0505.github.io/official-site)
+## Paul's Blog [https://anymore0505.github.io/official-site](https://anymore0505.github.io/official-site)
 
 ### `About`
 一點點自我介紹
