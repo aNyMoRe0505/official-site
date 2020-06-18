@@ -26,4 +26,14 @@ export const checkAllImagesLoadCompleted = (sources) => new Promise((resolve, re
     .catch(reject);
 });
 
+export const debounce = (originalFunc, debounceTime = 300) => {
+  let timer = null;
+  return (...args) => {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(() => {
+      originalFunc(...args);
+    }, debounceTime);
+  };
+};
+
 export default null;

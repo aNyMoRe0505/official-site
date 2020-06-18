@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
+import { debounce } from '../../helper/helper';
+
 import background from '../../static/background.jpeg';
 
 import {
@@ -153,13 +155,15 @@ function Works() {
 
   useEffect(() => {
     setCoverContainerRect(coverContainerRef.current.getBoundingClientRect());
+
     const resize = () => {
       setCoverContainerRect(coverContainerRef.current.getBoundingClientRect());
     };
+    const resizeWithDebounce = debounce(resize, 500);
 
-    window.addEventListener('resize', resize);
+    window.addEventListener('resize', resizeWithDebounce);
 
-    return () => window.removeEventListener('resize', resize);
+    return () => window.removeEventListener('resize', resizeWithDebounce);
   }, []);
 
   return (
