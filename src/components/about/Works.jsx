@@ -186,7 +186,7 @@ function Works() {
             key={work.id}
           >
             <Cover ref={coverContainerRef} cover={work.cover}>
-              {work.needTitleInCover ? (
+              {work.needTitleInCover && (
                 <CoverMask
                   maskWidth={coverContainerRect.width || 0}
                   maskHeight={coverContainerRect.height || 0}
@@ -194,7 +194,7 @@ function Works() {
                 >
                   {work.name}
                 </CoverMask>
-              ) : null}
+              )}
             </Cover>
             <Desc>
               {work.name}
