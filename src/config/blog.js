@@ -7,6 +7,7 @@ import Article6 from '../containers/blog/articles/Article6';
 import Article7 from '../containers/blog/articles/Article7';
 import Article8 from '../containers/blog/articles/Article8';
 import Article9 from '../containers/blog/articles/Article9';
+import Article10 from '../containers/blog/articles/Article10';
 
 import noteLogo from '../static/noteLogo.png';
 
@@ -26,9 +27,19 @@ export const tags = {
   9: 'Security',
   10: 'JWT',
   11: 'oAuth',
+  12: 'CSS',
 };
 
 export const articles = [{
+  id: 10,
+  cover: 'https://i.imgur.com/gdoyRS6.png',
+  categoryIds: [1],
+  tagIds: [12],
+  title: 'CSS 毛玻璃',
+  description: '記錄一下研究毛玻璃的過程，和筆記、整理相關的東西',
+  component: Article10,
+  date: new Date('2020/06/18'),
+}, {
   id: 9,
   cover: 'https://cdn.auth0.com/blog/jwtalgos/logo.png',
   categoryIds: [1],
