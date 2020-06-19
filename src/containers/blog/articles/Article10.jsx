@@ -32,6 +32,8 @@ const ActivedMode = css`
   ::before {
     content: '';
     position: absolute;
+    filter: blur(5px);
+    z-index: -1;
     top: 0;
     left: 0;
     right: 0;
@@ -41,9 +43,21 @@ const ActivedMode = css`
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
+  };
+`;
+
+const MaskMode = css`
+  ::before {
+    content: '';
+    position: absolute;
     filter: blur(5px);
     z-index: -1;
-  };
+    width: ${({ containerWidth }) => `${containerWidth}px`};
+    height: ${({ containerHeight }) => `${containerHeight}px`};
+    background-image: url(${backgroundImg});
+    background-position: center;
+    background-size: cover;
+  }
 `;
 
 const SimpleFrostedGlass = styled.div`
@@ -62,17 +76,7 @@ const SimpleFrostedGlass = styled.div`
   font-size: 30px;
   ${({ blur }) => blur && 'filter: blur(5px)'};
   ${({ actived }) => actived && ActivedMode};
-`;
-
-const Mask = styled.div`
-  position: absolute;
-  z-index: -1;
-  width: ${({ containerWidth }) => `${containerWidth}px`};
-  height: ${({ containerHeight }) => `${containerHeight}px`};
-  background-image: url(${backgroundImg});
-  background-position: center;
-  background-size: cover;
-  filter: blur(5px);
+  ${({ mask }) => mask && MaskMode}
 `;
 
 function Article10() {
@@ -203,12 +207,12 @@ const SimpleFrostedGlass = styled.div'
         看起來很完美，但就是背景圖會隨著 scroll 改變讓我很不喜歡XD，解決方法也很簡單，抓取最外層 container 的寬跟高設置在偽元素就可以了，因為外層 SimpleFrostedGlass overflow 屬性為 hidden，所以也不會超出，這樣 fixed 就算拔掉背景圖的位置也會跟最外層一致
       </Text>
       <Background ref={coverContainerRef}>
-        <SimpleFrostedGlass>
+        <SimpleFrostedGlass
+          containerWidth={coverContainerRect.width || 0}
+          containerHeight={coverContainerRect.height || 0}
+          mask
+        >
           Frosted Glass
-          <Mask
-            containerWidth={coverContainerRect.width || 0}
-            containerHeight={coverContainerRect.height || 0}
-          />
         </SimpleFrostedGlass>
       </Background>
       <Text>
