@@ -270,7 +270,7 @@ function Blog() {
     dispatch({
       type: AFTER_ARTICLE_FETCH_MORE_SEARCH_COMPLETED,
       list: nextPageArticles,
-      reachingEnd: !nextPageArticles.length,
+      reachingEnd: !nextPageArticles.length || nextPageArticles.length < ARTICLE_LIMIT,
     });
     dispatch({ type: UPDATE_MOCK_LOADING_STATUS, status: false });
   }, loading || reachingEnd);
