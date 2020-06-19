@@ -76,7 +76,7 @@ const SimpleFrostedGlass = styled.div`
   font-size: 30px;
   ${({ blur }) => blur && 'filter: blur(5px)'};
   ${({ actived }) => actived && ActivedMode};
-  ${({ mask }) => mask && MaskMode}
+  ${({ maskMode }) => maskMode && MaskMode}
 `;
 
 function Article10() {
@@ -210,13 +210,87 @@ const SimpleFrostedGlass = styled.div'
         <SimpleFrostedGlass
           containerWidth={coverContainerRect.width || 0}
           containerHeight={coverContainerRect.height || 0}
-          mask
+          maskMode
         >
           Frosted Glass
         </SimpleFrostedGlass>
       </Background>
       <Text>
-        這樣就大功告成了，非常完美XD，再來想筆記一下有關 z-index 的東西，在製作毛玻璃效果我們會將遮罩層的 z-index 設置成 -1，上層設成 1，但是不太懂為什麼這樣做是會 work 的... (待補)
+        這樣就大功告成了，非常完美XD，再來想筆記一下有關 z-index 的東西，在製作毛玻璃效果我們會將遮罩層的 z-index 設置成 -1，上層設成 1，但是不太懂為什麼這樣做是會 work
+      </Text>
+      <Text
+        meta={[{
+          start: 14,
+          end: 29,
+          type: ARTICLE_META_TYPE.LINK,
+          url: 'https://andyyou.github.io/2016/03/03/z-index/',
+        }, {
+          start: 82,
+          end: 84,
+          type: ARTICLE_META_TYPE.LINK,
+          url: 'https://github.com/aNyMoRe0505/official-site/blob/master/src/containers/blog/articles/Article10.jsx',
+        }]}
+      >
+        簡單筆記一下，我的理解根據 Stacking Context 來說明，元素在沒有設定 position 屬性的情況下大部分是根據撰寫 tag 的順序來堆疊 (看網站原始碼可能會清楚些)
+      </Text>
+      <Code>
+        {`     <Background ref={coverContainerRef}>  ==> 最底層
+      <SimpleFrostedGlass   ==> position 為 relative 建立 stacking context 且 z-index 為 1
+        containerWidth={coverContainerRect.width || 0}
+        containerHeight={coverContainerRect.height || 0}
+        maskMode
+      >
+        <p>Frosted Glass</p>
+      </SimpleFrostedGlass>
+    </Background>`}
+      </Code>
+      <Code>
+        {`  ::before {     <== SimpleFrostedGlass 的偽元素
+    content: '';
+    position: absolute;
+    filter: blur(5px);
+    z-index: -1;
+    width: containerWidth;
+    height: containerHeight;
+    background-image: url(${backgroundImg});
+    background-position: center;
+    background-size: cover;
+  }`}
+      </Code>
+      <Text>
+        所以在毛玻璃的範例中，最底層的是背景圖也就是 Background
+      </Text>
+      <Text strong>
+        再來因為 SimpleFrostedGlass 的 position 屬性被設置 relative 且 z-index 為 1 所以建立了 stacking context
+      </Text>
+      <Text>
+        如果 SimpleFrostedGlass 的 z-index 沒有設定的話，z-index 為 -1 的偽元素就會被藏在最底層
+      </Text>
+      <Text>
+        那為什麼 z-index 1 的 SimpleFrostedGlass 會在偽元素 (z-index 為 -1) 底下呢
+      </Text>
+      <Text>
+        在單一 stacking context 底下的堆疊順序為
+      </Text>
+      <List list={[{
+        meta: [],
+        text: '根元素, 也就是SimpleFrostedGlass',
+      }, {
+        meta: [],
+        text: '有 position 屬性(除了 staitc), 且 z-index 為負數 也就是這裡的偽造元素',
+      }, {
+        meta: [],
+        text: '啥都沒的一般元素也就是<p>Frosted Glass</p>',
+      }, {
+        meta: [],
+        text: '有 position 屬性(除了 staitc), 且 z-index 為auto 或者一些其他特殊情況這邊不提',
+      }, {
+        meta: [],
+        text: '有 position 屬性(除了 staitc), 且 z-index 為正',
+      }]}
+      />
+      <Text>
+        從這樣看就很清楚了，所以偽元素 (模糊層) 會在 SimpleFrostedGlass 之上，但會在字體(Frosted Glass)之下！
       </Text>
       <List
         title="參考資料"
@@ -236,6 +310,14 @@ const SimpleFrostedGlass = styled.div'
             url: 'https://www.cnblogs.com/ghost-xyx/p/5677168.html',
           }],
           text: 'CSS技巧收集——毛玻璃效果',
+        }, {
+          meta: [{
+            start: 0,
+            end: 16,
+            type: ARTICLE_META_TYPE.LINK,
+            url: 'https://andyyou.github.io/2016/03/03/z-index/',
+          }],
+          text: '深入 css z-index 屬性',
         }]}
       />
     </>
