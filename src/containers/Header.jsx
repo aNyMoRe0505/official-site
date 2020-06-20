@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 
 import hamburger from '../static/hamburger.png';
 
@@ -32,7 +32,7 @@ const HeaderWrapper = styled.header`
   transition-timing-function: ease;
 `;
 
-const LogoLink = styled(NavLink)`
+const LogoLink = styled(RouterLink)`
   width: 45px;
   display: flex;
   align-items: center;

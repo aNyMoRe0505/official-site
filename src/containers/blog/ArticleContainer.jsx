@@ -9,6 +9,7 @@ import { DiscussionEmbed } from 'disqus-react';
 
 import { useImageLoadCompleted } from '../../helper/hooks';
 
+import PrevNextArticle from './PrevNextArticle';
 import LoadingBox from '../../components/LoadingBox';
 
 import {
@@ -36,6 +37,9 @@ const DisqusContainer = styled.div`
   margin: 30px 0 0;
   width: 100%;
   background-color: ${({ darkMode }) => (darkMode && '#1e2330') || 'white'};
+  @media (max-width: 768px) {
+    margin: 15px 0 0;
+  };
 `;
 
 function ArticleContainer() {
@@ -48,11 +52,19 @@ function ArticleContainer() {
 
   if (!targetArticle) return <Redirect to="/blog" />;
 
+  const prevArticle = articles.find((article) => article.id === parseInt(articleId, 10) - 1);
+  const nextArticle = articles.find((article) => article.id === parseInt(articleId, 10) + 1);
+
   return (
     <>
       <LoadingBox loadingStatus={!imageLoaded} />
       <ArticleWrapper imageLoaded={imageLoaded}>
         <targetArticle.component />
+        <PrevNextArticle
+          targetArticle={targetArticle}
+          prevArticle={prevArticle}
+          nextArticle={nextArticle}
+        />
         <DisqusContainer darkMode={darkMode}>
           <DiscussionEmbed
             shortname="https-anymore0505-github-io-official-site"
