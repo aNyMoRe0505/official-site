@@ -53,6 +53,7 @@ export default (
         ...state,
         articleList: action.list,
         articleCachedList: action.cacheList,
+        reachingEnd: action.reachingEnd,
       };
 
     case CACHE_SEARCHER:

@@ -110,19 +110,14 @@ export function useBodyFetchMore(
   }, [loading]);
 
   useEffect(() => {
-    const fetchMoreScope = () => {
-      if (fetching.current) return;
-      savedFetchMoreFunc.current();
-    };
-
     const scrolling = () => {
       const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
       const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
       const clientHeight = document.documentElement.clientHeight || document.body.clientHeight;
 
       const remainingHeight = scrollHeight - (scrollTop + clientHeight);
-      if (remainingHeight < 100) {
-        fetchMoreScope();
+      if (remainingHeight < 100 && !fetching.current) {
+        savedFetchMoreFunc.current();
       }
     };
 

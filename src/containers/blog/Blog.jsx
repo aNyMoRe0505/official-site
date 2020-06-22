@@ -231,6 +231,7 @@ function Blog() {
         type: AFTER_ARTICLE_SEARCH_COMPLETED,
         list: filteredArticles,
         cacheList: caching,
+        reachingEnd: filteredArticles.length < ARTICLE_LIMIT,
       });
       dispatch({ type: UPDATE_MOCK_LOADING_STATUS, status: false });
     };
@@ -249,6 +250,7 @@ function Blog() {
       dispatch({
         type: AFTER_ARTICLE_SEARCH_COMPLETED,
         list: filteredArticles,
+        reachingEnd: filteredArticles.length < ARTICLE_LIMIT,
         cacheList: caching,
       });
       dispatch({ type: UPDATE_MOCK_LOADING_STATUS, status: false });
@@ -270,7 +272,7 @@ function Blog() {
     dispatch({
       type: AFTER_ARTICLE_FETCH_MORE_SEARCH_COMPLETED,
       list: nextPageArticles,
-      reachingEnd: !nextPageArticles.length || nextPageArticles.length < ARTICLE_LIMIT,
+      reachingEnd: nextPageArticles.length < ARTICLE_LIMIT,
     });
     dispatch({ type: UPDATE_MOCK_LOADING_STATUS, status: false });
   }, loading || reachingEnd);
