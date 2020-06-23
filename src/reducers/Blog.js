@@ -1,6 +1,5 @@
 import {
   CACHE_SEARCHER,
-  UPDATE_MOCK_LOADING_STATUS,
   BEFORE_ARTICLE_SEARCH,
   AFTER_ARTICLE_SEARCH_COMPLETED,
   BEFORE_ARTICLE_FETCH_MORE_SEARCH,
@@ -26,12 +25,14 @@ export default (
     case BEFORE_ARTICLE_FETCH_MORE_SEARCH:
       return {
         ...state,
+        loading: true,
         page: state.page + 1,
       };
 
     case AFTER_ARTICLE_FETCH_MORE_SEARCH_COMPLETED:
       return {
         ...state,
+        loading: false,
         articleList: [
           ...state.articleList,
           ...action.list,
@@ -42,6 +43,7 @@ export default (
     case BEFORE_ARTICLE_SEARCH:
       return {
         ...state,
+        loading: true,
         reachingEnd: false,
         page: 0,
         articleList: [],
@@ -51,6 +53,7 @@ export default (
     case AFTER_ARTICLE_SEARCH_COMPLETED:
       return {
         ...state,
+        loading: false,
         articleList: action.list,
         articleCachedList: action.cacheList,
         reachingEnd: action.reachingEnd,
@@ -60,12 +63,6 @@ export default (
       return {
         ...state,
         searcherParam: action.params,
-      };
-
-    case UPDATE_MOCK_LOADING_STATUS:
-      return {
-        ...state,
-        loading: action.status,
       };
 
     default:

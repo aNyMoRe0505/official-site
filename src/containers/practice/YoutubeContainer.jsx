@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
@@ -57,18 +57,12 @@ const Title = styled.span`
 `;
 
 function YoutubeContainer() {
-  const [loading, setLoading] = useState(false);
   const searchResult = useSelector((state) => state.Youtube.searchResult);
-  const wrapSetLoading = useCallback((loadingStatus) => {
-    setLoading(loadingStatus);
-  }, []);
+  const loading = useSelector((state) => state.Youtube.loading);
 
   return (
     <Wrapper>
-      <YoutubeSearcher
-        loading={loading}
-        setLoading={wrapSetLoading}
-      />
+      <YoutubeSearcher />
       {searchResult.length ? (
         <ResultWrapper>
           {searchResult.map((item) => (

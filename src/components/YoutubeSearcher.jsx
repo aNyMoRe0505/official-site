@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
 
 import { FETCH_YOUTUBE_LIST, CLEAR_YOUTUBE_RESULT } from '../actions/Youtube';
 import { useBodyFetchMore } from '../helper/hooks';
@@ -53,13 +52,11 @@ const SearchButton = styled.button`
   outline: none;
 `;
 
-function YoutubeSearcher({
-  setLoading,
-  loading,
-}) {
+function YoutubeSearcher() {
   const dispatch = useDispatch();
   const [keyword, setKeyword] = useState('');
   const nextPageToken = useSelector((state) => state.Youtube.nextPageToken);
+  const loading = useSelector((state) => state.Youtube.loading);
 
   const handleSubmit = () => {
     if (!keyword) {
@@ -67,30 +64,25 @@ function YoutubeSearcher({
       return;
     }
 
-    setLoading(true);
-
     dispatch({ type: CLEAR_YOUTUBE_RESULT });
     dispatch({
       type: FETCH_YOUTUBE_LIST,
       keyword,
       nextPageToken: '',
-      callback: () => setLoading(false),
     });
   };
 
   useEffect(() => () => dispatch({ type: CLEAR_YOUTUBE_RESULT }), [dispatch]);
 
   useBodyFetchMore(() => {
-    if (nextPageToken && keyword) {
-      setLoading(true);
+    if (nextPageToken && keyword && !loading) {
       dispatch({
         type: FETCH_YOUTUBE_LIST,
         keyword,
         nextPageToken,
-        callback: () => setLoading(false),
       });
     }
-  }, loading);
+  });
 
   return (
     <Wrapper>
@@ -109,10 +101,5 @@ function YoutubeSearcher({
     </Wrapper>
   );
 }
-
-YoutubeSearcher.propTypes = {
-  setLoading: PropTypes.func.isRequired,
-  loading: PropTypes.bool.isRequired,
-};
 
 export default YoutubeSearcher;

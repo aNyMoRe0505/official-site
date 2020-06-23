@@ -6,6 +6,7 @@ import {
 import {
   FETCH_YOUTUBE_LIST_SUCCESS,
   FETCH_MORE_YOUTUBE_LIST_SUCCESS,
+  UPDATE_YOUTUBE_LOADING,
 } from '../actions/Youtube';
 
 import { fetchYoutube } from '../helper/api';
@@ -13,9 +14,13 @@ import { fetchYoutube } from '../helper/api';
 export function* handleFetchYoutube({
   keyword,
   nextPageToken,
-  callback,
 }) {
   try {
+    yield put({
+      type: UPDATE_YOUTUBE_LOADING,
+      loading: true,
+    });
+
     const {
       list,
       token,
@@ -29,6 +34,9 @@ export function* handleFetchYoutube({
   } catch (error) {
     alert(error);
   } finally {
-    callback();
+    yield put({
+      type: UPDATE_YOUTUBE_LOADING,
+      loading: false,
+    });
   }
 }

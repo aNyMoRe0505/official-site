@@ -96,18 +96,12 @@ export function useRepeatedAnimation(gapTime) {
 
 export function useBodyFetchMore(
   fetchMoreFunc,
-  loading,
 ) {
-  const fetching = useRef(loading);
   const savedFetchMoreFunc = useRef();
 
   useEffect(() => {
     savedFetchMoreFunc.current = fetchMoreFunc;
-  }, [fetchMoreFunc]);
-
-  useEffect(() => {
-    fetching.current = loading;
-  }, [loading]);
+  });
 
   useEffect(() => {
     const scrolling = () => {
@@ -116,7 +110,7 @@ export function useBodyFetchMore(
       const clientHeight = document.documentElement.clientHeight || document.body.clientHeight;
 
       const remainingHeight = scrollHeight - (scrollTop + clientHeight);
-      if (remainingHeight < 100 && !fetching.current) {
+      if (remainingHeight < 100) {
         savedFetchMoreFunc.current();
       }
     };

@@ -17,7 +17,6 @@ import {
 } from '../../config/blog';
 import styles from '../../config/style';
 import {
-  UPDATE_MOCK_LOADING_STATUS,
   BEFORE_ARTICLE_SEARCH,
   AFTER_ARTICLE_SEARCH_COMPLETED,
   BEFORE_ARTICLE_FETCH_MORE_SEARCH,
@@ -223,7 +222,7 @@ function Blog() {
 
   useEffect(() => {
     const mockFetchArticles = async () => {
-      dispatch({ type: UPDATE_MOCK_LOADING_STATUS, status: true });
+      dispatch({ type: BEFORE_ARTICLE_SEARCH });
 
       const { filteredArticles, caching } = await mockAPIGetArticleList();
 
@@ -233,7 +232,6 @@ function Blog() {
         cacheList: caching,
         reachingEnd: filteredArticles.length < ARTICLE_LIMIT,
       });
-      dispatch({ type: UPDATE_MOCK_LOADING_STATUS, status: false });
     };
 
     if (!articleList.length) mockFetchArticles();
@@ -242,7 +240,6 @@ function Blog() {
 
   useEffect(() => {
     const mockFetchArticles = async () => {
-      dispatch({ type: UPDATE_MOCK_LOADING_STATUS, status: true });
       dispatch({ type: BEFORE_ARTICLE_SEARCH });
 
       const { filteredArticles, caching } = await mockAPIGetArticleList(0, [], keyword, categories, tags);
@@ -253,7 +250,6 @@ function Blog() {
         reachingEnd: filteredArticles.length < ARTICLE_LIMIT,
         cacheList: caching,
       });
-      dispatch({ type: UPDATE_MOCK_LOADING_STATUS, status: false });
     };
 
     if (didmountRef.current) {
@@ -264,18 +260,18 @@ function Blog() {
   }, [dispatch, keyword, categories, tags]);
 
   useBodyFetchMore(async () => {
-    dispatch({ type: UPDATE_MOCK_LOADING_STATUS, status: true });
-    dispatch({ type: BEFORE_ARTICLE_FETCH_MORE_SEARCH });
+    if (!loading && !reachingEnd) {
+      dispatch({ type: BEFORE_ARTICLE_FETCH_MORE_SEARCH });
 
-    const { filteredArticles: nextPageArticles } = await mockAPIGetArticleList(page + 1, articleCachedList);
+      const { filteredArticles: nextPageArticles } = await mockAPIGetArticleList(page + 1, articleCachedList);
 
-    dispatch({
-      type: AFTER_ARTICLE_FETCH_MORE_SEARCH_COMPLETED,
-      list: nextPageArticles,
-      reachingEnd: nextPageArticles.length < ARTICLE_LIMIT,
-    });
-    dispatch({ type: UPDATE_MOCK_LOADING_STATUS, status: false });
-  }, loading || reachingEnd);
+      dispatch({
+        type: AFTER_ARTICLE_FETCH_MORE_SEARCH_COMPLETED,
+        list: nextPageArticles,
+        reachingEnd: nextPageArticles.length < ARTICLE_LIMIT,
+      });
+    }
+  });
 
   return (
     <Wrapper>
