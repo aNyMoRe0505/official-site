@@ -79,9 +79,8 @@ function YouKu() {
     const mouseDownSubscriber = mouseDown.pipe(
       filter(() => refVideoFixedStatus.current),
       tap(() => {
-        const numRegex = /\d+/;
-        originBottom = parseInt(numRegex.exec(window.getComputedStyle(videoRef.current).bottom)[0], 10);
-        originRight = parseInt(numRegex.exec(window.getComputedStyle(videoRef.current).right)[0], 10);
+        originBottom = window.innerHeight - videoRef.current.getBoundingClientRect().bottom;
+        originRight = window.innerWidth - videoRef.current.getBoundingClientRect().right;
         videoRef.current.style.cursor = 'grabbing';
       }),
       flatMap(() => mouseMove.pipe(
