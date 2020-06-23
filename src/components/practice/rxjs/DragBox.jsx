@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { fromEvent } from 'rxjs';
 import {
@@ -36,9 +36,11 @@ const Box = styled.div`
 const boxArray = ['red', 'orange', 'yellow', 'green', 'blue', 'black', 'gray'];
 
 function DragBox() {
+  const wrapperRef = useRef();
+
   useEffect(() => {
-    let originalLeft = 0;
-    let originalTop = 0;
+    let wrapperLeft = 0;
+    let wrapperTop = 0;
 
     const allDragBox = document.getElementsByClassName('dragBox');
 
@@ -49,9 +51,9 @@ function DragBox() {
     const mouseDownEvent = mouseDown.pipe(
       tap(() => {
         allDragBox[0].style.cursor = 'grabbing';
-        const numRegex = /\d+/g;
-        originalLeft = parseInt(window.getComputedStyle(allDragBox[0]).left.match(numRegex)[0], 10);
-        originalTop = parseInt(window.getComputedStyle(allDragBox[0]).top.match(numRegex)[0], 10);
+        const { left, top } = wrapperRef.current.getBoundingClientRect();
+        wrapperLeft = left;
+        wrapperTop = top;
       }),
       flatMap(() => mouseMove.pipe(
         takeUntil(mouseUp.pipe(
@@ -61,8 +63,8 @@ function DragBox() {
         )),
       )),
       withLatestFrom(mouseDown, (moveEvent, downEvent) => ({
-        x: moveEvent.clientX - downEvent.clientX + originalLeft,
-        y: moveEvent.clientY - downEvent.clientY + originalTop,
+        x: moveEvent.clientX - downEvent.offsetX - wrapperLeft,
+        y: moveEvent.clientY - downEvent.offsetY - wrapperTop,
       })),
     );
 
@@ -96,7 +98,7 @@ function DragBox() {
   }, []);
 
   return (
-    <Wrapper>
+    <Wrapper ref={wrapperRef}>
       {boxArray.map((color, index) => (
         <Box
           color={color}
