@@ -107,7 +107,7 @@ export function useBodyFetchMore(
   useEffect(() => {
     const scrolling = () => {
       // why I add didMountRef ?
-      // 避免如果使用者直接點進文章內容並切滑倒底之後跳回 /blog
+      // 避免如果使用者透過網址直接點進文章內容並滑倒底之後跳回 /blog
       // 瀏覽器預設 scroll 會直接在下面 造成第一次 fetching 文章的時候執行了這段造成bug
       if (didMountRef.current) {
         const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
