@@ -10,6 +10,13 @@ import Works from '../components/about/Works';
 
 import { useImageLoadCompleted } from '../helper/hooks';
 
+import profile from '../static/profile.jpg';
+import gogoro from '../static/gogoro.png';
+import rytass from '../static/rytass.png';
+import klcivs from '../static/klcivs.gif';
+import nccu from '../static/nccu.jpg';
+import background from '../static/background.jpeg';
+
 const Wrapper = styled.div`
   width: 100%;
   max-width: 1000px;
@@ -21,8 +28,19 @@ const Wrapper = styled.div`
   ${({ imageLoaded }) => !imageLoaded && 'height: 0px'};
 `;
 
+const imgSources = [
+  profile,
+  gogoro,
+  rytass,
+  klcivs,
+  nccu,
+  background,
+  'https://www.homeruntaiwan.com/ogImage.jpg',
+  'https://i.ytimg.com/vi/6eXxJASf5aI/maxresdefault.jpg',
+];
+
 function About() {
-  const imageLoaded = useImageLoadCompleted();
+  const imageLoaded = useImageLoadCompleted(imgSources);
 
   return (
     <>
