@@ -30,7 +30,7 @@ const OptionLable = styled.span`
   font-size: 16px;
 `;
 
-const OptionBtn = styled.div`
+const OptionBtn = styled.button`
   width: 20px;
   height: 20px;
   border: none;
@@ -42,6 +42,7 @@ const OptionBtn = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: transparent;
 `;
 
 const ActivedBox = styled.div`
@@ -64,6 +65,7 @@ function Checkbox({
   onChange,
   options,
   error,
+  onBlur,
 }) {
   return (
     <CheckboxWrapper>
@@ -80,6 +82,9 @@ function Checkbox({
             <OptionBtnWrapper key={option.value}>
               <OptionLable>{option.name}</OptionLable>
               <OptionBtn
+                onBlur={() => {
+                  if (onBlur) onBlur();
+                }}
                 onClick={() => {
                   if (onChange) {
                     if (existIndex !== -1) {
@@ -111,12 +116,14 @@ Checkbox.propTypes = {
   onChange: PropTypes.func,
   options: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   error: PropTypes.shape({}),
+  onBlur: PropTypes.func,
 };
 
 Checkbox.defaultProps = {
   label: '',
   value: [],
   onChange: null,
+  onBlur: null,
   error: {},
 };
 

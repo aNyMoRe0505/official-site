@@ -80,15 +80,83 @@ const categoryOptions = [{
   name: '分類七',
 }];
 
+const validationResolver = async (values) => {
+  // test async
+  await new Promise((r) => setTimeout(r, 1));
+
+  const {
+    name,
+    category,
+    workExperiences,
+  } = values;
+
+  const errorObj = {};
+  const workExperiencesError = [];
+
+  if (!name) {
+    errorObj.name = {
+      type: 'required',
+      message: '姓名為必填！',
+    };
+  }
+
+  if (!category || !category.length) {
+    errorObj.category = {
+      type: 'required',
+      message: '至少選擇一個分類！',
+    };
+  }
+
+  workExperiences.forEach((workExperience, index) => {
+    const error = {};
+    if (!workExperience.companyName) {
+      error.companyName = {
+        type: 'required',
+        message: '公司名稱為必填！',
+      };
+    }
+
+    if (!workExperience.jobTitle) {
+      error.jobTitle = {
+        type: 'required',
+        message: '職稱為必填！',
+      };
+    }
+
+    if (workExperience.startDate > workExperience.endDate) {
+      error.startDate = {
+        type: 'limit',
+        message: '開始日期不可大於結束日期！',
+      };
+      error.endDate = {
+        type: 'limit',
+        message: '開始日期不可大於結束日期！',
+      };
+    }
+
+    if (Object.keys(error).length) workExperiencesError[index] = (error);
+  });
+
+  if (workExperiencesError.length) {
+    errorObj.workExperiences = workExperiencesError;
+  }
+
+  return {
+    values: Object.keys(errorObj).length ? {} : values,
+    errors: errorObj,
+  };
+};
+
 function HookForm() {
   const {
     register,
     handleSubmit,
     errors,
     control,
-    getValues,
+    clearError,
   } = useForm({
     mode: 'onBlur',
+    validationResolver,
     defaultValues: {
       workExperiences: [{
         companyName: '',
@@ -118,10 +186,10 @@ function HookForm() {
       <Form onSubmit={handleSubmit(onSubmit)}>
         <RowWrap>
           <Input
+            register={register}
             error={errors?.name || null}
             label="姓名"
             name="name"
-            register={register({ required: '姓名為必填！' })}
           />
         </RowWrap>
         <RowWrap width="200px">
@@ -134,11 +202,6 @@ function HookForm() {
         </RowWrap>
         <RowWrap>
           <Controller
-            rules={{
-              validate: {
-                minLength: (value) => value.length > 0 || '至少選擇一個分類！',
-              },
-            }}
             error={errors?.category || null}
             label="分類"
             options={categoryOptions}
@@ -151,7 +214,7 @@ function HookForm() {
         </RowWrap>
         <RowWrap>
           <WorkExperience
-            getValues={getValues}
+            clearError={clearError}
             errors={errors.workExperiences || []}
             control={control}
             register={register}

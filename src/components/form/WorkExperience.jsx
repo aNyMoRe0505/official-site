@@ -67,7 +67,7 @@ const CardWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
   margin: 10px 0 0;
 `;
@@ -95,11 +95,16 @@ const DateWrap = styled.div`
   justify-content: center;
 `;
 
+const DateError = styled.p`
+  width: 100%;
+  color: red;
+`;
+
 function WorkExperience({
   register,
   control,
   errors,
-  getValues,
+  clearError,
 }) {
   const {
     fields,
@@ -145,7 +150,7 @@ function WorkExperience({
               label="公司名稱"
               error={errors[index]?.companyName || null}
               name={`workExperiences[${index}].companyName`}
-              register={register({ required: '公司名稱必填！' })}
+              register={register()}
             />
             <StyledInput
               labelStyle={labelStyle}
@@ -153,23 +158,23 @@ function WorkExperience({
               label="職稱"
               error={errors[index]?.jobTitle || null}
               name={`workExperiences[${index}].jobTitle`}
-              register={register({ required: '職稱為必填！' })}
+              register={register()}
             />
+            {(errors[index]?.startDate || errors[index]?.endDate) && (
+              <DateError>
+                {errors[index]?.startDate?.message || errors[index]?.endDate?.message}
+              </DateError>
+            )}
             <DateWrap>
               <Label>開始日期：</Label>
               <Controller
                 defaultValue={item.startDate}
                 initialDate={item.startDate}
-                rules={{
-                  validate: {
-                    minDate: (value) => {
-                      const endDateValue = getValues(`workExperiences[${index}].endDate`);
-                      return endDateValue > value || '開始日期不可大於結束日期！';
-                    },
-                  },
-                }}
                 control={control}
-                onChange={([date]) => date}
+                onChange={([date]) => {
+                  if (date < item.endDate) clearError([`workExperiences[${index}].startDate`, `workExperiences[${index}].endDate`]);
+                  return date;
+                }}
                 name={`workExperiences[${index}].startDate`}
                 as={Calendar}
               />
@@ -180,7 +185,10 @@ function WorkExperience({
                 defaultValue={item.endDate}
                 initialDate={item.endDate}
                 control={control}
-                onChange={([date]) => date}
+                onChange={([date]) => {
+                  if (date > item.startDate) clearError([`workExperiences[${index}].startDate`, `workExperiences[${index}].endDate`]);
+                  return date;
+                }}
                 name={`workExperiences[${index}].endDate`}
                 as={Calendar}
               />
@@ -194,9 +202,9 @@ function WorkExperience({
 
 WorkExperience.propTypes = {
   register: PropTypes.func.isRequired,
-  getValues: PropTypes.func.isRequired,
   control: PropTypes.shape({}).isRequired,
   errors: PropTypes.arrayOf(PropTypes.shape({})),
+  clearError: PropTypes.func.isRequired,
 };
 
 WorkExperience.defaultProps = {

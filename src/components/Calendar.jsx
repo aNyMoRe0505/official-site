@@ -188,6 +188,7 @@ function Calendar({
   minDate,
   onChange,
   defaultShowStatus,
+  onBlur,
 }) {
   const [currentDate, setDate] = useState(moment(initialDate || new Date()));
   const [contentDate, setContentDate] = useState(moment(initialDate || new Date()));
@@ -301,6 +302,7 @@ function Calendar({
                     setShowCalendar(false);
                     if (date.month() !== contentDate.month()) setContentDate(date);
                     if (onChange) onChange(date.toDate());
+                    if (onBlur) onBlur();
                   }}
                   limitDate={(maxDate && maxDate < date) || (minDate && minDate > date)}
                   gray={date.month() !== contentDate.month()}
@@ -357,6 +359,7 @@ Calendar.propTypes = {
   initialDate: PropTypes.instanceOf(Date),
   onChange: PropTypes.func,
   defaultShowStatus: PropTypes.bool,
+  onBlur: PropTypes.func,
 };
 
 Calendar.defaultProps = {
@@ -365,6 +368,7 @@ Calendar.defaultProps = {
   initialDate: null,
   onChange: null,
   defaultShowStatus: false,
+  onBlur: null,
 };
 
 export default Calendar;
