@@ -13,6 +13,7 @@ import {
   FadeIn,
   FadeOut,
 } from './style';
+import styles from '../../config/style';
 
 const WorkWrapper = styled.div`
   width: 99%;
@@ -112,7 +113,7 @@ const Tag = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #343eb9;
+  background-color: ${styles.mainColor};
   width: auto;
   color: white;
   height: 30px;

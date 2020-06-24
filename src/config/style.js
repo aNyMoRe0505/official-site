@@ -1,4 +1,4 @@
 export default {
-  mainColor: '#5896c1',
+  mainColor: '#343eb9',
   mainRed: 'rgb(234, 79, 79)',
 };

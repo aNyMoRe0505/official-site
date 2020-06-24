@@ -175,7 +175,13 @@ const mockAPIGetArticleList = async (
 
   if (!currentPage) {
     // 非fetch more才要重新整個filter
-    if (keyword) filteredArticles = filteredArticles.filter((article) => article.title.includes(keyword));
+    if (keyword) {
+      filteredArticles = filteredArticles.filter((article) => {
+        const articleTitle = article.title.toUpperCase();
+        const filterdKeyword = keyword.toUpperCase();
+        return articleTitle.includes(filterdKeyword);
+      });
+    }
     if (categories.length) {
       filteredArticles = filteredArticles
         .filter((article) => article.categoryIds
