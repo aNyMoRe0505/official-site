@@ -126,3 +126,11 @@ export function useUnmounted() {
   useEffect(() => () => { ummountedRef.current = true; }, []);
   return ummountedRef;
 }
+
+export function usePreviouse(value) {
+  const prevRef = useRef();
+  useEffect(() => {
+    prevRef.current = value;
+  }, [value]);
+  return prevRef.current;
+}
