@@ -1,7 +1,6 @@
 import React, {
   useEffect,
   useContext,
-  useRef,
 } from 'react';
 import { Link } from 'react-router-dom';
 import styled, { keyframes, css } from 'styled-components';
@@ -9,18 +8,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
 
 import { useBodyFetchMore } from '../../helper/hooks';
-import { checkAllImagesLoadCompleted } from '../../helper/helper';
 import {
-  articles,
   categories as categoryList,
   tags as tagList,
 } from '../../config/blog';
 import styles from '../../config/style';
 import {
-  BEFORE_ARTICLE_SEARCH,
-  AFTER_ARTICLE_SEARCH_COMPLETED,
-  BEFORE_ARTICLE_FETCH_MORE_SEARCH,
-  AFTER_ARTICLE_FETCH_MORE_SEARCH_COMPLETED,
+  FETCH_BLOG_REQUEST,
 } from '../../actions/Blog';
 import { DarkModeContext } from '../../config/context';
 
@@ -163,56 +157,8 @@ const CategoryTagBtn = styled.div`
 
 const ARTICLE_LIMIT = 6;
 
-const mockAPIGetArticleList = async (
-  currentPage = 0,
-  cachedList = [],
-  keyword = null,
-  categories = [],
-  tags = [],
-) => {
-  let filteredArticles = currentPage ? cachedList : articles;
-  let caching = [];
-
-  if (!currentPage) {
-    // 非fetch more才要重新整個filter
-    if (keyword) {
-      filteredArticles = filteredArticles.filter((article) => {
-        const articleTitle = article.title.toUpperCase();
-        const filterdKeyword = keyword.toUpperCase();
-        return articleTitle.includes(filterdKeyword);
-      });
-    }
-    if (categories.length) {
-      filteredArticles = filteredArticles
-        .filter((article) => article.categoryIds
-          .some((categoryId) => ~categories.findIndex((category) => category === categoryId)));
-    }
-    if (tags.length) {
-      filteredArticles = filteredArticles
-        .filter((article) => article.tagIds
-          .some((tagId) => ~tags.findIndex((tag) => tag === tagId)));
-    }
-    // 快取起來, fetch more時直接以快取的array做slice
-    caching = filteredArticles;
-  }
-
-  filteredArticles = filteredArticles.slice(currentPage * ARTICLE_LIMIT, currentPage * ARTICLE_LIMIT + ARTICLE_LIMIT);
-
-  const articleCover = filteredArticles.map((article) => article.cover);
-
-  await new Promise((resolve) => setTimeout(resolve, 300));
-  await checkAllImagesLoadCompleted(articleCover);
-
-  return {
-    caching,
-    filteredArticles,
-  };
-};
-
 function Blog() {
   const darkMode = useContext(DarkModeContext);
-  const didmountRef = useRef(false);
-
   const {
     tags,
     keyword,
@@ -221,60 +167,38 @@ function Blog() {
   const loading = useSelector((state) => state.Blog.loading);
   const page = useSelector((state) => state.Blog.page);
   const articleList = useSelector((state) => state.Blog.articleList);
-  const articleCachedList = useSelector((state) => state.Blog.articleCachedList);
   const reachingEnd = useSelector((state) => state.Blog.reachingEnd);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const mockFetchArticles = async () => {
-      dispatch({ type: BEFORE_ARTICLE_SEARCH });
-
-      const { filteredArticles, caching } = await mockAPIGetArticleList();
-
-      dispatch({
-        type: AFTER_ARTICLE_SEARCH_COMPLETED,
-        list: filteredArticles,
-        cacheList: caching,
-        reachingEnd: filteredArticles.length < ARTICLE_LIMIT,
-      });
+    const payload = {
+      page: 0,
+      limit: ARTICLE_LIMIT,
+      keyword,
+      categories,
+      tags,
     };
 
-    if (!articleList.length) mockFetchArticles();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch]); // better way (?) articleList.length..
-
-  useEffect(() => {
-    const mockFetchArticles = async () => {
-      dispatch({ type: BEFORE_ARTICLE_SEARCH });
-
-      const { filteredArticles, caching } = await mockAPIGetArticleList(0, [], keyword, categories, tags);
-
-      dispatch({
-        type: AFTER_ARTICLE_SEARCH_COMPLETED,
-        list: filteredArticles,
-        reachingEnd: filteredArticles.length < ARTICLE_LIMIT,
-        cacheList: caching,
-      });
-    };
-
-    if (didmountRef.current) {
-      mockFetchArticles();
-    } else {
-      didmountRef.current = true;
-    }
+    dispatch({
+      type: FETCH_BLOG_REQUEST,
+      payload,
+    });
   }, [dispatch, keyword, categories, tags]);
 
   useBodyFetchMore(async () => {
     if (!loading && !reachingEnd) {
-      dispatch({ type: BEFORE_ARTICLE_FETCH_MORE_SEARCH });
-
-      const { filteredArticles: nextPageArticles } = await mockAPIGetArticleList(page + 1, articleCachedList);
+      const payload = {
+        page: page + 1,
+        limit: ARTICLE_LIMIT,
+        keyword,
+        categories,
+        tags,
+      };
 
       dispatch({
-        type: AFTER_ARTICLE_FETCH_MORE_SEARCH_COMPLETED,
-        list: nextPageArticles,
-        reachingEnd: nextPageArticles.length < ARTICLE_LIMIT,
+        type: FETCH_BLOG_REQUEST,
+        payload,
       });
     }
   });
