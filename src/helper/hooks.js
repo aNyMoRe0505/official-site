@@ -40,22 +40,18 @@ export function useImageLoadCompleted(sources = []) {
   return completed;
 }
 
-export function useScrollAnimation() {
+export function useScrollAnimation(repeated = false) {
   const targetRef = useRef();
   const [actived, setActived] = useState(false);
-  const activedRef = useRef();
-
-  useEffect(() => {
-    activedRef.current = actived;
-  }, [actived]);
+  const repeatedRef = useRef(repeated);
 
   useEffect(() => {
     const scrollFun = () => {
-      if (!activedRef.current) {
-        const { top } = targetRef.current.getBoundingClientRect();
-        if (top <= window.innerHeight / 1.5) {
-          setActived(true);
-        }
+      const { top } = targetRef.current.getBoundingClientRect();
+      if (top <= window.innerHeight / 1.5) {
+        setActived(true);
+      } else if (repeatedRef.current) {
+        setActived(false);
       }
     };
 
