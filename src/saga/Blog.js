@@ -41,14 +41,14 @@ export function* handleFetchBlog({
 
     list = filteredArticles;
     cacheList = fetchMoreCacheList;
-    reachingEnd = filteredArticles.length < (payload.limit || 6);
+    reachingEnd = payload.limit ? filteredArticles.length < payload.limit : true;
 
     newAPICachedObj = {
       ...apiCachedObj,
       [key]: {
-        articles: filteredArticles,
-        fetcMoreCached: fetchMoreCacheList,
-        reachingEnd: filteredArticles.length < (payload.limit || 6),
+        articles: list,
+        fetcMoreCached: cacheList,
+        reachingEnd,
       },
     };
   }
