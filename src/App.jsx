@@ -16,6 +16,7 @@ import GoToTop from './components/GoToTop';
 import DarkModeSwitcher from './components/DarkModeSwitcher';
 import Header from './containers/Header';
 import About from './containers/About';
+import Archives from './containers/blog/Archives';
 
 import PracticeRoute from './routes/Practice';
 import BlogRoute from './routes/Blog';
@@ -77,6 +78,7 @@ function MainBoard() {
             </div>
           )}
         />
+        <Route path="/archives" component={Archives} />
         <Route path="/blog" component={BlogRoute} />
         <Route path="/practice" component={PracticeRoute} />
         <Route path="/" component={About} />
