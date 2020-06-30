@@ -91,6 +91,7 @@ const MobileMenuWrapper = styled.div`
     transition-duration: 0.3s;
     transition-property: right, opacity;
     transition-timing-function: ease-in-out;
+    overflow: auto;
     z-index: 999;
   }
 `;
@@ -104,6 +105,11 @@ const links = [{
   path: '/blog',
   name: 'Blog',
   exact: false,
+  dropdown: [],
+}, {
+  path: '/archives',
+  name: 'Archives',
+  exact: true,
   dropdown: [],
 }, {
   path: '/practice',

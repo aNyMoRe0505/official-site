@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 
 import BlogContainer from '../containers/blog/Blog';
 import ArticleContainer from '../containers/blog/ArticleContainer';
+import TagCategoryArticle from '../containers/blog/TagCategoryArticle';
 
 function Blog({
   match: {
@@ -16,6 +17,8 @@ function Blog({
 }) {
   return (
     <Switch>
+      <Route path={`${url}/categoryArticle/:categoryId`} component={TagCategoryArticle} />
+      <Route path={`${url}/tagArticle/:tagId`} component={TagCategoryArticle} />
       <Route path={`${url}/article/:articleId`} component={ArticleContainer} />
       <Route path={`${url}`} component={BlogContainer} />
       <Redirect to={`${url}`} />

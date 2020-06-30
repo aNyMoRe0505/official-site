@@ -101,7 +101,7 @@ export const articles = [{
   title: 'GraphQL Apollo Cache',
   description: '之前在用 Apollo Client 來串接 GraphQL API 碰到了一些有關快取的問題，在這邊筆記一下。',
   component: Article3,
-  date: new Date('2020/02/23'),
+  date: new Date('2019/12/20'),
 }, {
   id: 2,
   cover: 'https://webpack.js.org/dcd5e077cf9f54ebe52d4f7ebe8c3080.png',
@@ -110,7 +110,7 @@ export const articles = [{
   title: 'Webpack Config Note',
   description: '會想要寫這篇是因為在公司寫的 webpack config 有些變化，覺得還蠻值得筆記XD',
   component: Article2,
-  date: new Date('2020/02/21'),
+  date: new Date('2019/10/12'),
 }, {
   id: 1,
   cover: 'https://miro.medium.com/max/3000/1*-Ijet6kVJqGgul6adezDLQ.png',
@@ -119,5 +119,5 @@ export const articles = [{
   title: 'React Hook 順序重要性',
   description: '會想記錄是因為之前看 hook 的官方文件時，有些不懂的地方。',
   component: Article1,
-  date: new Date('2020/02/15'),
+  date: new Date('2019/08/15'),
 }];

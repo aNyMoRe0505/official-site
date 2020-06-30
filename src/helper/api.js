@@ -8,7 +8,7 @@ import {
 export const mockAPIGetArticleList = async ({
   page = 0,
   fetchMoreCachedList = [],
-  limit = 6,
+  limit = null,
   keyword = null,
   categories = [],
   tags = [],
@@ -39,11 +39,11 @@ export const mockAPIGetArticleList = async ({
     caching = filteredArticles;
   }
 
-  filteredArticles = filteredArticles.slice(page * limit, page * limit + limit);
+  if (limit) filteredArticles = filteredArticles.slice(page * limit, page * limit + limit);
 
   const articleCover = filteredArticles.map((article) => article.cover);
 
-  await new Promise((resolve) => setTimeout(resolve, 300));
+  await new Promise((resolve) => setTimeout(resolve, 200));
   await checkAllImagesLoadCompleted(articleCover);
 
   return {

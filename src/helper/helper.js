@@ -36,4 +36,24 @@ export const debounce = (originalFunc, debounceTime = 300) => {
   };
 };
 
+export const groupBy = (arr, groupKeyTransformFn) => {
+  const groupResult = [];
+
+  arr.forEach((element) => {
+    const groupKey = groupKeyTransformFn(element);
+    const existTarget = groupResult.find((gr) => gr.key === groupKey);
+
+    if (existTarget) {
+      existTarget.items.push(element);
+    } else {
+      groupResult.push({
+        key: groupKey,
+        items: [element],
+      });
+    }
+  });
+
+  return groupResult;
+};
+
 export default null;
