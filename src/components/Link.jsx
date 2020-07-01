@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -47,8 +47,6 @@ const WrappedLink = styled(NavLink)`
 const DropdownWrappedLink = styled(WrappedLink)`
   :hover {
     background-color: ${styles.mainRed};
-    color: white;
-    font-size: 18px;
   }
 `;
 
@@ -56,7 +54,6 @@ const MobileDropdownWrappedLink = styled(WrappedLink)`
   font-size: 12px;
   :hover {
     background-color: ${styles.mainRed};
-    color: white;
     font-size: 14px;
   }
 `;
@@ -98,6 +95,32 @@ const MobileDropdownWrapper = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    margin: -15px 0 0 0;
+  }
+`;
+
+export const MobileDropdownBtn = styled.button`
+  display: none;
+  @media (max-width: 768px) {
+    display: block;
+    width: 20px;
+    height: 20px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-color: transparent;
+    padding: 0;
+    margin: 0 10px;
+    :hover {
+      opacity: 0.8
+    };
+    transform: ${({ status }) => (status ? 'rotate(135deg)' : 'rotate(0deg)')};
+    transition-duration: 0.3s;
+    transition-property: transform;
+    transition-timing-function: ease-in-out;
+    position: absolute;
+    top: 10px;
+    right: -26px;
   }
 `;
 
@@ -109,6 +132,8 @@ function Link({
   dropdown,
   className,
 }) {
+  const [openMobileDropdown, setMobileDropdown] = useState(false);
+
   return (
     <Wrapper>
       <WrappedLink
@@ -116,6 +141,7 @@ function Link({
         className={className}
         onClick={() => {
           if (onClick) onClick();
+          if (dropdown.length) setMobileDropdown(true);
         }}
         activeStyle={{
           backgroundColor: styles.mainColor,
@@ -128,28 +154,36 @@ function Link({
       </WrappedLink>
       {dropdown.length ? (
         <>
-          <MobileDropdownWrapper>
-            {dropdown.map((dropdownLink, index) => (
-              <MobileDropdownWrappedLink
-                key={`mobile-${dropdownLink.path}`}
-                onClick={() => {
-                  if (onClick) onClick();
-                }}
-                exact
-                style={{
-                  margin: index + 1 === dropdown.length ? '5px 0px 15px' : '5px 0px 0px',
-                }}
-                activeStyle={{
-                  backgroundColor: styles.mainRed,
-                  fontSize: 14,
-                  color: 'white',
-                }}
-                to={`${to}${dropdownLink.path}`}
-              >
-                {dropdownLink.name}
-              </MobileDropdownWrappedLink>
-            ))}
-          </MobileDropdownWrapper>
+          <MobileDropdownBtn
+            status={openMobileDropdown}
+            onClick={() => setMobileDropdown(!openMobileDropdown)}
+          >
+            <img style={{ width: '100%' }} alt="plus" src="https://img.icons8.com/ios/80/000000/plus.png" />
+          </MobileDropdownBtn>
+          {openMobileDropdown && (
+            <MobileDropdownWrapper>
+              {dropdown.map((dropdownLink, index) => (
+                <MobileDropdownWrappedLink
+                  key={`mobile-${dropdownLink.path}`}
+                  onClick={() => {
+                    if (onClick) onClick();
+                  }}
+                  exact
+                  style={{
+                    margin: index + 1 === dropdown.length ? '5px 0px 15px' : '5px 0px 0px',
+                  }}
+                  activeStyle={{
+                    backgroundColor: styles.mainRed,
+                    fontSize: 14,
+                    color: 'white',
+                  }}
+                  to={`${to}${dropdownLink.path}`}
+                >
+                  {dropdownLink.name}
+                </MobileDropdownWrappedLink>
+              ))}
+            </MobileDropdownWrapper>
+          )}
           <DropdownSpaceLine />
           <DropdownWrapper>
             {dropdown.map((dropdownLink) => (

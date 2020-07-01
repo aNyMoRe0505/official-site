@@ -8,7 +8,7 @@ import Link from '../components/Link';
 
 const StyledLink = styled(Link)`
   @media (max-width: 768px) {
-    margin-bottom: ${({ dropdown }) => (dropdown.length ? '0px' : '15px')};
+    margin-bottom: 15px;
   }
 `;
 
