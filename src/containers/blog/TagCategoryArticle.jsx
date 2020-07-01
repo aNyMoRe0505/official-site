@@ -105,9 +105,7 @@ function TagCategoryArticle() {
       <Title>
         {instance}
       </Title>
-      <LoadingBox loadingStatus={loading}>
-        Loading...
-      </LoadingBox>
+      <LoadingBox loadingStatus={loading} />
       {articles.length ? (
         <>
           {articles.map((article) => (

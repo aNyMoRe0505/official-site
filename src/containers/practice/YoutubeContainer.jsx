@@ -80,9 +80,7 @@ function YoutubeContainer() {
           ))}
         </ResultWrapper>
       ) : null}
-      <LoadingBox loadingStatus={loading}>
-        Loading...
-      </LoadingBox>
+      <LoadingBox loadingStatus={loading} />
     </Wrapper>
   );
 }

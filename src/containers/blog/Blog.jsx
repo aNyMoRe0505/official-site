@@ -240,9 +240,7 @@ function Blog() {
       ) : (
         <>{!loading && <p>查無文章</p>}</>
       )}
-      <LoadingBox loadingStatus={loading}>
-        Loading...
-      </LoadingBox>
+      <LoadingBox loadingStatus={loading} />
     </Wrapper>
   );
 }
