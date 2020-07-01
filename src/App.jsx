@@ -17,6 +17,7 @@ import DarkModeSwitcher from './components/DarkModeSwitcher';
 import Header from './containers/Header';
 import About from './containers/About';
 import Archives from './containers/blog/Archives';
+import Footer from './containers/Footer';
 
 import PracticeRoute from './routes/Practice';
 import BlogRoute from './routes/Blog';
@@ -49,17 +50,6 @@ const Container = styled.div`
   transition-duration: 0.2s;
   transition-property: background-color;
   transition-timing-function: ease;
-`;
-
-const IconProviderWrap = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  bottom: 15px;
-  left: 15px;
-  color: gray;
-  white-space: pre-wrap;
 `;
 
 function MainBoard() {
@@ -101,19 +91,7 @@ function App() {
           <Wrapper>
             <Header />
             <MainBoard />
-            <IconProviderWrap>
-              Icon:
-              <a
-                style={{ margin: '0 0 0 5px', color: 'rgb(87, 173, 92)' }}
-                rel="noopener noreferrer"
-                target="_blank"
-                href="https://icons8.com/"
-              >
-                Icons8
-              </a>
-              {' & '}
-              Google Images
-            </IconProviderWrap>
+            <Footer />
           </Wrapper>
         </DarkModeContext.Provider>
       </Provider>
