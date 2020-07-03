@@ -5,6 +5,7 @@ import {
   useState,
 } from 'react';
 
+import { FOOTER_HEIGHT } from '../containers/Footer';
 import { checkAllImagesLoadCompleted } from './helper';
 
 export function useImageLoadCompleted(sources = []) {
@@ -112,7 +113,7 @@ export function useBodyFetchMore(
         const clientHeight = document.documentElement.clientHeight || document.body.clientHeight;
 
         const remainingHeight = scrollHeight - (scrollTop + clientHeight);
-        if (remainingHeight < 100) {
+        if (remainingHeight < FOOTER_HEIGHT / 2) {
           savedFetchMoreFunc.current();
         }
       } else {

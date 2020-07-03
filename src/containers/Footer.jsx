@@ -6,9 +6,11 @@ import footer from '../static/footer.png';
 
 import { debounce } from '../helper/helper';
 
+export const FOOTER_HEIGHT = 260;
+
 const Wrapper = styled.div`
   width: 100%;
-  height: 260px;
+  height: ${FOOTER_HEIGHT}px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -19,7 +21,7 @@ const Wrapper = styled.div`
 
 const Mask = styled.div`
   width: calc(100% - 50px);
-  height: 210px;
+  height: ${FOOTER_HEIGHT - 50}px;
   border-radius: 5px;
   display: flex;
   flex-direction: column;

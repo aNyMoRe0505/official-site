@@ -9,6 +9,11 @@ import Link from '../components/Link';
 const StyledLink = styled(Link)`
   @media (max-width: 768px) {
     margin-bottom: 15px;
+    opacity: ${({ menuShowed }) => (menuShowed && 1) || 0};
+    transition-property: opacity;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+    transition-delay: ${({ delay }) => `${delay}s`};
   }
 `;
 
@@ -77,8 +82,8 @@ const MobileMenuWrapper = styled.div`
   display: none;
   @media (max-width: 768px) {
     width: 100%;
-    height: calc(100vh - 70px);
-    padding: 20px;
+    height: ${({ menuShowed }) => (menuShowed && 'calc(100vh - 70px)') || 0};
+    padding: ${({ menuShowed }) => (menuShowed && '20px') || 0};
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -86,13 +91,11 @@ const MobileMenuWrapper = styled.div`
     background-color: white;
     position: fixed;
     top: 70px;
-    opacity: ${({ menuShowed }) => (menuShowed ? 1 : 0)};
-    right: ${({ menuShowed }) => (menuShowed ? 0 : '-100%')};
-    transition-duration: 0.3s;
-    transition-property: right, opacity;
-    transition-timing-function: ease-in-out;
     overflow: auto;
     z-index: 999;
+    transition-property: padding, height;
+    transition-duration: 0.6s;
+    transition-timing-function: ease;
   }
 `;
 
@@ -169,9 +172,17 @@ function Header() {
     return () => window.removeEventListener('scroll', scrolling);
   }, []);
 
+  useEffect(() => {
+    if (showMobileMenu) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [showMobileMenu]);
+
   return (
     <HeaderWrapper hiding={headerHiding}>
-      <LogoLink onClick={() => setMobileMenu(false)} to="/">
+      <LogoLink menuShowed={showMobileMenu} onClick={() => setMobileMenu(false)} to="/">
         <Logo src="https://img.icons8.com/ios/100/000000/circled-p.png" alt="logo" />
       </LogoLink>
       <LinkWrapper>
@@ -195,8 +206,10 @@ function Header() {
       <MobileMenuWrapper
         menuShowed={showMobileMenu}
       >
-        {links.map((link) => (
+        {links.map((link, index) => (
           <StyledLink
+            delay={showMobileMenu ? index * 0.05 : (links.length - index - 1) * 0.05}
+            menuShowed={showMobileMenu}
             exact={link.exact}
             dropdown={link.dropdown}
             name={link.name}
