@@ -93,7 +93,7 @@ function Footer() {
         wrapperHeight={wrapperRect.height || 0}
       >
         <Text>Paul's Blog</Text>
-        <Text>Free feel to contact me</Text>
+        <Text>Feel free to contact me</Text>
         <Link
           white
           rel="noopener noreferrer"
