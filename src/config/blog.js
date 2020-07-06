@@ -8,6 +8,7 @@ import Article7 from '../containers/blog/articles/Article7';
 import Article8 from '../containers/blog/articles/Article8';
 import Article9 from '../containers/blog/articles/Article9';
 import Article10 from '../containers/blog/articles/Article10';
+import Article11 from '../containers/blog/articles/Article11';
 
 import noteLogo from '../static/noteLogo.png';
 
@@ -28,9 +29,19 @@ export const tags = {
   10: 'JWT',
   11: 'oAuth',
   12: 'CSS',
+  13: 'Test',
 };
 
 export const articles = [{
+  id: 11,
+  cover: noteLogo,
+  categories: [1],
+  tagIds: [1, 13],
+  title: 'React 前端測試初體驗',
+  description: '嘗試利用 jest 撰寫前端測試',
+  component: Article11,
+  date: new Date('2020/07/06'),
+}, {
   id: 10,
   cover: 'https://i.imgur.com/gdoyRS6.png',
   categoryIds: [1],
