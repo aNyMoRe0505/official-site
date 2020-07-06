@@ -26,11 +26,15 @@
     "start": "webpack-dev-server --config ./src/webpack.config.js",
     "build": "NODE_ENV=production webpack --config ./src/webpack.config.js && cp ./src/static/404.html ./build/",
     "lint": "eslint --ext .jsx,.js ./src/",
-    "deploy": "npm run build && babel-node ./src/script/deploy"
+    "test": "jest --config ./src/jest.config.js",
+    "deploy": "yarn build && babel-node ./src/script/deploy"
   },
-  "pre-commit": [
-    "lint"
-  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint",
+      "pre-push": "yarn test && yarn build"
+    }
+  },
   "devDependencies": {
     "@babel/core": "^7.10.2",
     "@babel/node": "^7.10.1",
@@ -38,7 +42,11 @@
     "@babel/preset-env": "^7.10.2",
     "@babel/preset-react": "^7.10.1",
     "@hot-loader/react-dom": "^16.13.0",
+    "@testing-library/jest-dom": "^5.11.0",
+    "@testing-library/react": "^10.4.4",
+    "@testing-library/user-event": "^12.0.11",
     "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.1.0",
     "babel-loader": "^8.1.0",
     "clean-webpack-plugin": "^3.0.0",
     "eslint": "^7.2.0",
@@ -50,8 +58,9 @@
     "file-loader": "^6.0.0",
     "gh-pages": "^2.2.0",
     "html-webpack-plugin": "^4.3.0",
+    "husky": "^4.2.5",
     "image-webpack-loader": "^6.0.0",
-    "pre-commit": "^1.2.2",
+    "jest": "^26.1.0",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.11.0"
