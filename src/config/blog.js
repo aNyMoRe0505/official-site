@@ -35,7 +35,7 @@ export const tags = {
 export const articles = [{
   id: 11,
   cover: noteLogo,
-  categories: [1],
+  categoryIds: [1],
   tagIds: [1, 13],
   title: 'React 前端測試初體驗',
   description: '嘗試利用 jest 撰寫前端測試',

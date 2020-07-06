@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import { tomorrowNight, defaultStyle } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import { tomorrowNight, defaultStyle } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
