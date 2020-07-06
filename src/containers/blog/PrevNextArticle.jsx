@@ -125,9 +125,11 @@ PrevNextArticle.propTypes = {
     title: PropTypes.string,
   }).isRequired,
   prevArticle: PropTypes.shape({
+    id: PropTypes.number,
     title: PropTypes.string,
   }),
   nextArticle: PropTypes.shape({
+    id: PropTypes.number,
     title: PropTypes.string,
   }),
 };
