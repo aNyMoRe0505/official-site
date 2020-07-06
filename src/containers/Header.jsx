@@ -182,7 +182,7 @@ function Header() {
 
   return (
     <HeaderWrapper hiding={headerHiding}>
-      <LogoLink menuShowed={showMobileMenu} onClick={() => setMobileMenu(false)} to="/">
+      <LogoLink onClick={() => setMobileMenu(false)} to="/">
         <Logo src="https://img.icons8.com/ios/100/000000/circled-p.png" alt="logo" />
       </LogoLink>
       <LinkWrapper>
