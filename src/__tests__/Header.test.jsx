@@ -20,7 +20,7 @@ describe('Header', () => {
     expect(me).toBeInTheDocument();
   });
 
-  test('Test blog link about points to the correct page', () => {
+  test('Test blog link points to the correct page', () => {
     render(
       <>
         <App />
@@ -34,7 +34,7 @@ describe('Header', () => {
     expect(filterKeyword).toBeInTheDocument();
   });
 
-  test('Test archives link about points to the correct page', () => {
+  test('Test archives link points to the correct page', () => {
     render(
       <>
         <App />
@@ -48,7 +48,7 @@ describe('Header', () => {
     expect(articleSwitcher).toBeInTheDocument();
   });
 
-  test('Test practice link about points to the correct page', () => {
+  test('Test practice link points to the correct page', () => {
     render(
       <>
         <App />
