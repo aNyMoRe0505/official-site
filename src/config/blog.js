@@ -38,7 +38,7 @@ export const articles = [{
   categoryIds: [1],
   tagIds: [1, 13],
   title: 'React 前端測試初體驗',
-  description: '嘗試利用 jest 撰寫前端測試',
+  description: '記錄嘗試利用 jest 撰寫前端測試的過程',
   component: Article11,
   date: new Date('2020/07/06'),
 }, {
