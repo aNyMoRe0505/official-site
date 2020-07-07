@@ -324,6 +324,26 @@ describe('Header', () => {
       <Text>
         剩下的連結就大同小異，Part2 我會開始嘗試測試 Blog 頁面，因為牽扯到 redux、async、redux-saga .. 我相信我會踩到很多坑的QQ
       </Text>
+      <List
+        title="參考資料"
+        list={[{
+          meta: [{
+            start: 0,
+            end: 57,
+            type: ARTICLE_META_TYPE.LINK,
+            url: 'https://jkettmann.com/beginners-guide-to-testing-react/',
+          }],
+          text: "An in-depth beginner's guide to testing React applications",
+        }, {
+          meta: [{
+            start: 0,
+            end: 34,
+            type: ARTICLE_META_TYPE.LINK,
+            url: 'https://ithelp.ithome.com.tw/articles/10222357',
+          }],
+          text: 'Day17 | 不知道對不對，就把邏輯通通測起來 feat. Jest',
+        }]}
+      />
     </>
   );
 }
