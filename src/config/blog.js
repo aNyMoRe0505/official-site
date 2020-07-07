@@ -34,10 +34,10 @@ export const tags = {
 
 export const articles = [{
   id: 11,
-  cover: noteLogo,
+  cover: 'https://www.ibrahima-ndaw.com/static/4996d6d31bd748e276b9055ebfce4e42/31987/cover.png',
   categoryIds: [1],
   tagIds: [1, 13],
-  title: 'React 前端測試初體驗',
+  title: 'React 前端測試初體驗 Part1',
   description: '記錄嘗試利用 jest 撰寫前端測試的過程',
   component: Article11,
   date: new Date('2020/07/06'),
