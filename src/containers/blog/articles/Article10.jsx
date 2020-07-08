@@ -1,4 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  memo,
+} from 'react';
 import styled, { css } from 'styled-components';
 
 import Text from '../../../components/blog/Text';
@@ -324,4 +329,4 @@ const SimpleFrostedGlass = styled.div'
   );
 }
 
-export default Article10;
+export default memo(Article10);

@@ -31,7 +31,7 @@ const HeaderWrapper = styled.header`
   position: fixed;
   top: ${({ hiding }) => (hiding && '-70px') || 0};
   pointer-events: ${({ hiding }) => (hiding && 'none') || 'auto'};
-  z-index: 999;
+  z-index: 995;
   transition-property: top;
   transition-duration: 0.5s;
   transition-timing-function: ease;

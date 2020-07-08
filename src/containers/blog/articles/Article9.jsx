@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import Text from '../../../components/blog/Text';
 import Title from '../../../components/blog/Title';
@@ -453,4 +453,4 @@ export function jwtSign(payload) {
   );
 }
 
-export default Article9;
+export default memo(Article9);

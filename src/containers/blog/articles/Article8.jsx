@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import Text from '../../../components/blog/Text';
 import Title from '../../../components/blog/Title';
@@ -233,4 +233,4 @@ function Article8() {
   );
 }
 
-export default Article8;
+export default memo(Article8);

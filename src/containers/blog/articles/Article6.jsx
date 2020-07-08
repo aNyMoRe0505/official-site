@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import Text from '../../../components/blog/Text';
 import Title from '../../../components/blog/Title';
@@ -267,4 +267,4 @@ function Counter() {
   );
 }
 
-export default Article6;
+export default memo(Article6);

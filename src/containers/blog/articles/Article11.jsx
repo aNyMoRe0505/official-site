@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 
 import Text from '../../../components/blog/Text';
@@ -348,4 +348,4 @@ describe('Header', () => {
   );
 }
 
-export default Article11;
+export default memo(Article11);

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, memo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -139,4 +139,4 @@ PrevNextArticle.defaultProps = {
   nextArticle: null,
 };
 
-export default PrevNextArticle;
+export default memo(PrevNextArticle);
