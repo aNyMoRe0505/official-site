@@ -73,7 +73,7 @@ function ArticleContainer() {
   const imageLoaded = useImageLoadCompleted();
 
   useEffect(() => {
-    const scrollAndResiz = () => {
+    const scrollAndResize = () => {
       const { scrollTop } = document.documentElement;
       const { innerHeight } = window;
       const { height } = articleRef.current.getBoundingClientRect();
@@ -88,14 +88,14 @@ function ArticleContainer() {
       }
     };
 
-    scrollAndResiz();
+    scrollAndResize();
 
-    window.addEventListener('resize', scrollAndResiz);
-    window.addEventListener('scroll', scrollAndResiz);
+    window.addEventListener('resize', scrollAndResize);
+    window.addEventListener('scroll', scrollAndResize);
 
     return () => {
-      window.removeEventListener('resize', scrollAndResiz);
-      window.removeEventListener('scroll', scrollAndResiz);
+      window.removeEventListener('resize', scrollAndResize);
+      window.removeEventListener('scroll', scrollAndResize);
     };
   }, []);
 
