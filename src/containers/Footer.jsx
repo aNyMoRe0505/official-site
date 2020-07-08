@@ -74,12 +74,13 @@ function Footer() {
   const wrapperRef = useRef();
 
   useEffect(() => {
-    setWrapperRect(wrapperRef.current.getBoundingClientRect());
-
     const resize = () => {
       setWrapperRect(wrapperRef.current.getBoundingClientRect());
     };
+
     const resizeWithDebounce = debounce(resize, 500);
+
+    resize();
 
     window.addEventListener('resize', resizeWithDebounce);
 

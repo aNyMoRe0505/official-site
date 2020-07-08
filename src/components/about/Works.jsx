@@ -155,12 +155,12 @@ function Works() {
   const coverContainerRef = useRef();
 
   useEffect(() => {
-    setCoverContainerRect(coverContainerRef.current.getBoundingClientRect());
-
     const resize = () => {
       setCoverContainerRect(coverContainerRef.current.getBoundingClientRect());
     };
     const resizeWithDebounce = debounce(resize, 500);
+
+    resize();
 
     window.addEventListener('resize', resizeWithDebounce);
 
