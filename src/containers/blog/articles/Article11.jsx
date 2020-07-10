@@ -249,7 +249,7 @@ Object.defineProperty(window, 'scrollTo', { value: noop, writable: true });
       </Text>
       <Image src="https://i.imgur.com/XsoGfJv.png" />
       <Text>
-        除了美觀外，每個 describe 會有自己的作用域生命週期，像是 beforeAll、afterAll ...等等，但我目前還沒用到～
+        除了美觀外，每個 describe 會有自己的作用域生命週期，像是 beforeAll、afterAll ... 等等
       </Text>
       <Text
         meta={[{
@@ -276,6 +276,29 @@ describe('Header', () => {
     );
     screen.debug();
   });
+});`}
+      </Code>
+      <Text>
+        在這次測試因為每個環節都需要 render App，所以可以在 describe 下 beforeEach (在每個測試執行之前)
+      </Text>
+      <Code>
+        {`describe('Header', () => {
+    beforeEach(() => {
+      render(
+        <>
+          <App />
+        </>,
+      );
+    });
+
+    test('Test about link points to the correct page', () => {
+      render(
+        <>
+          <App />
+        </>,
+      );
+      screen.debug();
+    });
 });`}
       </Code>
       <Text>
@@ -306,13 +329,15 @@ import userEvent from '@testing-library/user-event';
 import App from '../App';
 
 describe('Header', () => {
-  test('Test about link points to the correct page', () => {
+  beforeEach(() => {
     render(
       <>
         <App />
       </>,
     );
-    
+  });
+
+  test('Test about link points to the correct page', () => {    
     const link = screen.getByRole('link', { name: 'About' }); => 取得元素
     userEvent.click(link); => 模擬點擊
 
