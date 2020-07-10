@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import styled from 'styled-components';
 import { Link as RouterLink } from 'react-router-dom';
 
@@ -223,4 +223,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default memo(Header);

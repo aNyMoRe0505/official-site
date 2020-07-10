@@ -1,5 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { useRef, useEffect, useState } from 'react';
+import React, {
+  useRef,
+  useEffect,
+  useState,
+  memo,
+} from 'react';
 import styled from 'styled-components';
 
 import footer from '../static/footer.png';
@@ -128,4 +133,4 @@ function Footer() {
   );
 }
 
-export default Footer;
+export default memo(Footer);
