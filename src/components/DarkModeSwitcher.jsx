@@ -11,7 +11,7 @@ const DarkModeSwitcherWrap = styled.div`
   border-radius: 30px;
   background-color: #0f1114;
   position: absolute;
-  z-index: 998;
+  z-index: 1;
   top: 80px;
   right: 15px;
   cursor: pointer;
@@ -49,7 +49,12 @@ function DarkModeSwitcher({
   if (!matchArticleDetailRoute) return null;
 
   return (
-    <DarkModeSwitcherWrap onClick={() => setDarkMode(!darkMode)}>
+    <DarkModeSwitcherWrap
+      onClick={() => {
+        localStorage.setItem('darkMode', !darkMode);
+        setDarkMode(!darkMode);
+      }}
+    >
       <DarkModeToggleBtn darkMode={darkMode} />
       <DarkModeSwitcherIcon
         alt="moonIcon"

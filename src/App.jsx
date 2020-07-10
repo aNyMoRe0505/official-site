@@ -80,7 +80,7 @@ function MainBoard() {
 
 function App() {
   // 暫時只有Blog可切換darkMode
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(localStorage.getItem('darkMode') === 'true');
 
   return (
     <BrowserRouter basename="/official-site">
