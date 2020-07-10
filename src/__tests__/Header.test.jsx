@@ -6,13 +6,15 @@ import moment from 'moment';
 import App from '../App';
 
 describe('Header', () => {
-  test('Test about link points to the correct page', () => {
+  beforeEach(() => {
     render(
       <>
         <App />
       </>,
     );
+  });
 
+  test('Test about link points to the correct page', () => {
     const link = screen.getByRole('link', { name: 'About' });
     userEvent.click(link);
 
@@ -21,12 +23,6 @@ describe('Header', () => {
   });
 
   test('Test blog link points to the correct page', () => {
-    render(
-      <>
-        <App />
-      </>,
-    );
-
     const link = screen.getByRole('link', { name: 'Blog' });
     userEvent.click(link);
 
@@ -35,12 +31,6 @@ describe('Header', () => {
   });
 
   test('Test archives link points to the correct page', () => {
-    render(
-      <>
-        <App />
-      </>,
-    );
-
     const link = screen.getByRole('link', { name: 'Archives' });
     userEvent.click(link);
 
@@ -49,12 +39,6 @@ describe('Header', () => {
   });
 
   test('Test practice link points to the correct page', () => {
-    render(
-      <>
-        <App />
-      </>,
-    );
-
     const link = screen.getByRole('link', { name: 'Practice' });
     userEvent.click(link);
 

@@ -67,7 +67,7 @@ const FilterWrapper = styled.div`
   ${({ filterShowed }) => (filterShowed && FadeIn) || FadeOut};
 `;
 
-const InputWrapper = styled.div`
+const InputWrapper = styled.label`
   display: flex;
   align-items: center;
   justify-content: center;

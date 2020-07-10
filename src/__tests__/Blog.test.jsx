@@ -1,27 +1,38 @@
-// target:
-//   first render should call api to fetch articles (only call one time) and need to show loading text, response arrives the data is rendered.
-//   when scroll down to bottom, should call api to fetch more articles (only call one time) and need to show loading text response arrives the data is rendered.
-//   after change keyword and click search btn, should call api to fetch articles (only call one time) and need to show loading text response arrives the data is rendered.
-//   click article should render detail (optional?)
-//   and saga ??
 import React from 'react';
+import { Provider } from 'react-redux';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-// import Blog from '../containers/blog/Blog';
-import App from '../App';
+import getStore from '../store';
+import Blog from '../containers/blog/Blog';
 
+// 還有一些問題待解決QQQQ
 describe('Blog', () => {
-  test('hi blog', () => {
-    render(
-      <>
-        <App />
-      </>,
-    );
-    const link = screen.getByRole('link', { name: 'Blog' });
-    userEvent.click(link);
+  test('Should call dispatch to fetch articles when first render and click search button after changing keyword', () => {
+    const store = getStore();
+    store.dispatch = jest.fn();
 
-    const filterKeyword = screen.getByText('關鍵字：');
-    expect(filterKeyword).toBeInTheDocument();
+    render(
+      <Provider store={store}>
+        <Blog />
+      </Provider>,
+    );
+
+    expect(store.dispatch).toHaveBeenCalledTimes(1);
+
+    const loading = screen.getByText(/loading/i);
+    expect(loading).toBeInTheDocument();
+
+    const keywordInput = screen.getByLabelText('關鍵字：');
+    userEvent.type(keywordInput, 'hello 你好嗎');
+
+    const submitButton = screen.getByRole('button', { name: '搜尋' });
+    userEvent.click(submitButton);
+
+    // 因為dispatch mock了 所以其實關鍵字沒有改動 (dispatch cacheSearcher) 所以才會只打2次
+    expect(store.dispatch).toHaveBeenCalledTimes(2);
+    // since we mock store.dispatch to jest.fn(), we should render 查無文章
+    const noArticlText = screen.getByText('查無文章');
+    expect(noArticlText).toBeInTheDocument();
   });
 });
