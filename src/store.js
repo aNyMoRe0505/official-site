@@ -5,7 +5,7 @@ import {
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
 
-import rootReducer from './reducers/index';
+import rootReducer from './reducers';
 import rootSaga from './saga';
 
 const sagaMiddleware = createSagaMiddleware();
