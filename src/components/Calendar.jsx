@@ -53,7 +53,7 @@ const CalendarWrapper = styled.div`
   padding: 10px;
   position: absolute;
   top: 50px;
-  z-index: 998;
+  z-index: 2;
   background-color: white;
 `;
 
