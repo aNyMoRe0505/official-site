@@ -3,13 +3,13 @@ import styled, { keyframes } from 'styled-components';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 
-import { groupBy } from '../../helper/helper';
-import styles from '../../config/style';
+import { groupBy } from '../helper/helper';
+import styles from '../config/style';
 import {
   articles,
   categories,
   tags,
-} from '../../config/blog';
+} from '../config/blog';
 
 const Wrapper = styled.div`
   width: 100%;

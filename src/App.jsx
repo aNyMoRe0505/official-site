@@ -16,7 +16,7 @@ import GoToTop from './components/GoToTop';
 import DarkModeSwitcher from './components/DarkModeSwitcher';
 import Header from './containers/Header';
 import About from './containers/About';
-import Archives from './containers/blog/Archives';
+import Archives from './containers/Archives';
 import Footer from './containers/Footer';
 
 import PracticeRoute from './routes/Practice';
