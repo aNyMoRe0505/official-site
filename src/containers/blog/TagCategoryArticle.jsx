@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect, useContext } from 'react';
+import styled, { css } from 'styled-components';
 import { useParams, Redirect, Link } from 'react-router-dom';
 
 import {
@@ -7,6 +7,7 @@ import {
   tags,
 } from '../../config/blog';
 import styles from '../../config/style';
+import { DarkModeContext } from '../../config/context';
 import {
   mockAPIGetArticleList,
 } from '../../helper/api';
@@ -27,7 +28,13 @@ const Title = styled.p`
   color: ${styles.mainColor};
 `;
 
-const ArticleBlock = styled(Link)`
+const ArticleBlockDark = css`
+  color: white;
+  background-color: rgb(38, 44, 60);
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+`;
+
+const ArticleBlock = styled(({ darkMode, ...rest }) => <Link {...rest} />)`
   width: 100%;
   max-width: 500px;
   display: flex;
@@ -45,6 +52,7 @@ const ArticleBlock = styled(Link)`
   transition-duration: 0.2s;
   transition-property: transform;
   transition-timing-function: ease;
+  ${({ darkMode }) => darkMode && ArticleBlockDark}
   :hover {
     transform: scale(1.05);
   };
@@ -72,6 +80,7 @@ const ArticleTitle = styled.p`
 // 之後tag多把blog searcher tag filter拔掉
 
 function TagCategoryArticle() {
+  const darkMode = useContext(DarkModeContext);
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(false);
   const {
@@ -80,21 +89,24 @@ function TagCategoryArticle() {
   } = useParams();
 
   useEffect(() => {
+    let unmounted = false;
     if (categoryId || tagId) {
       const fetchArticles = async () => {
-        setLoading(true);
+        if (!unmounted) setLoading(true);
+
         const payload = {};
         if (categoryId) payload.categories = [parseInt(categoryId, 10)];
         if (tagId) payload.tags = [parseInt(tagId, 10)];
 
         const { filteredArticles } = await mockAPIGetArticleList(payload);
-        setArticles(filteredArticles);
+        if (!unmounted) setArticles(filteredArticles);
 
-        setLoading(false);
+        if (!unmounted) setLoading(false);
       };
 
       fetchArticles();
     }
+    return () => { unmounted = true; };
   }, [categoryId, tagId]);
 
   const instance = categories[parseInt(categoryId, 10)] || tags[parseInt(tagId, 10)];
@@ -109,7 +121,7 @@ function TagCategoryArticle() {
       {articles.length ? (
         <>
           {articles.map((article) => (
-            <ArticleBlock to={`/blog/article/${article.id}`} key={`article-${article.id}`}>
+            <ArticleBlock darkMode={darkMode} to={`/blog/article/${article.id}`} key={`article-${article.id}`}>
               <ArticleCover src={article.cover} />
               <ArticleTitle>{article.title}</ArticleTitle>
             </ArticleBlock>

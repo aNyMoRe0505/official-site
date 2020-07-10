@@ -7,6 +7,7 @@ import {
   useParams,
   Redirect,
   useLocation,
+  Link,
 } from 'react-router-dom';
 import styled from 'styled-components';
 import { DiscussionEmbed } from 'disqus-react';
@@ -18,6 +19,8 @@ import LoadingBox from '../../components/LoadingBox';
 
 import {
   articles,
+  categories,
+  tags,
 } from '../../config/blog';
 import { DarkModeContext } from '../../config/context';
 import styles from '../../config/style';
@@ -64,6 +67,42 @@ const ProgressBar = styled.div`
   transition-duration: 0.5s;
 `;
 
+const TagCategoryWrapper = styled.div`
+  width: 100%;
+  margin: 30px 0 0;
+  @media (max-width: 768px) {
+    margin: 15px 0 0;
+  };
+`;
+
+const TagCategoryInnerWrapper = styled.div`
+  width: 100%;
+  margin: 10px 0 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+`;
+
+const TagCategoryBlock = styled.div`
+  width: 100%;
+  margin: 10px 0 0 3px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+`;
+
+const TagCategory = styled(Link)`
+  border-radius: 3px;
+  border: 1px solid #b95ede;
+  padding: 3px 5px;
+  margin: 0 10px 10px 0;
+  text-decoration: none;
+  color: #b95ede;
+  font-weight: 400;
+`;
+
 function ArticleContainer() {
   const articleRef = useRef();
   const progressRef = useRef();
@@ -78,7 +117,7 @@ function ArticleContainer() {
       const { innerHeight } = window;
       const { height } = articleRef.current.getBoundingClientRect();
 
-      const rate = (scrollTop / (height - innerHeight + 95)) * 100;
+      const rate = (scrollTop / (height - innerHeight + 95)) * 100; // 95 => padding-top
 
       progressRef.current.style.height = `${rate}%`;
       if (rate >= 100 || rate <= 0) {
@@ -113,6 +152,40 @@ function ArticleContainer() {
       <ArticleWrapper imageLoaded={imageLoaded}>
         <ArticleRefWrap ref={articleRef}>
           <targetArticle.component />
+          <TagCategoryWrapper>
+            {targetArticle.categoryIds.length ? (
+              <TagCategoryInnerWrapper>
+                <img
+                  style={{ width: '35px' }}
+                  src="https://img.icons8.com/nolan/64/opened-folder.png"
+                  alt="category"
+                />
+                <TagCategoryBlock>
+                  {targetArticle.categoryIds.map((id) => (
+                    <TagCategory key={id} to={`/blog/categoryArticle/${id}`}>
+                      {categories[id]}
+                    </TagCategory>
+                  ))}
+                </TagCategoryBlock>
+              </TagCategoryInnerWrapper>
+            ) : null}
+            {targetArticle.tagIds.length ? (
+              <TagCategoryInnerWrapper>
+                <img
+                  style={{ width: '35px', marginRight: '5px' }}
+                  src="https://img.icons8.com/nolan/64/tags.png"
+                  alt="tags"
+                />
+                <TagCategoryBlock>
+                  {targetArticle.tagIds.map((id) => (
+                    <TagCategory key={id} to={`/blog/tagArticle/${id}`}>
+                      {tags[id]}
+                    </TagCategory>
+                  ))}
+                </TagCategoryBlock>
+              </TagCategoryInnerWrapper>
+            ) : null}
+          </TagCategoryWrapper>
         </ArticleRefWrap>
         <PrevNextArticle
           targetArticle={targetArticle}
