@@ -186,7 +186,7 @@ function Blog() {
     });
   }, [dispatch, keyword, categories, tags]);
 
-  useBodyFetchMore(async () => {
+  useBodyFetchMore(() => {
     if (!loading && !reachingEnd) {
       const payload = {
         page: page + 1,
