@@ -347,7 +347,7 @@ describe('Header', () => {
 });`}
       </Code>
       <Text>
-        剩下的連結就大同小異，Part2 我會開始嘗試測試 Blog 頁面，因為牽扯到 redux、async、redux-saga .. 我相信我會踩到很多坑的QQ
+        剩下的連結就大同小異，如果有Part2 應該會開始嘗試測試 Blog 頁面～
       </Text>
       <List
         title="參考資料"
