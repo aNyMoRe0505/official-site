@@ -30,9 +30,9 @@
     "deploy": "yarn build && babel-node ./src/script/deploy"
   },
   "husky": {
-    "hooks": {	
-      "pre-commit": "yarn lint",	
-      "pre-push": "yarn test"	
+    "hooks": {
+      "pre-commit": "yarn lint",
+      "pre-push": "yarn test"
     }
   },
   "devDependencies": {
