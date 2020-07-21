@@ -147,6 +147,14 @@ const works = [{
   desc: '棒球資格賽，中信辦現場直播的活動網站。',
   buildedWith: ['React', 'Webpack', 'Emotion'],
   link: 'https://2019baseball.homeruntaiwan.com/',
+}, {
+  id: 4,
+  cover: background,
+  needTitleInCover: true,
+  name: 'use-request',
+  desc: '第一次的開源專案，用 Hook 來管理 http request 的狀態',
+  buildedWith: ['React', 'React-Hook', 'Axios'],
+  link: 'https://www.npmjs.com/package/react-axios-use-request',
 }];
 
 function Works() {
