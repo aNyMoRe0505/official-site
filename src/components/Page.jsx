@@ -44,37 +44,22 @@ function Page({
   const toFirstEnable = currentPage > pageShow;
   const toBottomEnable = Math.ceil(currentPage / pageShow) < Math.ceil(pageArray[pageArray.length - 1] / pageShow);
 
+  const showArray = (totalPageNumbers <= pageShow && pageArray) || pageArray.slice((currentGroupPage - 1) * pageShow, (currentGroupPage - 1) * pageShow + pageShow);
+
   return (
     <PageWrapper>
       <PageBtn disabled={!toFirstEnable} type="button" onClick={() => onChange(1)}>{'<<'}</PageBtn>
       <PageBtn disabled={currentPage === 1} type="button" onClick={() => onChange(currentPage - 1)}>{'<'}</PageBtn>
-      {totalPageNumbers <= pageShow ? (
-        <>
-          {pageArray.map((pageNum) => (
-            <PageBtn
-              key={pageNum}
-              actived={currentPage === pageNum}
-              type="button"
-              onClick={() => onChange(pageNum)}
-            >
-              {pageNum}
-            </PageBtn>
-          ))}
-        </>
-      ) : (
-        <>
-          {pageArray.slice((currentGroupPage - 1) * pageShow, (currentGroupPage - 1) * pageShow + pageShow).map((pageNum) => (
-            <PageBtn
-              key={pageNum}
-              actived={currentPage === pageNum}
-              type="button"
-              onClick={() => onChange(pageNum)}
-            >
-              {pageNum}
-            </PageBtn>
-          ))}
-        </>
-      )}
+      {showArray.map((pageNum) => (
+        <PageBtn
+          key={pageNum}
+          actived={currentPage === pageNum}
+          type="button"
+          onClick={() => onChange(pageNum)}
+        >
+          {pageNum}
+        </PageBtn>
+      ))}
       <PageBtn disabled={currentPage === pageArray[pageArray.length]} type="button" onClick={() => onChange(currentPage + 1)}>{'>'}</PageBtn>
       <PageBtn disabled={!toBottomEnable} type="button" onClick={() => onChange(pageArray[pageArray.length - 1])}>{'>>'}</PageBtn>
     </PageWrapper>
