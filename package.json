@@ -29,12 +29,6 @@
     "test": "jest --config ./src/jest.config.js",
     "deploy": "yarn build && babel-node ./src/script/deploy"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn lint",
-      "pre-push": "yarn test"
-    }
-  },
   "devDependencies": {
     "@babel/core": "^7.10.2",
     "@babel/node": "^7.10.1",
