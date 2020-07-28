@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import Text from '../../../components/blog/Text';
 import Title from '../../../components/blog/Title';
-import List from '../../../components/blog/List';
+import Reference from '../../../components/blog/Reference';
 
 import { ARTICLE_META_TYPE } from '../../../helper/article';
 
@@ -80,32 +80,16 @@ function Article4() {
       >
         另外還需要注意避免傳入的 props 是不是每次都是新的物件或是陣列，可以參考相關資料。
       </Text>
-      <List
-        title="參考資料"
+      <Reference
         list={[{
-          meta: [{
-            start: 0,
-            end: 29,
-            type: ARTICLE_META_TYPE.LINK,
-            url: 'https://blog.cloudboost.io/react-purecomponents-children-979e3da15ba8',
-          }],
           text: 'React.PureComponent’s children',
+          url: 'https://blog.cloudboost.io/react-purecomponents-children-979e3da15ba8',
         }, {
-          meta: [{
-            start: 0,
-            end: 39,
-            url: 'https://cdb.reacttraining.com/react-inline-functions-and-performance-bdff784f5578',
-            type: ARTICLE_META_TYPE.LINK,
-          }],
           text: 'React, Inline Functions, and Performance',
+          url: 'https://cdb.reacttraining.com/react-inline-functions-and-performance-bdff784f5578',
         }, {
-          meta: [{
-            start: 0,
-            end: 25,
-            url: 'https://medium.com/@xyz030206/react-%E6%95%88%E8%83%BD%E5%84%AA%E5%8C%96-purecomponent-f971fb56f90a',
-            type: ARTICLE_META_TYPE.LINK,
-          }],
           text: 'React 效能優化 — PureComponent',
+          url: 'https://medium.com/@xyz030206/react-%E6%95%88%E8%83%BD%E5%84%AA%E5%8C%96-purecomponent-f971fb56f90a',
         }]}
       />
     </>

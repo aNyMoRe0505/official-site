@@ -5,6 +5,7 @@ import Title from '../../../components/blog/Title';
 import Code from '../../../components/blog/Code';
 import List from '../../../components/blog/List';
 import Image from '../../../components/blog/Image';
+import Reference from '../../../components/blog/Reference';
 
 import { ARTICLE_META_TYPE } from '../../../helper/article';
 
@@ -180,24 +181,13 @@ function Article12() {
       >
         另外在練習的過程中也順便了解了安裝套件前的 ^ 和 ~ 的差別，詳細看這邊
       </Text>
-      <List
-        title="參考資料"
+      <Reference
         list={[{
-          meta: [{
-            start: 0,
-            end: 29,
-            type: ARTICLE_META_TYPE.LINK,
-            url: 'https://zellwk.com/blog/publish-to-npm/',
-          }],
           text: 'How to publish packages to npm',
+          url: 'https://zellwk.com/blog/publish-to-npm/',
         }, {
-          meta: [{
-            start: 0,
-            end: 22,
-            type: ARTICLE_META_TYPE.LINK,
-            url: 'https://www.zcfy.cc/article/for-the-love-of-god-don-t-use-npmignore',
-          }],
           text: '看在上帝的份上，不要使用 .npmignore',
+          url: 'https://www.zcfy.cc/article/for-the-love-of-god-don-t-use-npmignore',
         }]}
       />
     </>

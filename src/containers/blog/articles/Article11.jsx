@@ -6,6 +6,7 @@ import Title from '../../../components/blog/Title';
 import Code from '../../../components/blog/Code';
 import List from '../../../components/blog/List';
 import Image from '../../../components/blog/Image';
+import Reference from '../../../components/blog/Reference';
 
 import { ARTICLE_META_TYPE } from '../../../helper/article';
 
@@ -349,24 +350,13 @@ describe('Header', () => {
       <Text>
         剩下的連結就大同小異，如果有Part2 應該會開始嘗試測試 Blog 頁面～
       </Text>
-      <List
-        title="參考資料"
+      <Reference
         list={[{
-          meta: [{
-            start: 0,
-            end: 57,
-            type: ARTICLE_META_TYPE.LINK,
-            url: 'https://jkettmann.com/beginners-guide-to-testing-react/',
-          }],
           text: "An in-depth beginner's guide to testing React applications",
+          url: 'https://jkettmann.com/beginners-guide-to-testing-react/',
         }, {
-          meta: [{
-            start: 0,
-            end: 34,
-            type: ARTICLE_META_TYPE.LINK,
-            url: 'https://ithelp.ithome.com.tw/articles/10222357',
-          }],
           text: 'Day17 | 不知道對不對，就把邏輯通通測起來 feat. Jest',
+          url: 'https://ithelp.ithome.com.tw/articles/10222357',
         }]}
       />
     </>

@@ -3,7 +3,7 @@ import React, { memo } from 'react';
 import Text from '../../../components/blog/Text';
 import Title from '../../../components/blog/Title';
 import Image from '../../../components/blog/Image';
-import List from '../../../components/blog/List';
+import Reference from '../../../components/blog/Reference';
 
 import { ARTICLE_META_TYPE } from '../../../helper/article';
 
@@ -166,24 +166,13 @@ function Article1() {
       >
         看到這裡應該就能明白為什麼 hooks 的執行順序很重要，如果 hooks 在條件式內執行導致第一次 render 和 後續 render 順序不同，hook 將會使用錯誤的 index 取得錯誤的資料！
       </Text>
-      <List
-        title="參考資料"
+      <Reference
         list={[{
-          meta: [{
-            start: 0,
-            end: 13,
-            type: ARTICLE_META_TYPE.LINK,
-            url: 'https://reactjs.org/docs/hooks-rules.html',
-          }],
           text: 'Rules of Hooks',
+          url: 'https://reactjs.org/docs/hooks-rules.html',
         }, {
-          meta: [{
-            start: 0,
-            end: 34,
-            type: ARTICLE_META_TYPE.LINK,
-            url: 'https://medium.com/@ryardley/react-hooks-not-magic-just-arrays-cd4f1857236e',
-          }],
           text: 'React hooks: not magic, just arrays',
+          url: 'https://medium.com/@ryardley/react-hooks-not-magic-just-arrays-cd4f1857236e',
         }]}
       />
     </>

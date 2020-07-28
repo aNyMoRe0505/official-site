@@ -11,6 +11,7 @@ import Title from '../../../components/blog/Title';
 import Code from '../../../components/blog/Code';
 import List from '../../../components/blog/List';
 import Image from '../../../components/blog/Image';
+import Reference from '../../../components/blog/Reference';
 
 import { ARTICLE_META_TYPE } from '../../../helper/article';
 import { debounce } from '../../../helper/helper';
@@ -297,32 +298,16 @@ const SimpleFrostedGlass = styled.div'
       <Text>
         從這樣看就很清楚了，所以偽元素 (模糊層) 會在 SimpleFrostedGlass 之上，但會在字體(Frosted Glass)之下！
       </Text>
-      <List
-        title="參考資料"
+      <Reference
         list={[{
-          meta: [{
-            start: 0,
-            end: 15,
-            type: ARTICLE_META_TYPE.LINK,
-            url: 'https://ithelp.ithome.com.tw/articles/10208692',
-          }],
           text: 'Secret 18: 毛玻璃效果',
+          url: 'https://ithelp.ithome.com.tw/articles/10208692',
         }, {
-          meta: [{
-            start: 0,
-            end: 13,
-            type: ARTICLE_META_TYPE.LINK,
-            url: 'https://www.cnblogs.com/ghost-xyx/p/5677168.html',
-          }],
           text: 'CSS技巧收集——毛玻璃效果',
+          url: 'https://www.cnblogs.com/ghost-xyx/p/5677168.html',
         }, {
-          meta: [{
-            start: 0,
-            end: 16,
-            type: ARTICLE_META_TYPE.LINK,
-            url: 'https://andyyou.github.io/2016/03/03/z-index/',
-          }],
           text: '深入 css z-index 屬性',
+          url: 'https://andyyou.github.io/2016/03/03/z-index/',
         }]}
       />
     </>

@@ -4,8 +4,8 @@ import Text from '../../../components/blog/Text';
 import Title from '../../../components/blog/Title';
 import SubTitle from '../../../components/blog/SubTitle';
 import Code from '../../../components/blog/Code';
-import List from '../../../components/blog/List';
 import Image from '../../../components/blog/Image';
+import Reference from '../../../components/blog/Reference';
 
 import { ARTICLE_META_TYPE } from '../../../helper/article';
 
@@ -201,32 +201,16 @@ function Article8() {
       <Text>
         簡單筆記筆記 以後忘記再回來翻
       </Text>
-      <List
-        title="參考資料"
+      <Reference
         list={[{
-          meta: [{
-            start: 0,
-            end: 10,
-            type: ARTICLE_META_TYPE.LINK,
-            url: 'https://blog.techbridge.cc/2017/02/25/csrf-introduction/',
-          }],
           text: '讓我們來談談 CSRF',
+          url: 'https://blog.techbridge.cc/2017/02/25/csrf-introduction/',
         }, {
-          meta: [{
-            start: 0,
-            end: 13,
-            type: ARTICLE_META_TYPE.LINK,
-            url: 'https://developer.mozilla.org/zh-TW/docs/Web/HTTP/CORS',
-          }],
           text: '跨來源資源共用 (CORS)',
+          url: 'https://developer.mozilla.org/zh-TW/docs/Web/HTTP/CORS',
         }, {
-          meta: [{
-            start: 0,
-            end: 18,
-            type: ARTICLE_META_TYPE.LINK,
-            url: 'https://blog.kalan.dev/cors-and-cookie/',
-          }],
           text: '和 CORS 與 cookie 打交道',
+          url: 'https://blog.kalan.dev/cors-and-cookie/',
         }]}
       />
     </>

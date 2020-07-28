@@ -3,7 +3,7 @@ import React, { memo } from 'react';
 import Text from '../../../components/blog/Text';
 import Title from '../../../components/blog/Title';
 import Code from '../../../components/blog/Code';
-import List from '../../../components/blog/List';
+import Reference from '../../../components/blog/Reference';
 
 import { ARTICLE_META_TYPE } from '../../../helper/article';
 
@@ -251,16 +251,10 @@ function Counter() {
       >
         這就是 usePrevious 為什麼能取得上一次值的原理
       </Text>
-      <List
-        title="參考資料"
+      <Reference
         list={[{
-          meta: [{
-            start: 0,
-            end: 47,
-            url: 'https://blog.logrocket.com/how-to-get-previous-props-state-with-react-hooks/',
-            type: ARTICLE_META_TYPE.LINK,
-          }],
-          text: 'How to get previous props/state with React Hooks (可以看看原文解釋會更清楚)',
+          text: 'How to get previous props/state with React Hooks',
+          url: 'https://blog.logrocket.com/how-to-get-previous-props-state-with-react-hooks/',
         }]}
       />
     </>

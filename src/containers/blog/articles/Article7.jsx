@@ -4,6 +4,7 @@ import Text from '../../../components/blog/Text';
 import Title from '../../../components/blog/Title';
 import Code from '../../../components/blog/Code';
 import List from '../../../components/blog/List';
+import Reference from '../../../components/blog/Reference';
 
 import { ARTICLE_META_TYPE } from '../../../helper/article';
 
@@ -568,32 +569,16 @@ yield [
       >
         這樣我們的延遲就不會有效果了，更清楚地解釋可以參考這邊
       </Text>
-      <List
-        title="參考資料"
+      <Reference
         list={[{
-          meta: [{
-            start: 0,
-            end: 4,
-            type: ARTICLE_META_TYPE.LINK,
-            url: 'https://stackoverflow.com/questions/35411423/how-to-dispatch-a-redux-action-with-a-timeout/38574266#38574266',
-          }],
           text: '原文程式碼',
+          url: 'https://stackoverflow.com/questions/35411423/how-to-dispatch-a-redux-action-with-a-timeout/38574266#38574266',
         }, {
-          meta: [{
-            start: 0,
-            end: 30,
-            type: ARTICLE_META_TYPE.LINK,
-            url: 'https://github.com/redux-saga/redux-saga/issues/684',
-          }],
           text: 'Different ways to watch actions',
+          url: 'https://github.com/redux-saga/redux-saga/issues/684',
         }, {
-          meta: [{
-            start: 0,
-            end: 11,
-            type: ARTICLE_META_TYPE.LINK,
-            url: 'https://gist.github.com/dufia/09d76a2cdfe1e0abeae934a8dfd7dd29',
-          }],
           text: "dufia's gist",
+          url: 'https://gist.github.com/dufia/09d76a2cdfe1e0abeae934a8dfd7dd29',
         }]}
       />
     </>
