@@ -9,6 +9,7 @@ import Article8 from '../containers/blog/articles/Article8';
 import Article9 from '../containers/blog/articles/Article9';
 import Article10 from '../containers/blog/articles/Article10';
 import Article11 from '../containers/blog/articles/Article11';
+import Article12 from '../containers/blog/articles/Article12';
 
 import noteLogo from '../static/noteLogo.png';
 
@@ -30,9 +31,19 @@ export const tags = {
   11: 'oAuth',
   12: 'CSS',
   13: 'Test',
+  14: 'NPM',
 };
 
 export const articles = [{
+  id: 12,
+  cover: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Npm-logo.svg/1200px-Npm-logo.svg.png',
+  categoryIds: [1],
+  tagIds: [1, 6, 14],
+  title: '開源初體驗 use-request',
+  description: '記錄第一次開源過程',
+  component: Article12,
+  date: new Date('2020/07/28'),
+}, {
   id: 11,
   cover: 'https://www.ibrahima-ndaw.com/static/4996d6d31bd748e276b9055ebfce4e42/31987/cover.png',
   categoryIds: [1],
