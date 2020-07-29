@@ -62,7 +62,7 @@ function MainBoard() {
       <Switch>
         <Route
           path="/heyhey"
-          component={() => (
+          render={() => (
             <div style={{ height: '100%' }}>
               <img style={{ width: '100%' }} alt="black" src={black} />
             </div>

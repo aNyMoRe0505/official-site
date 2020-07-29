@@ -27,7 +27,7 @@ function Practice({
       <Route path={`${url}/indexTool`} component={IndexTool} />
       <Route path={`${url}/hook-form`} component={HookForm} />
       <Route path={`${url}/youtube`} component={YoutubeContainer} />
-      <Route path={`${url}/calendar`} component={() => <Calendar defaultShowStatus />} />
+      <Route path={`${url}/calendar`} render={() => <Calendar defaultShowStatus />} />
       <Redirect to={`${url}/calendar`} />
     </Switch>
   );
