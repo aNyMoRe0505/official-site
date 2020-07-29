@@ -43,7 +43,6 @@ export const mockAPIGetArticleList = async ({
 
   const articleCover = filteredArticles.map((article) => article.cover);
 
-  await new Promise((resolve) => setTimeout(resolve, 200));
   await checkAllImagesLoadCompleted(articleCover);
 
   return {
