@@ -60,18 +60,23 @@ function MainBoard() {
   return (
     <Container darkMode={darkMode && matchArticleDetailRoute}>
       <Switch>
-        <Route
-          path="/heyhey"
-          render={() => (
-            <div style={{ height: '100%' }}>
-              <img style={{ width: '100%' }} alt="black" src={black} />
-            </div>
-          )}
-        />
-        <Route path="/archives" component={Archives} />
-        <Route path="/blog" component={BlogRoute} />
-        <Route path="/practice" component={PracticeRoute} />
-        <Route path="/" component={About} />
+        <Route path="/heyhey">
+          <div style={{ height: '100%' }}>
+            <img style={{ width: '100%' }} alt="black" src={black} />
+          </div>
+        </Route>
+        <Route path="/archives">
+          <Archives />
+        </Route>
+        <Route path="/blog">
+          <BlogRoute />
+        </Route>
+        <Route path="/practice">
+          <PracticeRoute />
+        </Route>
+        <Route path="/">
+          <About />
+        </Route>
         <Redirect to="/" />
       </Switch>
     </Container>

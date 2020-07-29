@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 
 import FadeInBlock from '../components/FadeInBlock';
@@ -63,4 +63,4 @@ function About() {
   );
 }
 
-export default About;
+export default memo(About);

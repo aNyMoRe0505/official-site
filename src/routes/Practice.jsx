@@ -3,8 +3,8 @@ import {
   Switch,
   Route,
   Redirect,
+  useRouteMatch,
 } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
 import Calendar from '../components/Calendar';
 import YoutubeContainer from '../containers/practice/YoutubeContainer';
@@ -14,29 +14,35 @@ import Slide from '../containers/practice/Slide';
 import Notification from '../containers/practice/Notification';
 import RxJS from '../containers/practice/RxJS';
 
-function Practice({
-  match: {
-    url,
-  },
-}) {
+function Practice() {
+  const { url } = useRouteMatch();
+
   return (
     <Switch>
-      <Route path={`${url}/rxjs`} component={RxJS} />
-      <Route path={`${url}/notification`} component={Notification} />
-      <Route path={`${url}/slide`} component={Slide} />
-      <Route path={`${url}/indexTool`} component={IndexTool} />
-      <Route path={`${url}/hook-form`} component={HookForm} />
-      <Route path={`${url}/youtube`} component={YoutubeContainer} />
-      <Route path={`${url}/calendar`} render={() => <Calendar defaultShowStatus />} />
+      <Route path={`${url}/rxjs`}>
+        <RxJS />
+      </Route>
+      <Route path={`${url}/notification`}>
+        <Notification />
+      </Route>
+      <Route path={`${url}/slide`}>
+        <Slide />
+      </Route>
+      <Route path={`${url}/indexTool`}>
+        <IndexTool />
+      </Route>
+      <Route path={`${url}/hook-form`}>
+        <HookForm />
+      </Route>
+      <Route path={`${url}/youtube`}>
+        <YoutubeContainer />
+      </Route>
+      <Route path={`${url}/calendar`}>
+        <Calendar defaultShowStatus />
+      </Route>
       <Redirect to={`${url}/calendar`} />
     </Switch>
   );
 }
-
-Practice.propTypes = {
-  match: PropTypes.shape({
-    url: PropTypes.string,
-  }).isRequired,
-};
 
 export default Practice;

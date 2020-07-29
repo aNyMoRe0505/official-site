@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
@@ -228,4 +228,4 @@ function Archives() {
   );
 }
 
-export default Archives;
+export default memo(Archives);
