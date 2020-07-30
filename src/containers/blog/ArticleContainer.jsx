@@ -12,10 +12,7 @@ import {
 import styled from 'styled-components';
 import { DiscussionEmbed } from 'disqus-react';
 
-import { useImageLoadCompleted } from '../../helper/hooks';
-
 import PrevNextArticle from './PrevNextArticle';
-import LoadingBox from '../../components/LoadingBox';
 
 import {
   articles,
@@ -29,8 +26,6 @@ const ArticleWrapper = styled.div`
   width: 100%;
   max-width: 750px;
   padding: 0 0 30px;
-  overflow: hidden;
-  ${({ imageLoaded }) => !imageLoaded && 'height: 0px'};
   @media (max-width: 768px) {
     padding: 0 0 15px;
   };
@@ -109,7 +104,6 @@ function ArticleContainer() {
   const { articleId } = useParams();
   const { pathname } = useLocation();
   const darkMode = useContext(DarkModeContext);
-  const imageLoaded = useImageLoadCompleted();
 
   useEffect(() => {
     const scrollAndResize = () => {
@@ -147,10 +141,10 @@ function ArticleContainer() {
 
   return (
     <>
-      <LoadingBox loadingStatus={!imageLoaded} />
       <ProgressBar ref={progressRef} />
-      <ArticleWrapper imageLoaded={imageLoaded}>
+      <ArticleWrapper>
         <ArticleRefWrap ref={articleRef}>
+          <img src={targetArticle.cover} alt="cover" style={{ width: '100%' }} />
           <targetArticle.component />
           <TagCategoryWrapper>
             {targetArticle.categoryIds.length ? (
