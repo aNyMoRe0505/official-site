@@ -8,7 +8,6 @@ import {
 } from 'react-router-dom';
 import styled from 'styled-components';
 import { Provider } from 'react-redux';
-import { hot } from 'react-hot-loader/root';
 
 import black from './static/d1023796.jpg';
 
@@ -104,4 +103,4 @@ function App() {
   );
 }
 
-export default hot(App);
+export default App;
