@@ -10,13 +10,14 @@ import rootSaga from './saga';
 
 const sagaMiddleware = createSagaMiddleware();
 
+const enhancer = process.env.NODE_ENV === 'production'
+  ? applyMiddleware(sagaMiddleware) : composeWithDevTools(applyMiddleware(sagaMiddleware));
+
 const getStore = () => {
   const store = createStore(
     rootReducer,
     {},
-    composeWithDevTools(
-      applyMiddleware(sagaMiddleware),
-    ),
+    enhancer,
   );
 
   if (module.hot) {
