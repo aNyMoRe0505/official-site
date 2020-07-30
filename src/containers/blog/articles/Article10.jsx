@@ -10,6 +10,7 @@ import Text from '../../../components/blog/Text';
 import Title from '../../../components/blog/Title';
 import Code from '../../../components/blog/Code';
 import List from '../../../components/blog/List';
+import Image from '../../../components/blog/Image';
 import Reference from '../../../components/blog/Reference';
 
 import { ARTICLE_META_TYPE } from '../../../helper/article';
@@ -106,6 +107,7 @@ function Article10() {
       <Title>
         CSS 毛玻璃
       </Title>
+      <Image src="https://i.imgur.com/gdoyRS6.png" />
       <Text
         meta={[{
           start: 22,

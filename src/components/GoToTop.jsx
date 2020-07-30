@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 
 import goTop from '../helper/goToTop';
-import { usePreviouse } from '../helper/hooks';
+// import { usePreviouse } from '../helper/hooks';
 
 import styles from '../config/style';
 
@@ -33,10 +33,10 @@ const GoTopBtn = styled.button`
 function GoToTop() {
   const { pathname } = useLocation();
   const btnRef = useRef();
-  const prevPathname = usePreviouse(pathname);
+  // const prevPathname = usePreviouse(pathname);
 
   useEffect(() => {
-    if (pathname === '/blog' && prevPathname?.includes('/blog/article/')) return;
+    // if (pathname === '/blog' && prevPathname?.includes('/blog/article/')) return;
     window.scrollTo(0, 0);
   }, [pathname]);
 

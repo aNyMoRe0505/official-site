@@ -144,7 +144,6 @@ function ArticleContainer() {
       <ProgressBar ref={progressRef} />
       <ArticleWrapper>
         <ArticleRefWrap ref={articleRef}>
-          <img src={targetArticle.cover} alt="cover" style={{ width: '100%' }} />
           <targetArticle.component />
           <TagCategoryWrapper>
             {targetArticle.categoryIds.length ? (
