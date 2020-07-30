@@ -7,7 +7,6 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 module.exports = {
   devtool: NODE_ENV !== 'production' ? 'source-map' : false,
   entry: [
-    'react-hot-loader/patch',
     path.resolve(__dirname, 'entry.jsx'),
   ],
   output: {
@@ -44,9 +43,6 @@ module.exports = {
       '.jsx',
       '.js',
     ],
-    alias: {
-      'react-dom': '@hot-loader/react-dom',
-    },
   },
   module: {
     rules: [{
