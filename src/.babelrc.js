@@ -1,5 +1,7 @@
 module.exports = (api) => {
   api.cache.using(() => process.env.NODE_ENV);
+
+  console.log(api.env('development'));
   return {
     presets: [
       "@babel/preset-env",
@@ -7,7 +9,7 @@ module.exports = (api) => {
     ],
     plugins: [
       "@babel/transform-runtime",
-      !api.env('production') && 'react-refresh/babel',
+      api.env('development') && 'react-refresh/babel',
     ].filter(Boolean),
   };
 };
