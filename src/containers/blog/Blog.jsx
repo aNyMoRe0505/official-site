@@ -62,7 +62,7 @@ const ArticleBlockDark = css`
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
 `;
 
-const ArticleBlock = styled(({ darkMode, ...rest }) => <Link {...rest} />)`
+const ArticleBlock = styled(Link)`
   width: 100%;
   display: flex;
   align-items: center;
@@ -81,7 +81,7 @@ const ArticleBlock = styled(({ darkMode, ...rest }) => <Link {...rest} />)`
   animation-name: ${ArticleAnimation};
   animation-duration: 1s;
   animation-timing-function: ease;
-  ${({ darkMode }) => darkMode && ArticleBlockDark}
+  ${({ $darkMode }) => $darkMode && ArticleBlockDark}
   :hover {
     transform: scale(1.05);
   };
@@ -209,7 +209,7 @@ function Blog() {
       {articleList.length ? (
         <ArticleWrapper>
           {articleList.map((article) => (
-            <ArticleBlock darkMode={darkMode} to={`/blog/article/${article.id}`} key={`article-${article.id}`}>
+            <ArticleBlock $darkMode={darkMode} to={`/blog/article/${article.id}`} key={`article-${article.id}`}>
               <ArticleCover src={article.cover} />
               <ArticleDescBlock>
                 <ArticleTitle>{article.title}</ArticleTitle>

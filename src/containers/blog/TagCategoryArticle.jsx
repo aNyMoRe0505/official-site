@@ -34,7 +34,7 @@ const ArticleBlockDark = css`
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
 `;
 
-const ArticleBlock = styled(({ darkMode, ...rest }) => <Link {...rest} />)`
+const ArticleBlock = styled(Link)`
   width: 100%;
   max-width: 500px;
   display: flex;
@@ -52,7 +52,7 @@ const ArticleBlock = styled(({ darkMode, ...rest }) => <Link {...rest} />)`
   transition-duration: 0.2s;
   transition-property: transform;
   transition-timing-function: ease;
-  ${({ darkMode }) => darkMode && ArticleBlockDark}
+  ${({ $darkMode }) => $darkMode && ArticleBlockDark}
   :hover {
     transform: scale(1.05);
   };
@@ -121,7 +121,7 @@ function TagCategoryArticle() {
       {articles.length ? (
         <>
           {articles.map((article) => (
-            <ArticleBlock darkMode={darkMode} to={`/blog/article/${article.id}`} key={`article-${article.id}`}>
+            <ArticleBlock $darkMode={darkMode} to={`/blog/article/${article.id}`} key={`article-${article.id}`}>
               <ArticleCover src={article.cover} />
               <ArticleTitle>{article.title}</ArticleTitle>
             </ArticleBlock>
