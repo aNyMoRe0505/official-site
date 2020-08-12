@@ -1,7 +1,6 @@
 module.exports = (api) => {
   api.cache.using(() => process.env.NODE_ENV);
 
-  console.log(api.env('development'));
   return {
     presets: [
       "@babel/preset-env",
