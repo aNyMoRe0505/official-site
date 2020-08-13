@@ -2,6 +2,7 @@ import React, {
   useContext,
   useRef,
   useEffect,
+  useState,
 } from 'react';
 import {
   useParams,
@@ -101,10 +102,26 @@ const TagCategory = styled(Link)`
 function ArticleContainer() {
   const articleRef = useRef();
   const progressRef = useRef();
+  const disqusRef = useRef();
   const { articleId } = useParams();
   const { pathname } = useLocation();
   const darkMode = useContext(DarkModeContext);
+  const [disqusLoaded, setDisqusLoaded] = useState(false);
 
+  // disqus effect
+  useEffect(() => {
+    const scroll = () => {
+      const { top } = disqusRef.current.getBoundingClientRect();
+      const { innerHeight } = window;
+      if (top < innerHeight && !disqusLoaded) setDisqusLoaded(true);
+    };
+
+    scroll();
+    window.addEventListener('scroll', scroll);
+    return () => window.removeEventListener('scroll', scroll);
+  }, [disqusLoaded]);
+
+  // progress bar effect
   useEffect(() => {
     const scrollAndResize = () => {
       const { scrollTop } = document.documentElement;
@@ -185,16 +202,18 @@ function ArticleContainer() {
           prevArticle={prevArticle}
           nextArticle={nextArticle}
         />
-        <DisqusContainer darkMode={darkMode}>
-          <DiscussionEmbed
-            shortname="https-anymore0505-github-io-official-site"
-            config={{
-              url: `https://anymore0505.github.io/official-site${pathname}`,
-              identifier: `${targetArticle.id}-${targetArticle.title}`,
-              title: targetArticle.title,
-              language: 'zh_TW',
-            }}
-          />
+        <DisqusContainer ref={disqusRef} darkMode={darkMode}>
+          {disqusLoaded && (
+            <DiscussionEmbed
+              shortname="https-anymore0505-github-io-official-site"
+              config={{
+                url: `https://anymore0505.github.io/official-site${pathname}`,
+                identifier: `${targetArticle.id}-${targetArticle.title}`,
+                title: targetArticle.title,
+                language: 'zh_TW',
+              }}
+            />
+          )}
         </DisqusContainer>
       </ArticleWrapper>
     </>
