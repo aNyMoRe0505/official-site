@@ -25,8 +25,7 @@
     "start": "webpack-dev-server --config ./src/webpack.config.js",
     "build": "NODE_ENV=production webpack --config ./src/webpack.config.js && cp ./src/static/404.html ./build/",
     "lint": "eslint --ext .jsx,.js ./src/",
-    "test": "jest --config ./src/jest.config.js",
-    "deploy": "yarn build && babel-node ./src/script/deploy"
+    "test": "jest --config ./src/jest.config.js"
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",
@@ -49,7 +48,6 @@
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^4.0.4",
     "file-loader": "^6.0.0",
-    "gh-pages": "^2.2.0",
     "html-webpack-plugin": "^4.3.0",
     "husky": "^4.2.5",
     "image-webpack-loader": "^6.0.0",
