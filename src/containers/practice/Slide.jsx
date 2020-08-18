@@ -169,19 +169,21 @@ function Slide() {
       dragValueRef.current = v;
     };
 
+    const eventDoneHandler = () => {
+      setDragging(false);
+      if (Math.abs(dragValueRef.current) > 150) {
+        if (dragValueRef.current < 0) {
+          handleNextClick();
+        } else handlePrevClick();
+      }
+      updateDragValue(0);
+    };
+
     const touchEvent = touchStart.pipe(
       tap(() => setDragging(true)),
       flatMap(() => touchMove.pipe(
         takeUntil(touchEnd.pipe(
-          tap(() => {
-            setDragging(false);
-            if (Math.abs(dragValueRef.current) > 150) {
-              if (dragValueRef.current < 0) {
-                handleNextClick();
-              } else handlePrevClick();
-            }
-            updateDragValue(0);
-          }),
+          tap(eventDoneHandler),
         )),
       )),
       withLatestFrom(
@@ -194,15 +196,7 @@ function Slide() {
       tap(() => setDragging(true)),
       flatMap(() => mouseMove.pipe(
         takeUntil(mouseUp.pipe(
-          tap(() => {
-            setDragging(false);
-            if (Math.abs(dragValueRef.current) > 150) {
-              if (dragValueRef.current < 0) {
-                handleNextClick();
-              } else handlePrevClick();
-            }
-            updateDragValue(0);
-          }),
+          tap(eventDoneHandler),
         )),
       )),
       withLatestFrom(mouseDown, (moveEvent, downEvent) => moveEvent.clientX - downEvent.clientX),
