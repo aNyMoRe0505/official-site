@@ -156,9 +156,39 @@ function Slide() {
   }, [currentIndex, slideToShow, blockArray.length]);
 
   useEffect(() => {
+    const touchStart = fromEvent(sliderRef.current, 'touchstart');
+    const touchMove = fromEvent(window, 'touchmove');
+    const touchEnd = fromEvent(window, 'touchend');
+
     const mouseDown = fromEvent(sliderRef.current, 'mousedown');
     const mouseMove = fromEvent(window, 'mousemove');
     const mouseUp = fromEvent(window, 'mouseup');
+
+    const updateDragValue = (v) => {
+      setDragValue(v);
+      dragValueRef.current = v;
+    };
+
+    const touchEvent = touchStart.pipe(
+      tap(() => setDragging(true)),
+      flatMap(() => touchMove.pipe(
+        takeUntil(touchEnd.pipe(
+          tap(() => {
+            setDragging(false);
+            if (Math.abs(dragValueRef.current) > 150) {
+              if (dragValueRef.current < 0) {
+                handleNextClick();
+              } else handlePrevClick();
+            }
+            updateDragValue(0);
+          }),
+        )),
+      )),
+      withLatestFrom(
+        touchStart,
+        (touchMoveEvent, touchStartEvent) => touchMoveEvent.touches[0].clientX - touchStartEvent.touches[0].clientX,
+      ),
+    );
 
     const mouseDownEvent = mouseDown.pipe(
       tap(() => setDragging(true)),
@@ -171,20 +201,20 @@ function Slide() {
                 handleNextClick();
               } else handlePrevClick();
             }
-            setDragValue(0);
-            dragValueRef.current = 0;
+            updateDragValue(0);
           }),
         )),
       )),
       withLatestFrom(mouseDown, (moveEvent, downEvent) => moveEvent.clientX - downEvent.clientX),
     );
 
-    const event = mouseDownEvent.subscribe((leftValue) => {
-      setDragValue(leftValue);
-      dragValueRef.current = leftValue;
-    });
+    const desktopEvent = mouseDownEvent.subscribe((leftValue) => updateDragValue(leftValue));
+    const mobileEvent = touchEvent.subscribe((leftValue) => updateDragValue(leftValue));
 
-    return () => event.unsubscribe();
+    return () => {
+      mobileEvent.unsubscribe();
+      desktopEvent.unsubscribe();
+    };
   }, [handlePrevClick, handleNextClick]);
 
   useEffect(() => {
