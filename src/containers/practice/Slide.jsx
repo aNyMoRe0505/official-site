@@ -213,12 +213,17 @@ function Slide() {
 
   useEffect(() => {
     setRect(sliderRef.current.getBoundingClientRect());
+    let initialClientWidth = document.body.clientWidth || document.documentElement.clientWidth;
+
     const resizing = () => {
-      setIndex(0);
       const clientWidth = document.body.clientWidth || document.documentElement.clientWidth;
-      const showValue = slideToShowDecider(clientWidth);
-      setSlideToShow(showValue);
-      setRect(sliderRef.current.getBoundingClientRect());
+      if (clientWidth !== initialClientWidth) {
+        initialClientWidth = clientWidth;
+        setIndex(0);
+        const showValue = slideToShowDecider(clientWidth);
+        setSlideToShow(showValue);
+        setRect(sliderRef.current.getBoundingClientRect());
+      }
     };
 
     window.addEventListener('resize', resizing);
