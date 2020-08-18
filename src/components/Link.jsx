@@ -35,12 +35,11 @@ const WrappedLink = styled(NavLink)`
   border-radius: 10px;
   text-decoration: none;
   transition-duration: 0.3s;
-  transition-property: background-color, font-size, color;
+  transition-property: background-color, color;
   transition-timing-function: ease-in-out;
   :hover {
     background-color: ${styles.mainColor};
     color: white;
-    font-size: 18px;
   }
 `;
 
@@ -54,7 +53,6 @@ const MobileDropdownWrappedLink = styled(WrappedLink)`
   font-size: 12px;
   :hover {
     background-color: ${styles.mainRed};
-    font-size: 14px;
   }
 `;
 
