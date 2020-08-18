@@ -1,6 +1,15 @@
 /* eslint-disable react/no-array-index-key */
-import React, { useState, useEffect, useRef } from 'react';
+import React, {
+  useState, useEffect, useRef, useCallback,
+} from 'react';
 import styled, { css } from 'styled-components';
+import { fromEvent } from 'rxjs';
+import {
+  flatMap,
+  takeUntil,
+  withLatestFrom,
+  tap,
+} from 'rxjs/operators';
 
 import Button from '../../components/Button';
 
@@ -21,10 +30,15 @@ const SlideWrapper = styled.div`
   align-items: center;
   justify-content: flex-start;
   overflow: hidden;
+  cursor: pointer;
 `;
 
-const Block = styled.div`
-  width: ${({ width }) => width}px;
+const Block = styled.div.attrs((props) => ({
+  style: {
+    width: `${props.width}px`,
+    transform: `translateX(${props.translateXValue}px)`,
+  },
+}))`
   height: 240px;
   position: absolute;
   color: white;
@@ -34,9 +48,8 @@ const Block = styled.div`
   align-items: center;
   justify-content: center;
   background-color: #282c35;
-  transform: ${({ translateXValue }) => `translateX(${translateXValue}px)`};
-  transition-duration: 0.5s;
   transition-property: transform;
+  transition-duration: ${({ dragging }) => (dragging && '0s') || '0.5s'};
   transition-timing-function: ease-in-out;
 `;
 
@@ -115,7 +128,64 @@ function Slide() {
   const [rect, setRect] = useState({});
   const [gap, setGap] = useState(defaultGap);
   const [blockArray, setBlockArray] = useState(defaultBlockArray);
+  const [dragValue, setDragValue] = useState(0);
+  const [dragging, setDragging] = useState(false);
+
+  const dragValueRef = useRef(dragValue);
   const sliderRef = useRef();
+
+  const handlePrevClick = useCallback(() => {
+    if (!currentIndex) return;
+    const currentShowNum = currentIndex + slideToShow;
+    if (currentShowNum % slideToShow !== 0) {
+      setIndex(currentIndex - (currentShowNum % slideToShow));
+      return;
+    }
+    setIndex(currentIndex - slideToShow);
+  }, [currentIndex, slideToShow]);
+
+  const handleNextClick = useCallback(() => {
+    if (currentIndex + slideToShow >= blockArray.length) return;
+    const nextShowNum = currentIndex + slideToShow * 2;
+    if (nextShowNum > blockArray.length) {
+      // 多顯示幾張扣回去
+      setIndex(currentIndex + slideToShow - (nextShowNum - blockArray.length));
+      return;
+    }
+    setIndex(currentIndex + slideToShow);
+  }, [currentIndex, slideToShow, blockArray.length]);
+
+  useEffect(() => {
+    const mouseDown = fromEvent(sliderRef.current, 'mousedown');
+    const mouseMove = fromEvent(window, 'mousemove');
+    const mouseUp = fromEvent(window, 'mouseup');
+
+    const mouseDownEvent = mouseDown.pipe(
+      tap(() => setDragging(true)),
+      flatMap(() => mouseMove.pipe(
+        takeUntil(mouseUp.pipe(
+          tap(() => {
+            setDragging(false);
+            if (Math.abs(dragValueRef.current) > 150) {
+              if (dragValueRef.current < 0) {
+                handleNextClick();
+              } else handlePrevClick();
+            }
+            setDragValue(0);
+            dragValueRef.current = 0;
+          }),
+        )),
+      )),
+      withLatestFrom(mouseDown, (moveEvent, downEvent) => moveEvent.clientX - downEvent.clientX),
+    );
+
+    const event = mouseDownEvent.subscribe((leftValue) => {
+      setDragValue(leftValue);
+      dragValueRef.current = leftValue;
+    });
+
+    return () => event.unsubscribe();
+  }, [handlePrevClick, handleNextClick]);
 
   useEffect(() => {
     setRect(sliderRef.current.getBoundingClientRect());
@@ -136,25 +206,19 @@ function Slide() {
 
   return (
     <Wrapper>
-      <SlideWrapper ref={sliderRef} slideToShow={slideToShow}>
+      <SlideWrapper ref={sliderRef}>
         {sliderWrapperWidth && (
           <>
             <ArrowBtn
               disabled={!currentIndex}
-              onClick={() => {
-                const currentShowNum = currentIndex + slideToShow;
-                if (currentShowNum % slideToShow !== 0) {
-                  setIndex(currentIndex - (currentShowNum % slideToShow));
-                  return;
-                }
-                setIndex(currentIndex - slideToShow);
-              }}
+              onClick={handlePrevClick}
               label="＜"
             />
             {blockArray.map((_, index) => (
               <Block
+                dragging={dragging}
                 width={blockWidth}
-                translateXValue={(index - currentIndex) * (blockWidth + gap)}
+                translateXValue={(index - currentIndex) * (blockWidth + gap) + dragValue}
                 key={`block-${index}`}
               >
                 {index + 1}
@@ -162,15 +226,7 @@ function Slide() {
             ))}
             <ArrowBtn
               disabled={currentIndex + slideToShow >= blockArray.length}
-              onClick={() => {
-                const nextShowNum = currentIndex + slideToShow * 2;
-                if (nextShowNum > blockArray.length) {
-                  // 多顯示幾張扣回去
-                  setIndex(currentIndex + slideToShow - (nextShowNum - blockArray.length));
-                  return;
-                }
-                setIndex(currentIndex + slideToShow);
-              }}
+              onClick={handleNextClick}
               isNext
               label="＞"
             />
