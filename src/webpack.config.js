@@ -11,7 +11,7 @@ module.exports = {
     path.resolve(__dirname, 'entry.jsx'),
   ],
   output: {
-    filename: '[name].[hash].js',
+    filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, '../build'),
     publicPath: '/official-site/',
   },
