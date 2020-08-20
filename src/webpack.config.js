@@ -1,23 +1,37 @@
+const webpack = require('webpack');
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
+const IS_PRODUCTION = NODE_ENV === 'production';
 
 module.exports = {
-  devtool: NODE_ENV !== 'production' ? 'source-map' : false,
+  devtool: !IS_PRODUCTION ? 'source-map' : false,
   entry: [
     path.resolve(__dirname, 'entry.jsx'),
   ],
   output: {
-    filename: '[name].[contenthash].js',
+    filename: IS_PRODUCTION ? '[name].[contenthash].js' : '[name].[hash].js',
     path: path.resolve(__dirname, '../build'),
     publicPath: '/official-site/',
   },
   optimization: {
+    runtimeChunk: 'single',
     splitChunks: {
+      maxInitialRequests: Infinity,
+      minSize: 0,
       chunks: 'all',
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name(module) {
+            const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+            return `npm.${packageName.replace('@', '')}`;
+          },
+        },
+      },
     },
   },
   plugins: [
@@ -25,8 +39,9 @@ module.exports = {
     new HTMLWebpackPlugin({
       template: path.resolve(__dirname, 'static/index.html'),
     }),
-    new ReactRefreshWebpackPlugin(),
-  ],
+    (!IS_PRODUCTION && new ReactRefreshWebpackPlugin()),
+    (IS_PRODUCTION && new webpack.HashedModuleIdsPlugin()),
+  ].filter(Boolean),
   mode: NODE_ENV,
   devServer: {
     hot: true,
@@ -62,7 +77,7 @@ module.exports = {
         {
           loader: 'image-webpack-loader',
           options: {
-            disable: NODE_ENV !== 'production',
+            disable: !IS_PRODUCTION,
           },
         },
       ],
