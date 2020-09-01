@@ -153,8 +153,8 @@ const ResultImg = styled.img'  => 放大後的圖片. 放大兩倍, 所以寬為
     oriWrapperElement.addEventListener('mouseleave', mouseLeave);
 
     return () => {
-      oriWrapperElement.addEventListener('mouseenter', mouseMove);
-      oriWrapperElement.addEventListener('mouseleave', mouseLeave);
+      oriWrapperElement.removeEventListener('mouseenter', mouseMove);
+      oriWrapperElement.removeEventListener('mouseleave', mouseLeave);
     };
   }, [blockMode]);
 

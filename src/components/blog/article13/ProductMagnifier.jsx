@@ -113,8 +113,8 @@ function ProductMagnifier({
     oriWrapperElement.addEventListener('mouseleave', mouseLeave);
 
     return () => {
-      oriWrapperElement.addEventListener('mouseenter', mouseMove);
-      oriWrapperElement.addEventListener('mouseleave', mouseLeave);
+      oriWrapperElement.removeEventListener('mouseenter', mouseMove);
+      oriWrapperElement.removeEventListener('mouseleave', mouseLeave);
     };
   }, [blockMode]);
 
