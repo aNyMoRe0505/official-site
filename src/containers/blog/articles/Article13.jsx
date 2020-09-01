@@ -5,6 +5,7 @@ import Title from '../../../components/blog/Title';
 import Code from '../../../components/blog/Code';
 import Reference from '../../../components/blog/Reference';
 import ProductMagnifier from '../../../components/blog/article13/ProductMagnifier';
+import { ARTICLE_META_TYPE } from '../../../helper/article';
 
 function Article13() {
   return (
@@ -168,6 +169,31 @@ const ResultImg = styled.img'  => 放大後的圖片. 放大兩倍, 所以寬為
   );
 }`}
       </Code>
+      <Text
+        meta={[{
+          start: 11,
+          end: 23,
+          type: ARTICLE_META_TYPE.BLOCK,
+        }]}
+      >
+        其實這一段我原本是用 event.offsetX 達成
+      </Text>
+      <Code>
+        {`const rect = oriWrapperElement.getBoundingClientRect(); // 取得整體原圖 wrapper 的 rect
+// event.clientX 為滑鼠到瀏覽器左邊的距離, 扣掉原圖 wrapper 到瀏覽器左邊的距離
+// 就會等於滑鼠到原圖左邊邊界的距離, top同理
+const left = event.clientX - rect.left;
+const top = event.clientY - rect.top;`}
+      </Code>
+      <Text
+        meta={[{
+          start: 0,
+          end: 12,
+          type: ARTICLE_META_TYPE.BLOCK,
+        }]}
+      >
+        event.offsetX 就已經是滑鼠到該元件邊界的 left，會用現在的方式是因為 mousemove 事件也會對 children 元素觸發。在這裡我們的 children 為擷取框或是放大鏡，所以造成在移動時會抓到擷取框或放大鏡的 offsetX。
+      </Text>
       <Reference
         list={[{
           text: '用css实现图片放大镜效果实例详解（图',
