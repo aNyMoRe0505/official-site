@@ -10,6 +10,7 @@ import Article9 from '../containers/blog/articles/Article9';
 import Article10 from '../containers/blog/articles/Article10';
 import Article11 from '../containers/blog/articles/Article11';
 import Article12 from '../containers/blog/articles/Article12';
+import Article13 from '../containers/blog/articles/Article13';
 
 import noteLogo from '../static/noteLogo.png';
 
@@ -35,6 +36,15 @@ export const tags = {
 };
 
 export const articles = [{
+  id: 13,
+  cover: 'https://b.ecimg.tw/items/DEAH95A9008IHPN/000001_1509599317.jpg',
+  categoryIds: [1],
+  tagIds: [12],
+  title: '商城產品放大鏡',
+  description: '練習做商城產品放大鏡',
+  component: Article13,
+  date: new Date('2020/09/01'),
+}, {
   id: 12,
   cover: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Npm-logo.svg/1200px-Npm-logo.svg.png',
   categoryIds: [1],
