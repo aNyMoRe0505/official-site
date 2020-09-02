@@ -17,10 +17,10 @@ const FadeInAnimationWrap = styled.div`
   `};
 `;
 
-function FadeInBlock({ children, defaultStatus }) {
+function FadeInBlock({ children }) {
   const [ref, actived] = useScrollAnimation();
   return (
-    <FadeInAnimationWrap actived={defaultStatus || actived} ref={ref}>
+    <FadeInAnimationWrap actived={actived} ref={ref}>
       {children}
     </FadeInAnimationWrap>
   );
@@ -28,11 +28,6 @@ function FadeInBlock({ children, defaultStatus }) {
 
 FadeInBlock.propTypes = {
   children: PropTypes.node.isRequired,
-  defaultStatus: PropTypes.bool,
-};
-
-FadeInBlock.defaultProps = {
-  defaultStatus: false,
 };
 
 export default FadeInBlock;

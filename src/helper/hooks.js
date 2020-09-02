@@ -49,12 +49,14 @@ export function useScrollAnimation(repeated = false) {
   useEffect(() => {
     const scrollFun = () => {
       const { top } = targetRef.current.getBoundingClientRect();
-      if (top <= window.innerHeight / 1.5) {
+      if (top <= window.innerHeight / 2) {
         setActived(true);
       } else if (repeatedRef.current) {
         setActived(false);
       }
     };
+
+    scrollFun();
 
     window.addEventListener('scroll', scrollFun);
 
