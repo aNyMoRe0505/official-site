@@ -43,9 +43,10 @@ const StyledLoadingBox = styled.div`
 
 function LoadingBox({
   loadingStatus,
+  className,
 }) {
   return (
-    <StyledLoadingBox loadingStatus={loadingStatus}>
+    <StyledLoadingBox className={className} loadingStatus={loadingStatus}>
       Loading..
     </StyledLoadingBox>
   );
@@ -53,10 +54,12 @@ function LoadingBox({
 
 LoadingBox.propTypes = {
   loadingStatus: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 LoadingBox.defaultProps = {
   loadingStatus: false,
+  className: '',
 };
 
 export default memo(LoadingBox);
