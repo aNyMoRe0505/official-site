@@ -113,13 +113,13 @@ function ArticleContainer() {
     const scroll = () => {
       const { top } = disqusRef.current.getBoundingClientRect();
       const { innerHeight } = window;
-      if (top < innerHeight && !disqusLoaded) setDisqusLoaded(true);
+      if (top < innerHeight) setDisqusLoaded(true);
     };
 
     scroll();
     window.addEventListener('scroll', scroll);
     return () => window.removeEventListener('scroll', scroll);
-  }, [disqusLoaded]);
+  }, []);
 
   // progress bar effect
   useEffect(() => {
