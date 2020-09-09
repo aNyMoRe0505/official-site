@@ -45,7 +45,7 @@ const workExperiences = [{
     '使用 Git 與其他工程師共台開發專案',
   ],
   from: new Date('2020/04/06'),
-  to: new Date(),
+  to: new Date('2020/09/09'),
 }, {
   id: 'rytass',
   companyAbbrev: 'Rytass',
