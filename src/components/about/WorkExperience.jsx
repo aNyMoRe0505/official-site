@@ -4,6 +4,7 @@ import moment from 'moment';
 
 import gogoro from '../../static/gogoro.png';
 import rytass from '../../static/rytass.png';
+import onedegree from '../../static/onedegree.png';
 
 import {
   MainBlock,
@@ -35,6 +36,18 @@ const WorkingTimeTotal = styled.p`
 `;
 
 const workExperiences = [{
+  id: 'onedegree',
+  companyAbbrev: 'OneDegree',
+  companyName: '甯寶金融科技有限公司',
+  logo: onedegree,
+  jobTitle: 'React 前端工程師',
+  jobDesc: [
+    '以 React 開發公司內部系統、對外網頁',
+    '使用 Git 與其他工程師共台開發專案',
+  ],
+  from: new Date('2020/09/14'),
+  to: new Date(),
+}, {
   id: 'gogoro',
   companyAbbrev: 'Gogoro',
   companyName: '睿能創意股份有限公司',
