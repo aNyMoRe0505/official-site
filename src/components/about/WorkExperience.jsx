@@ -46,7 +46,7 @@ const workExperiences = [{
     '使用 Git 與其他工程師共台開發專案',
   ],
   from: new Date('2020/09/14'),
-  to: new Date(),
+  to: null,
 }, {
   id: 'gogoro',
   companyAbbrev: 'Gogoro',
@@ -90,7 +90,8 @@ function WorkExperience() {
       </BlockTitleWrap>
       <BlockWrapper status={workExperienceExpanded}>
         {workExperiences.map((experience) => {
-          const monthDiff = moment(experience.to).diff(experience.from, 'months');
+          const now = new Date();
+          const monthDiff = moment(experience.to || now).diff(experience.from, 'months');
           const yearDiff = Math.floor(monthDiff / 12);
           return (
             <Card key={experience.id}>
@@ -100,7 +101,7 @@ function WorkExperience() {
                 <Desc>{experience.jobTitle}</Desc>
                 <WorkingTimeWrap>
                   <Desc style={{ margin: 0 }}>
-                    {`${moment(experience.from).format('YYYY-MM-DD')} ~ ${moment(experience.to).format('YYYY-MM-DD')}`}
+                    {`${moment(experience.from).format('YYYY-MM-DD')} ~ ${experience.to ? moment(experience.to).format('YYYY-MM-DD') : ''}`}
                   </Desc>
                   <WorkingTimeTotal>
                     {`${yearDiff}年${monthDiff - 12 * yearDiff}個月`}
