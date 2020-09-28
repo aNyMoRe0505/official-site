@@ -6,7 +6,7 @@ import {
 } from 'react';
 
 import { FOOTER_HEIGHT } from '../containers/Footer';
-import { checkAllImagesLoadCompleted } from './helper';
+import { checkAllImagesLoadCompleted, rafSchd } from './helper';
 
 export function useImageLoadCompleted(sources = []) {
   const [completed, setComplete] = useState(false);
@@ -47,14 +47,14 @@ export function useScrollAnimation(repeated = false) {
   const repeatedRef = useRef(repeated);
 
   useEffect(() => {
-    const scrollFun = () => {
+    const scrollFun = rafSchd(() => {
       const { top } = targetRef.current.getBoundingClientRect();
       if (top <= window.innerHeight / 2) {
         setActived(true);
       } else if (repeatedRef.current) {
         setActived(false);
       }
-    };
+    });
 
     scrollFun();
 

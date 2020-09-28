@@ -56,4 +56,19 @@ export const groupBy = (arr, groupKeyTransformFn) => {
   return groupResult;
 };
 
-export default null;
+export const rafSchd = (fn) => {
+  let lastArgs;
+  let frameId = null;
+  const wrappedFn = (...args) => {
+    lastArgs = args;
+    if (frameId) {
+      return;
+    }
+
+    frameId = window.requestAnimationFrame(() => {
+      frameId = null;
+      fn(...lastArgs);
+    });
+  };
+  return wrappedFn;
+};
