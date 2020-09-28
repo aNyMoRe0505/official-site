@@ -48,7 +48,8 @@ export function useScrollAnimation(repeated = false) {
 
   useEffect(() => {
     const scrollFun = rafSchd(() => {
-      const { top } = targetRef.current.getBoundingClientRect();
+      const { top } = targetRef?.current?.getBoundingClientRect() ?? {};
+
       if (top <= window.innerHeight / 2) {
         setActived(true);
       } else if (repeatedRef.current) {
