@@ -4,6 +4,11 @@ import PropTypes from 'prop-types';
 
 import { useScrollAnimation } from '../helper/hooks';
 
+const Root = styled.div`
+  overflow: hidden;
+  width: 100%;
+`;
+
 const FadeInAnimationWrap = styled.div`
   width: 100%;
   transform: translateX(100px);
@@ -20,9 +25,11 @@ const FadeInAnimationWrap = styled.div`
 function FadeInBlock({ children }) {
   const [ref, actived] = useScrollAnimation();
   return (
-    <FadeInAnimationWrap actived={actived} ref={ref}>
-      {children}
-    </FadeInAnimationWrap>
+    <Root>
+      <FadeInAnimationWrap actived={actived} ref={ref}>
+        {children}
+      </FadeInAnimationWrap>
+    </Root>
   );
 }
 
