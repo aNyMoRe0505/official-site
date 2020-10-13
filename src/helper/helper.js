@@ -8,6 +8,9 @@ const checkImageLoaded = (url) => new Promise((resolve, reject) => {
       img.onload = () => {
         resolve();
       };
+      img.onerror = (e) => {
+        reject(e);
+      };
     }
   } catch (e) {
     reject(e);

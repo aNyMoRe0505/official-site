@@ -43,7 +43,10 @@ export const mockAPIGetArticleList = async ({
 
   const articleCover = filteredArticles.map((article) => article.cover);
 
-  await checkAllImagesLoadCompleted(articleCover);
+  await checkAllImagesLoadCompleted(articleCover).catch((e) => {
+    // eslint-disable-next-line no-console
+    console.error(e);
+  });
 
   return {
     caching,
