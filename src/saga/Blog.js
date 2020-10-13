@@ -17,6 +17,9 @@ export function* handleFetchBlog({
   const key = JSON.stringify(payload);
   const apiCachedObj = yield select((state) => state.Blog.apiCachedList);
   const fetchMoreCachedList = yield select((state) => state.Blog.fetchMoreCachedList);
+  const loading = yield select((state) => state.Blog.loading);
+
+  if (loading) return;
 
   let list = [];
   let cacheList = [];
