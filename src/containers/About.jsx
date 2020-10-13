@@ -10,6 +10,8 @@ import LoadingBox from '../components/LoadingBox';
 
 import { useImageLoadCompleted } from '../helper/hooks';
 
+import profile from '../static/profile.jpg';
+
 const Wrapper = styled.div`
   width: 100%;
   max-width: 1000px;
@@ -24,8 +26,10 @@ const StyledLoadingBox = styled(LoadingBox)`
   top: 95px;
 `;
 
+const sources = [profile];
+
 function About() {
-  const imgLoaded = useImageLoadCompleted();
+  const imgLoaded = useImageLoadCompleted(sources);
 
   return (
     <Wrapper>
