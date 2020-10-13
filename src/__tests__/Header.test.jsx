@@ -14,14 +14,6 @@ describe('Header', () => {
     );
   });
 
-  test('Test about link points to the correct page', () => {
-    const link = screen.getByRole('link', { name: 'About' });
-    userEvent.click(link);
-
-    const me = screen.getByText('Paul Wang');
-    expect(me).toBeInTheDocument();
-  });
-
   test('Test blog link points to the correct page', () => {
     const link = screen.getByRole('link', { name: 'Blog' });
     userEvent.click(link);
