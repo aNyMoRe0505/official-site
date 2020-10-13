@@ -6,9 +6,9 @@ import Profile from '../components/about/Profile';
 import Education from '../components/about/Education';
 import WorkExperience from '../components/about/WorkExperience';
 import Works from '../components/about/Works';
-// import LoadingBox from '../components/LoadingBox';
+import LoadingBox from '../components/LoadingBox';
 
-// import { useImageLoadCompleted } from '../helper/hooks';
+import { useImageLoadCompleted } from '../helper/hooks';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -17,33 +17,35 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  overflow: hidden;
-  /* height: ${({ imgLoaded }) => (imgLoaded && '100%') || 0}; */
 `;
 
-// const StyledLoadingBox = styled(LoadingBox)`
-//   position: fixed;
-//   top: 95px;
-// `;
+const StyledLoadingBox = styled(LoadingBox)`
+  position: fixed;
+  top: 95px;
+`;
 
 function About() {
-  // const imgLoaded = useImageLoadCompleted();
+  const imgLoaded = useImageLoadCompleted();
 
   return (
     <Wrapper>
-      {/* <StyledLoadingBox loadingStatus={!completed} /> */}
-      <FadeInBlock>
-        <Profile />
-      </FadeInBlock>
-      <FadeInBlock>
-        <Education />
-      </FadeInBlock>
-      <FadeInBlock>
-        <WorkExperience />
-      </FadeInBlock>
-      <FadeInBlock>
-        <Works />
-      </FadeInBlock>
+      <StyledLoadingBox loadingStatus={!imgLoaded} />
+      {imgLoaded && (
+        <>
+          <FadeInBlock>
+            <Profile />
+          </FadeInBlock>
+          <FadeInBlock>
+            <Education />
+          </FadeInBlock>
+          <FadeInBlock>
+            <WorkExperience />
+          </FadeInBlock>
+          <FadeInBlock>
+            <Works />
+          </FadeInBlock>
+        </>
+      )}
     </Wrapper>
   );
 }
