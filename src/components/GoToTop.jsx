@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import {
@@ -6,7 +5,6 @@ import {
 } from 'react-router-dom';
 
 import goTop from '../helper/goToTop';
-// import { usePreviouse } from '../helper/hooks';
 
 import styles from '../config/style';
 
@@ -33,10 +31,8 @@ const GoTopBtn = styled.button`
 function GoToTop() {
   const { pathname } = useLocation();
   const btnRef = useRef();
-  // const prevPathname = usePreviouse(pathname);
 
   useEffect(() => {
-    // if (pathname === '/blog' && prevPathname?.includes('/blog/article/')) return;
     window.scrollTo(0, 0);
   }, [pathname]);
 
