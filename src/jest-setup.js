@@ -8,6 +8,7 @@ class MockIntersectionObserver {
   constructor() {
     this.observe = noop;
     this.unobserve = noop;
+    this.disconnect = noop;
   }
 }
 
