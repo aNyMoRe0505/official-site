@@ -6,7 +6,7 @@ import {
 } from 'react';
 
 import { FOOTER_HEIGHT } from '../containers/Footer';
-import { checkAllImagesLoadCompleted, rafSchd } from './helper';
+import { checkAllImagesLoadCompleted } from './helper';
 
 export function useImageLoadCompleted(sources = []) {
   const [completed, setComplete] = useState(false);
@@ -41,27 +41,32 @@ export function useImageLoadCompleted(sources = []) {
   return completed;
 }
 
-export function useScrollAnimation(repeated = false) {
+export function useScrollAnimation(repeated = true) {
   const targetRef = useRef();
   const [actived, setActived] = useState(false);
   const repeatedRef = useRef(repeated);
 
   useEffect(() => {
-    const scrollFun = rafSchd(() => {
-      const { top } = targetRef?.current?.getBoundingClientRect() ?? {};
+    const options = {
+      root: null,
+      threshold: [0.2],
+    };
 
-      if (top <= window.innerHeight / 2) {
-        setActived(true);
-      } else if (repeatedRef.current) {
-        setActived(false);
-      }
-    });
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const { isIntersecting, boundingClientRect } = entry;
 
-    scrollFun();
+        if (isIntersecting) {
+          setActived(true);
+        } else if (repeatedRef.current && boundingClientRect.top > 0) {
+          setActived(false);
+        }
+      });
+    }, options);
 
-    window.addEventListener('scroll', scrollFun);
+    observer.observe(targetRef.current);
 
-    return () => window.removeEventListener('scroll', scrollFun);
+    return () => { observer.disconnect(); };
   }, []);
 
   return [targetRef, actived];
