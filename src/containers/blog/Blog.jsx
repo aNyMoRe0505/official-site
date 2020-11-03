@@ -1,6 +1,7 @@
 import React, {
   useEffect,
   useContext,
+  useRef,
 } from 'react';
 import { Link } from 'react-router-dom';
 import styled, { keyframes, css } from 'styled-components';
@@ -159,6 +160,7 @@ const ARTICLE_LIMIT = 6;
 
 function Blog() {
   const darkMode = useContext(DarkModeContext);
+  const sentinelRef = useRef();
   const {
     tags,
     keyword,
@@ -201,7 +203,7 @@ function Blog() {
         payload,
       });
     }
-  });
+  }, sentinelRef);
 
   return (
     <Wrapper>
@@ -241,6 +243,7 @@ function Blog() {
         <>{!loading && <p>查無文章</p>}</>
       )}
       <LoadingBox loadingStatus={loading} />
+      <div ref={sentinelRef} />
     </Wrapper>
   );
 }

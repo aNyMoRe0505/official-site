@@ -5,7 +5,6 @@ import {
   useState,
 } from 'react';
 
-import { FOOTER_HEIGHT } from '../containers/Footer';
 import { checkAllImagesLoadCompleted } from './helper';
 
 export function useImageLoadCompleted(sources = []) {
@@ -101,38 +100,31 @@ export function useRepeatedAnimation(gapTime) {
 
 export function useBodyFetchMore(
   fetchMoreFunc,
+  sentinelRef,
 ) {
   const savedFetchMoreFunc = useRef();
-  const didMountRef = useRef(false);
 
   useEffect(() => {
     savedFetchMoreFunc.current = fetchMoreFunc;
   });
 
   useEffect(() => {
-    const scrolling = () => {
-      // why I add didMountRef ?
-      // 避免如果使用者在其他頁面滑到底部 (article detail) 然後跳到 /blog
-      // 瀏覽器預設會記住scroll位置 所以會執行一次
-      // 造成第一次 fetching 文章的時候執行了這段造成bug
-      if (didMountRef.current) {
-        const scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
-        const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-        const clientHeight = document.documentElement.clientHeight || document.body.clientHeight;
-
-        const remainingHeight = scrollHeight - (scrollTop + clientHeight);
-        if (remainingHeight < FOOTER_HEIGHT / 2) {
-          savedFetchMoreFunc.current();
-        }
-      } else {
-        didMountRef.current = true;
-      }
+    const options = {
+      root: null,
+      threshold: [0],
     };
 
-    window.addEventListener('scroll', scrolling);
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const { isIntersecting } = entry;
+        if (isIntersecting) savedFetchMoreFunc.current();
+      });
+    }, options);
 
-    return () => window.removeEventListener('scroll', scrolling);
-  }, []);
+    observer.observe(sentinelRef.current);
+
+    return () => { observer.disconnect(); };
+  }, [sentinelRef]);
 }
 
 export function useUnmounted() {
