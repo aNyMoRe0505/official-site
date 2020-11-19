@@ -1,6 +1,7 @@
 import {
   put,
   call,
+  select,
 } from 'redux-saga/effects';
 
 import {
@@ -15,6 +16,10 @@ export function* handleFetchYoutube({
   keyword,
   nextPageToken,
 }) {
+  const loading = yield select((state) => state.Youtube.loading);
+
+  if (loading) return;
+
   try {
     yield put({
       type: UPDATE_YOUTUBE_LOADING,

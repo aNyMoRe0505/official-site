@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, forwardRef } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -52,7 +52,7 @@ const SearchButton = styled.button`
   outline: none;
 `;
 
-function YoutubeSearcher() {
+const YoutubeSearcher = forwardRef((props, ref) => {
   const dispatch = useDispatch();
   const [keyword, setKeyword] = useState('');
   const nextPageToken = useSelector((state) => state.Youtube.nextPageToken);
@@ -82,7 +82,7 @@ function YoutubeSearcher() {
         nextPageToken,
       });
     }
-  });
+  }, ref);
 
   return (
     <Wrapper>
@@ -100,6 +100,6 @@ function YoutubeSearcher() {
       </InputWrapper>
     </Wrapper>
   );
-}
+});
 
 export default YoutubeSearcher;

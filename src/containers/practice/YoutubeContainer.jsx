@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
@@ -59,10 +59,11 @@ const Title = styled.span`
 function YoutubeContainer() {
   const searchResult = useSelector((state) => state.Youtube.searchResult);
   const loading = useSelector((state) => state.Youtube.loading);
+  const sentinelRef = useRef();
 
   return (
     <Wrapper>
-      <YoutubeSearcher />
+      <YoutubeSearcher ref={sentinelRef} />
       {searchResult.length ? (
         <ResultWrapper>
           {searchResult.map((item) => (
@@ -81,6 +82,7 @@ function YoutubeContainer() {
         </ResultWrapper>
       ) : null}
       <LoadingBox loadingStatus={loading} />
+      <div ref={sentinelRef} />
     </Wrapper>
   );
 }
